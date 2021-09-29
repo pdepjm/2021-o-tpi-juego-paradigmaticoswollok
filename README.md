@@ -10,7 +10,7 @@
 
 ## Capturas
 
-(agregar)
+![screenshot1](screenshots/Screenshot1.png)
 
 ## Reglas de Juego / Instrucciones
 
