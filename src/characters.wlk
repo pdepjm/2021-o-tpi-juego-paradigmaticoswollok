@@ -9,7 +9,7 @@ object capybara {
 
 	var direction = right
 
-	method image() = "capybara1_" + direction.toString() + ".png"
+	method image() = "capybara_" + direction.toString() + ".png"
 		
 	method lookTo(newDirection){
 		direction = newDirection
