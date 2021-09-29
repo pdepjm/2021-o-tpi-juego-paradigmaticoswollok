@@ -2,9 +2,11 @@
 
 ## Equipo de desarrollo
 
-- Alguien
-- Persona
-- etc.
+- Fernández Francou, Tomás
+- Fernández, Facundo Agustín
+- Espósito, Lucas
+- Hernández Abbaticchio, Thiago Daniel
+- Cicerchia, Francisco
 
 ## Capturas
 
