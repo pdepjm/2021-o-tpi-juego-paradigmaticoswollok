@@ -18,4 +18,5 @@
 
 ## Respuestas teóricas
 
-(link al archivo o bien responder acá)
+Cuando creamos los enemigos en los distintos niveles (hasta ahora solo nivel 1), le decimos a la factory "createEnemy()", y delegamos en ella la creación de los enemigos.
+Otro momento en el que observamos el uso del polimorfismo es cuando llamamos al método "executeAttack" de los distintos ataques. A este mensaje, le pasamos la entidad que queremos atacar, y depende de la entidad como resuelve los ataques que recibe.
