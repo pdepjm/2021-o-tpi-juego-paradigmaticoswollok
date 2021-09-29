@@ -1,19 +1,15 @@
 import attack.*
-import scenario.*
 
 class Entity {
 	
-	var health = 0
-	var difficulty = 1
-	var mainAttack = new Punch(n = difficulty)
-	var specialAttack = new Powershot(n = difficulty)
+	var health
+	var difficulty
+	var mainAttack
+	var specialAttack
 	
-	method takeDamage(damage)	
-		
+	method takeDamage(damage)
 	method mainAttack() = mainAttack
-	
-	method specialAttack() = specialAttack
-	
+	method specialAttack() = specialAttack	
 	method isDead() = health == 0
 	
 }
@@ -30,20 +26,25 @@ class Enemy inherits Entity {
 	
 }
 
-class Player inherits Entity {
-	
-	override method takeDamage(damage){
-		health -= damage
-	}
-	
-}
-
-//object player {
+//class Player inherits Entity {
 //	
-//	var health = 0
-//	
-//	method takeDamage(damage){s
-//		health -= damage * 2
+//	override method takeDamage(damage){
+//		health -= damage
 //	}
 //	
 //}
+
+object capybaraPlayer {
+	
+	var health = 200
+	var mainAttack = new Punch(n = 1)
+	var specialAttack = new Powershot(n = 1)
+	
+	method takeDamage(damage){
+		health -= damage
+	}
+	
+	method mainAttack() = mainAttack
+	method specialAttack() = specialAttack
+	method isDead() = health == 0
+}

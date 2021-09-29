@@ -1,6 +1,6 @@
 class Punch{
 	
-	var n = 1
+	var n
 	
 	method executeAttack(entity){
 		entity.takeDamage(20 * n)
@@ -10,7 +10,7 @@ class Punch{
 
 class Powershot{
 	
-	var n = 1
+	var n
 	
 	method executeAttack(entity){
 		entity.takeDamage(35 * n)
