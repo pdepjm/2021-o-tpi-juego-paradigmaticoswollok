@@ -1,0 +1,18 @@
+import wollok.game.*
+import config.*
+
+program game {
+	
+	game.cellSize(20)
+	
+	game.height(42)
+	game.width(72)
+	
+	game.title("Nightmare in Nordelta")
+	
+	level1.background()
+	level1.characters()
+	general.keyAssigments()
+	
+	game.start()
+}
