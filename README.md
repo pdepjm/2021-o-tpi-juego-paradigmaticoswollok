@@ -1,4 +1,4 @@
-# Nombre del juego (<- borrar y completar)
+# Nightmare in Nordelta
 
 ## Equipo de desarrollo
 
