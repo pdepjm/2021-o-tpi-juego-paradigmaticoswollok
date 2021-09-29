@@ -14,7 +14,10 @@
 
 ## Reglas de Juego / Instrucciones
 
-(Escribirlas)
+![keyboard](keyboardAssigments.png)
+
+&emsp;⬆️&emsp;&nbsp;&nbsp;&nbsp;Salto<br>
+⬅️&nbsp;&nbsp;&nbsp;➡️&emsp;Desplazamiento hacia los lados
 
 ## Respuestas teóricas
 
