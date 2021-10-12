@@ -1,7 +1,11 @@
 import wollok.game.*
 import config.*
+import entities.*
+import attack.*
 
 program game {
+	
+	var enemy = new Enemy()
 	
 	game.cellSize(20)
 	
@@ -10,9 +14,13 @@ program game {
 	
 	game.title("Nightmare in Nordelta")
 	
-	level1.background()
-	level1.characters()
+	background.level(1)
+//	level1.background()
+	level1.setupEntity(enemy, game.at(54,9), 40, "DynamicPose", 24)
+	level1.setupEntity(capybaraPlayer, game.at(0,8), 40, "DynamicPose", 24)
 	general.keyAssigments()
+	general.movement(capybaraPlayer)
+//	general.movement(enemy)
 	
 	game.start()
 }
