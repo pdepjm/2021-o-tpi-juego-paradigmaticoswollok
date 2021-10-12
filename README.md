@@ -10,14 +10,13 @@
 
 ## Capturas
 
-![screenshot1](screenshots/Screenshot1.png)
+![screenshot1](screenshots/Screenshot2.png)
 
 ## Reglas de Juego / Instrucciones
 
-![keyboard](keyboardAssigments.png)
-
-&emsp;⬆️&emsp;&nbsp;&nbsp;&nbsp;Salto<br>
-⬅️&nbsp;&nbsp;&nbsp;➡️&emsp;Desplazamiento hacia los lados
+![upArrow](KeyboardAssigments/upArrowAssigment.png)</br>
+![downArrow](KeyboardAssigments/downArrowAssigment.png)</br>
+![sideArrows](KeyboardAssigments/sideArrowsAssigment.png)</br>
 
 ## Respuestas teóricas
 
