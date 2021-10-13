@@ -10,7 +10,8 @@
 
 ## Capturas
 
-![screenrecording1](screenshots/Screenshot3.png)
+![screenrecording1](screenshots/Screenrecording.gif)
+<!-- ![screenrecording1](screenshots/Screenshot3.png) -->
 
 ## Reglas de Juego / Instrucciones
 
