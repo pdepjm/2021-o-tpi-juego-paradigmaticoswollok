@@ -21,5 +21,4 @@
 
 ## Respuestas teóricas
 
-> Uno de los momentos en el que observamos el uso del polimorfismo es cuando llamamos al método "executeAttack" de los distintos ataques. A este mensaje, le pasamos la entidad que queremos atacar, y depende de la entidad como resuelve los ataques que recibe.  
-> Otro momento es cuando llamamos al método takeDamage(), es responsabilidad de cada entidad resolver como sacar vida a sus objetos.  
+Ver Documento Teorico : https://docs.google.com/document/d/1uVla9GCsNuiZd92VdnsoZGyMF-W-HrnO8o_mFCnVCk0/edit
