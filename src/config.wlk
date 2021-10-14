@@ -32,7 +32,7 @@ object general {
 		game.addVisual(entity)
 	}
 	
-	method keyAssigments(currentLevel) {
+	method keyAssigments() {
 		keyboard.left().onPressDo({capybaraPlayer.walkTo(left)})	
 		keyboard.right().onPressDo({capybaraPlayer.walkTo(right)})	
 		keyboard.up().onPressDo({capybaraPlayer.jump()})		
@@ -43,12 +43,11 @@ object general {
 		keyboard.num2().onPressDo({background.image("level2.png")})
 		
 		
-		keyboard.s().onPressDo({capybaraPlayer.mainAttack().execute(currentLevel.currentEnemy())})
-		keyboard.d().onPressDo({capybaraPlayer.specialAttack().execute(currentLevel.currentEnemy())})
+		keyboard.s().onPressDo({capybaraPlayer.mainAttack().execute(juego.currentEnemy())})
+		keyboard.d().onPressDo({capybaraPlayer.specialAttack().execute(juego.currentEnemy())})
 		
-		keyboard.z().onPressDo({currentLevel.currentEnemy().mainAttack().execute(capybaraPlayer)})
-		keyboard.x().onPressDo({currentLevel.currentEnemy().specialAttack().execute(capybaraPlayer)})
-
+		keyboard.z().onPressDo({juego.currentEnemy().mainAttack().execute(capybaraPlayer)})
+		keyboard.x().onPressDo({juego.currentEnemy().specialAttack().execute(capybaraPlayer)})
 
 //		keyboard.space().onPressDo({capybaraPlayer.execute()})
 	}

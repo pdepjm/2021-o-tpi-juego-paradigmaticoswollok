@@ -28,7 +28,6 @@ class Entity {
 	var cycleRepeat = 0 // Al llegar al último fotograma del movimiento, se suma un ciclo
 	var poseNumber = 0 // Número de fotograma actual
 	
-	
 	method image()
 	
 	// Graphics methods
@@ -49,7 +48,7 @@ class Entity {
 	method isJumping() = isJumping
 
 	method moveTo(dir) {
-		if(dir.equals(left) || dir.equals(right)){ // Cambiamos esto en base a una corrección previa pero no nos cierra por el warning.
+		if(dir.equals(left) || dir.equals(right)){
 			if(!isJumping) position = dir.nextPosition(position)
 		}
 		else position = dir.nextPosition(position)
@@ -129,9 +128,9 @@ class Entity {
 	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
 		
 	method takeDamage(damage){
-//		if(self.isDead() isDead = true
-		if(self.isDead()) level1.endGame()
-//		game.say(self, health.toString())
+//		if(self.isDead()) level1.endGame()
+//		if(self.isDead()) self.currentLevel().endGame()
+		if(self.isDead()) juego.endGame()
 		health = (health - damage).max(0)
 	}
 	

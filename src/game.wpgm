@@ -11,11 +11,10 @@ program game {
 	
 //	var enemy = easyEnemyFactory.createEnemy()
 
-
 	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
 	var easyEnemy = easyEnemyFactory.createEnemy()
-	const levelOne = new Level(enemies = [easyEnemy])
-
+	
+	
 	game.cellSize(40)
 	
 	game.height(21)
@@ -26,9 +25,10 @@ program game {
 	background.level(2)
 //	level1.background()
 	
+	juego.addEnemy(easyEnemy)
 	general.setupEntity(easyEnemy, game.at(27,4), 40, "DynamicPose", 24)
 	general.setupEntity(capybaraPlayer, game.at(0,4), 40, "DynamicPose", 24)
-	general.keyAssigments(levelOne)
+	general.keyAssigments()
 	general.movement(capybaraPlayer)
 	general.movement(easyEnemy)
 
