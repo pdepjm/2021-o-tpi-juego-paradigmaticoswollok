@@ -1,6 +1,7 @@
 import wollok.game.*
 import entities.*
 import directions.*
+import scenario.*
 
 object background{
 	
@@ -23,12 +24,7 @@ object background{
 	}
 }
 
-object level1{
-	
-//	method background() {
-////		game.boardGround("level1_background.png")
-//		game.boardGround("Nordelta1.png")
-//	}
+object general {
 	
 	method setupEntity(entity, position, freq, movStyle, fLimit){
 		entity.position(position)
@@ -36,10 +32,7 @@ object level1{
 		game.addVisual(entity)
 	}
 	
-}
-
-object general {
-	method keyAssigments() {
+	method keyAssigments(currentLevel) {
 		keyboard.left().onPressDo({capybaraPlayer.walkTo(left)})	
 		keyboard.right().onPressDo({capybaraPlayer.walkTo(right)})	
 		keyboard.up().onPressDo({capybaraPlayer.jump()})		
@@ -50,8 +43,11 @@ object general {
 		keyboard.num2().onPressDo({background.image("level2.png")})
 		
 		
-//		keyboard.s().onPressDo({capybaraPlayer.mainAttack().execute(level.currentEnemy())})
-//		keyboard.d().onPressDo({capybaraPlayer.specialAttack().execute(level.currentEnemy())})
+		keyboard.s().onPressDo({capybaraPlayer.mainAttack().execute(currentLevel.currentEnemy())})
+		keyboard.d().onPressDo({capybaraPlayer.specialAttack().execute(currentLevel.currentEnemy())})
+		
+		keyboard.z().onPressDo({currentLevel.currentEnemy().mainAttack().execute(capybaraPlayer)})
+		keyboard.x().onPressDo({currentLevel.currentEnemy().specialAttack().execute(capybaraPlayer)})
 
 
 //		keyboard.space().onPressDo({capybaraPlayer.execute()})

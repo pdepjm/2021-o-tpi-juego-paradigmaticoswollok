@@ -13,11 +13,11 @@ class InvisibleObject {
 
 class Entity {
 	
-	var health = null
-	var isDead = false
-	var damagePoints = null
+	var health = 200
+	var damagePoints = 15
 	const mainAttack = self.attack(1)
 	const specialAttack = self.attack(3)
+	var isDead = false
 	
 	// Graphics
 	var position = null
@@ -28,24 +28,21 @@ class Entity {
 	var cycleRepeat = 0 // Al llegar al último fotograma del movimiento, se suma un ciclo
 	var poseNumber = 0 // Número de fotograma actual
 	
+	
 	method image()
 	
 	// Graphics methods
+	
+	method text() = health.toString()
+	
 	method position() = position
 	method position(aPosition){
 		position = aPosition
 	}
 	
-	method health() = health
-	method health(hp){
-		health = hp
-	}
-	
 	method movementStyle() = movementStyle
 
 	method frameLimit() = frameLimit
-
-	method mainAttack() = mainAttack
 
 	method frequency() = frequency
 	
@@ -113,6 +110,15 @@ class Entity {
 	}
 	
 	// Class methods
+	
+	method health() = health
+	
+	method health(hp){
+		health = hp
+	}
+	
+	method mainAttack() = mainAttack
+	
 	method specialAttack() = specialAttack
 	
 	method damagePoints() = damagePoints
@@ -120,20 +126,23 @@ class Entity {
 	method damagePoints(dmgPoints){
 		damagePoints = dmgPoints
 	}
-	method attack(strenght) = new Attack(damagePoints = damagePoints, strenght = strenght)
+	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
 		
 	method takeDamage(damage){
+//		if(self.isDead() isDead = true
+		if(self.isDead()) level1.endGame()
+//		game.say(self, health.toString())
 		health = (health - damage).max(0)
 	}
 	
-	method isDead() = isDead
+	method isDead() = health == 0
 	
 }
 
 class Enemy inherits Entity {
 	
-//	override method image() = "Enemy" + movementStyle + poseNumber + ".png"
-	override method image() = "EnemyPose.png"
+	override method image() = "Enemy" + movementStyle + poseNumber + ".png"
+//	override method image() = "EnemyPose.png"
 	
 	method avoidAttack(attack) {
 		attack.avoid()

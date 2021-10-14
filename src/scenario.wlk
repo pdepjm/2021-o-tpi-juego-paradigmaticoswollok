@@ -1,56 +1,35 @@
+import wollok.game.*
 import entities.*
 import attack.*
 
 class Level{
 	
-	const enemy = null
-//	const factory = null
+	const enemies = []
 	
-	method enemy() = enemy
+	method currentEnemy() = enemies.filter({enemy => game.hasVisual(enemy)}).head()
 	
-	method win() = self.enemy().isDead()
+	method win() = enemies.all({enemy => enemy.isDead()})
+//	method win() = self.currentEnemy().isDead()
 	method lose() = capybaraPlayer.isDead()
 	
-//	method win() = self.currentEnemy().isDead()
-//	
-//	method lose() = capybaraPlayer.isDead()
+	method endGame(){
+		if(self.win()) game.say(capybaraPlayer, "Ya gané")
+		else if(self.lose()) game.say(capybaraPlayer, "Perdí :'(")
+	}
 	
 }
 
-//class EnemyFactory{
-//	
-//	var healthPoints = null
-//	var difficultyLevel = null
-//	var damagePoints = null
-//		
-//	method createEnemy() = new Enemy(
-//		health = healthPoints,
-////		difficulty = difficultyLevel,
-//		damagePoints = damagePoints
-////		difficulty = 1,
-////		mainAttack = new Punch(n = 1),
-////		specialAttack = new Powershot(n = 1)
-//	)
-//	
-//}
+const level1 = new Level()
 
-//import entities.*
-//import attack.*
-//
-//class Level1{
-//	
-//			
-//	method currentEnemy() = ( new EasyEnemyFactory() ).createEnemy()
-//	
-//}
-//
-//class EasyEnemyFactory{
-//	
-//	method createEnemy() = new Enemy(
-//		health = [100,110,120,130].anyOne(), 
-//		difficulty = 1,
-//		mainAttack = new Punch(n = 1),
-//		specialAttack = new Powershot(n = 1)
-//	)
-//	
-//}
+class EnemyFactory{
+	
+	var healthPoints = null
+//	var difficultyLevel = null
+	var damagePoints = null
+		
+	method createEnemy() = new Enemy(
+		health = healthPoints,
+		damagePoints = damagePoints
+	)
+	
+}
