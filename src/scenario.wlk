@@ -3,8 +3,13 @@ import attack.*
 
 class Level{
 	
-			
+	const factory = null
+	
 	method currentEnemy() = ( new EnemyFactory() ).createEnemy()
+	
+//	method win() = self.currentEnemy().isDead()
+//	
+//	method lose() = capybaraPlayer.isDead()
 	
 }
 
@@ -16,7 +21,7 @@ class EnemyFactory{
 		
 	method createEnemy() = new Enemy(
 		health = healthPoints,
-		difficulty = difficultyLevel,
+//		difficulty = difficultyLevel,
 		damagePoints = damagePoints
 //		difficulty = 1,
 //		mainAttack = new Punch(n = 1),

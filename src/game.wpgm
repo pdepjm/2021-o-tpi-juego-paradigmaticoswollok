@@ -2,25 +2,29 @@ import wollok.game.*
 import config.*
 import entities.*
 import attack.*
+import scenario.*
 
 program game {
 	
-	var enemy = new Enemy()
+//	const easyEnemyFactory = new EnemyFactory(healthPoints = 100, difficultyLevel = 1, damagePoints = 10)
+//	const level1 = new Level(factory = easyEnemyFactory)
 	
-	game.cellSize(20)
+//	var enemy = easyEnemyFactory.createEnemy()
+
+	game.cellSize(40)
 	
-	game.height(42)
-	game.width(72)
+	game.height(21)
+	game.width(36)
 	
 	game.title("Nightmare in Nordelta")
 	
 	background.level(2)
 //	level1.background()
-	level1.setupEntity(enemy, game.at(58.5,9), 40, "DynamicPose", 24)
-	level1.setupEntity(capybaraPlayer, game.at(0,8), 40, "DynamicPose", 24)
+//	level1.setupEntity(enemy, game.at(29,4), 40, "DynamicPose", 24)
+	level1.setupEntity(capybaraPlayer, game.at(0,4), 40, "DynamicPose", 24)
 	general.keyAssigments()
 	general.movement(capybaraPlayer)
 //	general.movement(enemy)
-	
+
 	game.start()
 }

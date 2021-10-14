@@ -2,17 +2,17 @@ import wollok.game.*
 
 class Attack{
 	var damagePoints = null
-	var difficulty = null
-	var frameNumber = 0
+	var strenght = null
+//	var frameNumber = 0
 
 	method execute(entity){
-		entity.takeDamage(damagePoints * difficulty)
+		entity.takeDamage(damagePoints * strenght)
 	}
 	
 //	method position() = game.at(30,8)
-	
-//	method image() = "Fireball" + frameNumber + ".png"
-	
+//	
+//	method image() = "CapybaraFireball" + frameNumber + ".png"
+//	
 //	method nextFrame(){
 //		frameNumber ++
 //		if(frameNumber == 4) frameNumber = 0

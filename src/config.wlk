@@ -4,7 +4,7 @@ import directions.*
 
 object background{
 	
-	var backgroundImage
+	var backgroundImage = null
 	
 	var position = game.origin()
 	
@@ -48,7 +48,11 @@ object general {
 
 		keyboard.num1().onPressDo({background.image("level1.png")})
 		keyboard.num2().onPressDo({background.image("level2.png")})
-//		keyboard.space().onPressDo({})
+		
+		
+//		keyboard.s().onPressDo({capybaraPlayer.mainAttack().execute(level.currentEnemy())})
+//		keyboard.d().onPressDo({capybaraPlayer.specialAttack().execute(level.currentEnemy())})
+
 
 //		keyboard.space().onPressDo({capybaraPlayer.execute()})
 	}
