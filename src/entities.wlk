@@ -14,11 +14,12 @@ class InvisibleObject {
 class Entity {
 	
 	var health = null
-//	var difficulty = null
+	var isDead = false
 	var damagePoints = null
-//	var attack = null
-	var mainAttack = self.attack(1)
-	var specialAttack = self.attack(3)
+	const mainAttack = self.attack(1)
+	const specialAttack = self.attack(3)
+	
+	// Graphics
 	var position = null
 	var frameLimit = null // Por si alguna animación requiere más fotogramas. La cantidad de fotogramas es frameLimit + 1 (Van del 0 a n)
 	var frequency = null // Frecuencia de actualización en ms para el game.onTick()
@@ -29,58 +30,34 @@ class Entity {
 	
 	method image()
 	
+	// Graphics methods
 	method position() = position
-	
 	method position(aPosition){
 		position = aPosition
 	}
-			
-	method health() = health
 	
+	method health() = health
 	method health(hp){
 		health = hp
 	}
 	
-//	method difficulty() = difficulty
-//	
-//	method difficulty(diffLevel){
-//		difficulty = diffLevel
-//	}
+	method movementStyle() = movementStyle
+
+	method frameLimit() = frameLimit
 
 	method mainAttack() = mainAttack
-	
-	method specialAttack() = specialAttack
-	
-	method damagePoints() = damagePoints
-	
-	method damagePoints(dmgPoints){
-		damagePoints = dmgPoints
-	}
-	
-	method movementStyle() = movementStyle
-	
-	method frameLimit() = frameLimit
-	
+
 	method frequency() = frequency
 	
-	method takeDamage(damage)
-	
-	method attack(strenght) = new Attack(damagePoints = damagePoints, strenght = strenght)
-		
-	method isDead() = health == 0
-	
 	method isJumping() = isJumping
-	
+
 	method moveTo(dir) {
-//		if(dir.toString() == "left" || dir.toString() == "right"){
-//			if(isJumping == "no") position = dir.nextPosition(position)
-//		}
-		if(dir == left || dir == right){ // Cambiamos esto en base a una corrección previa pero no nos cierra por el warning.
+		if(dir.equals(left) || dir.equals(right)){ // Cambiamos esto en base a una corrección previa pero no nos cierra por el warning.
 			if(!isJumping) position = dir.nextPosition(position)
 		}
 		else position = dir.nextPosition(position)
 	}
-	
+
 	method movement(style, frames){
 		movementStyle = style
 		poseNumber ++
@@ -122,8 +99,6 @@ class Entity {
 	method fluidMovement(dir, times){
 		self.moveTo(dir)
 		times.times({i => game.schedule(40, {self.moveTo(dir)})})
-//		game.schedule(40, {self.moveTo(dir)})
-//		game.schedule(80, {self.moveTo(dir)})
 	}
 	
 	method movementSetup(freq, movStyle, fLimit){
@@ -137,16 +112,28 @@ class Entity {
 		game.schedule(when, {movementStyle = "DynamicPose"; frameLimit = 24; frequency = 40})
 	}
 	
+	// Class methods
+	method specialAttack() = specialAttack
+	
+	method damagePoints() = damagePoints
+	
+	method damagePoints(dmgPoints){
+		damagePoints = dmgPoints
+	}
+	method attack(strenght) = new Attack(damagePoints = damagePoints, strenght = strenght)
+		
+	method takeDamage(damage){
+		health = (health - damage).max(0)
+	}
+	
+	method isDead() = isDead
+	
 }
 
 class Enemy inherits Entity {
 	
 //	override method image() = "Enemy" + movementStyle + poseNumber + ".png"
 	override method image() = "EnemyPose.png"
-	
-	override method takeDamage(damage){
-		health = (health - damage * 1.5).max(0)
-	}
 	
 	method avoidAttack(attack) {
 		attack.avoid()
@@ -167,13 +154,5 @@ object capybaraPlayer inherits Entity{
 			self.backToDynamicPose(240)
 		}
 	}
-	
-//	method win(level) = level.currentEnemy().isDead() // Por el momento ya que después van a haber más enemigos
-//	
-//	method lose() = self.isDead() 
-		
-	override method takeDamage(damage){
-		health = (health - damage).max(0)
-	}	
 	
 }

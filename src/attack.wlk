@@ -1,6 +1,6 @@
 import wollok.game.*
 
-class Attack{
+class Attack {
 	var damagePoints = null
 	var strenght = null
 //	var frameNumber = 0

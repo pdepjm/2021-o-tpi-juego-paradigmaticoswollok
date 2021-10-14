@@ -3,9 +3,13 @@ import attack.*
 
 class Level{
 	
-	const factory = null
+	const enemy = null
+//	const factory = null
 	
-	method currentEnemy() = ( new EnemyFactory() ).createEnemy()
+	method enemy() = enemy
+	
+	method win() = self.enemy().isDead()
+	method lose() = capybaraPlayer.isDead()
 	
 //	method win() = self.currentEnemy().isDead()
 //	
@@ -13,22 +17,22 @@ class Level{
 	
 }
 
-class EnemyFactory{
-	
-	var healthPoints = null
-	var difficultyLevel = null
-	var damagePoints = null
-		
-	method createEnemy() = new Enemy(
-		health = healthPoints,
-//		difficulty = difficultyLevel,
-		damagePoints = damagePoints
-//		difficulty = 1,
-//		mainAttack = new Punch(n = 1),
-//		specialAttack = new Powershot(n = 1)
-	)
-	
-}
+//class EnemyFactory{
+//	
+//	var healthPoints = null
+//	var difficultyLevel = null
+//	var damagePoints = null
+//		
+//	method createEnemy() = new Enemy(
+//		health = healthPoints,
+////		difficulty = difficultyLevel,
+//		damagePoints = damagePoints
+////		difficulty = 1,
+////		mainAttack = new Punch(n = 1),
+////		specialAttack = new Powershot(n = 1)
+//	)
+//	
+//}
 
 //import entities.*
 //import attack.*
