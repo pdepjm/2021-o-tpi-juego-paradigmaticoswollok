@@ -22,7 +22,7 @@ class Entity {
 	var position = null
 	var frameLimit = null // Por si alguna animación requiere más fotogramas. La cantidad de fotogramas es frameLimit + 1 (Van del 0 a n)
 	var frequency = null // Frecuencia de actualización en ms para el game.onTick()
-	var isJumping = "no" // Se usa para evitar que camine en el aire
+	var isJumping = false // Se usa para evitar que camine en el aire
 	var movementStyle = "DynamicPose" // Cuando haga una acción, se le cambia esto
 	var cycleRepeat = 0 // Al llegar al último fotograma del movimiento, se suma un ciclo
 	var poseNumber = 0 // Número de fotograma actual
