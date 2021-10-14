@@ -69,14 +69,14 @@ class Entity {
 		
 	method isDead() = health == 0
 	
-	method isJumping() = isJumping == "yes"
+	method isJumping() = isJumping
 	
 	method moveTo(dir) {
 //		if(dir.toString() == "left" || dir.toString() == "right"){
 //			if(isJumping == "no") position = dir.nextPosition(position)
 //		}
 		if(dir == left || dir == right){ // Cambiamos esto en base a una corrección previa pero no nos cierra por el warning.
-			if(isJumping == "no") position = dir.nextPosition(position)
+			if(!isJumping) position = dir.nextPosition(position)
 		}
 		else position = dir.nextPosition(position)
 	}
@@ -103,10 +103,10 @@ class Entity {
 		if(self.isJumping().negate()){ 
 			self.movementSetup(10, "Jump", 9)
 			self.fluidMovement(up, 3)
-			isJumping = "yes"
+			isJumping = true
 			game.schedule(350, {
 				self.fluidMovement(down, 3)
-				isJumping = "no"
+				isJumping = false
 			})
 		}
 		self.backToDynamicPose(430)
