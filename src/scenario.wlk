@@ -6,6 +6,37 @@ object juego {
 	
 	const enemies = #{}
 	
+	var items = #{}
+	
+	method addItem(item){
+		items.add(item)
+	}
+	
+	method appearHeart() {
+		const x = (0..game.width()-1).anyOne()
+		const y = (0..game.height()-1).anyOne()
+		game.addVisual( 
+			new Heart(
+				healthValue = [25,50,100].anyOne(),
+				position = game.at(x,y)
+			)
+		)
+	}	
+	method appearEnergyDrink() {
+		const x = (0..game.width()-1).anyOne()
+		const y = (0..game.height()-1).anyOne()
+		game.addVisual( 
+			new EnergyDrink(
+				damageValue = [10,20,30].anyOne(),
+				position = game.at(x,y)
+			)
+		)
+	}
+	
+	method collideWith(){
+		game.onCollideDo(capybaraPlayer,{item => capybaraPlayer.recollect(item)} )
+	}
+	
 	method addEnemy(enemy){
 		enemies.add(enemy)
 	}
