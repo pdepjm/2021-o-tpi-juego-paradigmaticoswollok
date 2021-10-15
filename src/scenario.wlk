@@ -12,7 +12,6 @@ object juego {
 	
 	method currentEnemy() = enemies.find({enemy => game.hasVisual(enemy)})
 	
-	
 //	method win() = enemies.all({enemy => enemy.isDead()})
 	method win() = self.currentEnemy().isDead()
 	method lose() = capybaraPlayer.isDead()

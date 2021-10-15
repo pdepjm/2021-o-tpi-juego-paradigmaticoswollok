@@ -3,13 +3,29 @@ import directions.*
 import attack.*
 import scenario.*
 
-//class InvisibleObject {
-//	
-//	var position
-//	
-//	method position() = position
-//		
-//}
+class HitTarget {
+	
+	const entity = null
+	
+	var position = self.position()
+	
+	method position()
+	
+	method text() = position.toString()
+		
+}
+
+class BottomTarget inherits HitTarget {
+	override method position() = entity.position().right(4).up(1)
+}
+
+class MiddleTarget inherits HitTarget {
+	override method position() = entity.position().right(4).up(3)
+}
+
+class UpperTarget inherits HitTarget {
+	override method position() = entity.position().right(4).up(6)
+}
 
 class Entity {
 	

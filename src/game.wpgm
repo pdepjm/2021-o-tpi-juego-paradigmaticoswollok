@@ -5,11 +5,6 @@ import attack.*
 import scenario.*
 
 program game {
-	
-//	const easyEnemyFactory = new EnemyFactory(healthPoints = 100, difficultyLevel = 1, damagePoints = 10)
-//	const level1 = new Level(factory = easyEnemyFactory)
-	
-//	var enemy = easyEnemyFactory.createEnemy()
 
 	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
 	var easyEnemy = easyEnemyFactory.createEnemy()
@@ -31,6 +26,9 @@ program game {
 	general.keyAssigments()
 	general.movement(capybaraPlayer)
 	general.movement(easyEnemy)
+	
+//	game.addVisualCharacter(celdaGuia)
+//	game.addVisual(celdaGuia)
 
 	game.start()
 }

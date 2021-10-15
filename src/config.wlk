@@ -29,7 +29,16 @@ object general {
 	method setupEntity(entity, position, freq, movStyle, fLimit){
 		entity.position(position)
 		entity.movementSetup(freq, movStyle, fLimit)
+		
+		const bottomTarget = new BottomTarget(entity = entity)
+		const middleTarget = new MiddleTarget(entity = entity)
+		const upperTarget = new UpperTarget(entity = entity)
+		
 		game.addVisual(entity)
+		
+		game.addVisual(bottomTarget)
+		game.addVisual(middleTarget)
+		game.addVisual(upperTarget)
 	}
 	
 	method keyAssigments() {
