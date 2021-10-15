@@ -3,13 +3,13 @@ import directions.*
 import attack.*
 import scenario.*
 
-class InvisibleObject {
-	
-	var position
-	
-	method position() = position
-		
-}
+//class InvisibleObject {
+//	
+//	var position
+//	
+//	method position() = position
+//		
+//}
 
 class Entity {
 	
@@ -47,11 +47,8 @@ class Entity {
 	
 	method isJumping() = isJumping
 
-	method moveTo(dir) {
-		if(dir.equals(left) || dir.equals(right)){
-			if(!isJumping) position = dir.nextPosition(position)
-		}
-		else position = dir.nextPosition(position)
+	method moveTo(dir) { // Se tratan polimórficamente las direcciones
+		if(dir.canMove(self)) position = dir.nextPosition(position)
 	}
 
 	method movement(style, frames){
@@ -73,7 +70,7 @@ class Entity {
 	}
 	
 	method jump(){
-		if(self.isJumping().negate()){ 
+		if(!isJumping){ 
 			self.movementSetup(10, "Jump", 9)
 			self.fluidMovement(up, 3)
 			isJumping = true
@@ -86,7 +83,7 @@ class Entity {
 	}
 	
 	method crouch(){
-		if(self.isJumping().negate()){
+		if(!isJumping){
 			self.movementSetup(30, "Crouch", 24)
 			self.backToDynamicPose(1150)
 		}
@@ -156,10 +153,11 @@ object capybaraPlayer inherits Entity{
 	override method image() = "Capybara" + movementStyle + poseNumber + ".png"
 	
 	method walkTo(dir) {
-		if(self.isJumping().negate()){
-			self.movementSetup(10, "Steps_" + dir.toString() + "_", 9)
+		if(!isJumping){
+//			self.movementSetup(10, "Steps_" + dir.toString() + "_", 9)
+			self.movementSetup(5, "Steps_" + dir.toString() + "_", 9)
 			self.fluidMovement(dir, 2)
-			self.backToDynamicPose(240)
+			self.backToDynamicPose(400)
 		}
 	}
 	
