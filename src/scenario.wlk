@@ -6,36 +6,36 @@ object juego {
 	
 	const enemies = #{}
 	
-	var items = #{}
-	
-	method addItem(item){
-		items.add(item)
-	}
-	
-	method appearHeart() {
-		const x = (0..game.width()-1).anyOne()
-		const y = (0..game.height()-1).anyOne()
-		game.addVisual( 
-			new Heart(
-				healthValue = [25,50,100].anyOne(),
-				position = game.at(x,y)
-			)
-		)
-	}	
-	method appearEnergyDrink() {
-		const x = (0..game.width()-1).anyOne()
-		const y = (0..game.height()-1).anyOne()
-		game.addVisual( 
-			new EnergyDrink(
-				damageValue = [10,20,30].anyOne(),
-				position = game.at(x,y)
-			)
-		)
-	}
-	
-	method collideWith(){
-		game.onCollideDo(capybaraPlayer,{item => capybaraPlayer.recollect(item)} )
-	}
+//	var items = #{}
+//	
+//	method addItem(item){
+//		items.add(item)
+//	}
+//	
+//	method appearHeart() {
+//		const x = (0..game.width()-1).anyOne()
+//		const y = (0..game.height()-1).anyOne()
+//		game.addVisual( 
+//			new Heart(
+//				healthValue = [25,50,100].anyOne(),
+//				position = game.at(x,y)
+//			)
+//		)
+//	}	
+//	method appearEnergyDrink() {
+//		const x = (0..game.width()-1).anyOne()
+//		const y = (0..game.height()-1).anyOne()
+//		game.addVisual( 
+//			new EnergyDrink(
+//				damageValue = [10,20,30].anyOne(),
+//				position = game.at(x,y)
+//			)
+//		)
+//	}
+//	
+//	method collideWith(){
+//		game.onCollideDo(capybaraPlayer,{item => capybaraPlayer.recollect(item)} )
+//	}
 	
 	method addEnemy(enemy){
 		enemies.add(enemy)
@@ -56,26 +56,6 @@ object juego {
 	}
 	
 }
-
-//class Level{
-//	
-//	const enemies = #{}
-//	
-//	method currentEnemy() = enemies.find({enemy => game.hasVisual(enemy)})
-//	
-//	
-////	method win() = enemies.all({enemy => enemy.isDead()})
-//	method win() = self.currentEnemy().isDead()
-//	method lose() = capybaraPlayer.isDead()
-//	
-//	method endGame(){
-//		if(self.win()) game.say(capybaraPlayer, "Ya gané")
-//		else if(self.lose()) game.say(capybaraPlayer, "Perdí :'(")
-//	}
-//	
-//}
-
-//const level1 = new Level(enemies = #{})
 
 class EnemyFactory{
 	

@@ -37,30 +37,31 @@ describe "Ataques y Movimientos de personaje - Escenario 1 " {
 //		assert.equals(200,capybaraPlayer.health())
 //	}
 }
-describe "Items " {
-	
-	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
-	var easyEnemy = easyEnemyFactory.createEnemy()
-	var heart =  new Heart(healthValue = 25 )
-	var energyDrink = new EnergyDrink(damageValue = 20)
-	
-	method initialize(){
-		juego.appearHeart()
-		juego.appearEnergyDrink()
-	}
-		
-//	const enemy = new Enemy(health = 150, mainAttack = new Attack(damagePoints = 25, strength = 1), specialAttack = new Attack(damagePoints = 50, strength = 2))
-	
-	test "capybaraPlayer agarra heart cuando recibe ataques  de enemy " {
-		easyEnemy.mainAttack().execute(capybaraPlayer)
-		easyEnemy.specialAttack().execute(capybaraPlayer)
-		capybaraPlayer.recollect(heart)
-		assert.equals(195, capybaraPlayer.health())
-	}
 
-	test "capybaraPlayer agarra energyDrink " {
-		capybaraPlayer.recollect(energyDrink)
-		assert.equals(35, capybaraPlayer.damagePoints())
-	}
 
-}
+
+//describe "Items " {
+//	
+//	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
+//	var easyEnemy = easyEnemyFactory.createEnemy()
+//	var heart =  new Heart(healthValue = 25 )
+//	var energyDrink = new EnergyDrink(damageValue = 20)
+//	
+//	method initialize(){
+//		juego.appearHeart()
+//		juego.appearEnergyDrink()
+//	}
+//		
+//	test "capybaraPlayer agarra heart cuando recibe ataques  de enemy " {
+//		easyEnemy.mainAttack().execute(capybaraPlayer)
+//		easyEnemy.specialAttack().execute(capybaraPlayer)
+//		capybaraPlayer.recollect(heart)
+//		assert.equals(195, capybaraPlayer.health())
+//	}
+//
+//	test "capybaraPlayer agarra energyDrink " {
+//		capybaraPlayer.recollect(energyDrink)
+//		assert.equals(35, capybaraPlayer.damagePoints())
+//	}
+//
+//}

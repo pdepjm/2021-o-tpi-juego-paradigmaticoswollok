@@ -128,15 +128,16 @@ class Entity {
 	method health(hp){
 		health = hp
 	}
-	method recollect(item) { 
-		health += item.healthValue()
-		damagePoints += item.damageValue()
-		game.removeVisual(item)
-	}
 	
-	method collide() {
-		game.onCollideDo(self,{item => self.recollect(item)} )
-	}
+//	method recollect(item) { 
+//		health += item.healthValue()
+//		damagePoints += item.damageValue()
+//		game.removeVisual(item)
+//	}
+//	
+//	method collide() {
+//		game.onCollideDo(self,{item => self.recollect(item)} )
+//	}
 	
 	method mainAttack() = mainAttack
 	
