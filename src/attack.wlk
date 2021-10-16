@@ -16,7 +16,7 @@ class AttackVisual {
 //		position = aPosition
 //	}
 	
-	method image() = "CapybaraFireball" + frameNumber.toString() + ".png"
+	method image() = "CapybaraFireball" + frameNumber.toString() + ".png" // Acá hay que asignar según la entidad que sea
 	
 	method movement() {
 		frameNumber ++

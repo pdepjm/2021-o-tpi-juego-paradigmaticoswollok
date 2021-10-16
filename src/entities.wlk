@@ -181,7 +181,7 @@ class Entity {
 
 class Enemy inherits Entity {
 	
-	override method image() = "Enemy" + movementStyle + poseNumber + ".png"
+	override method image() = "Enemy" + movementStyle + poseNumber.toString() + ".png"
 //	override method image() = "EnemyPose.png"
 	
 	method avoidAttack(attack) {
@@ -194,7 +194,7 @@ object capybaraPlayer inherits Entity{
 		
 	var direction = right
 		
-	override method image() = "Capybara" + movementStyle + poseNumber + ".png"
+	override method image() = "Capybara" + movementStyle + poseNumber.toString() + ".png"
 	
 	method walkTo(dir) {
 		if(!isJumping){
