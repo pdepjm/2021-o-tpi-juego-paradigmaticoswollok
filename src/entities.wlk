@@ -11,7 +11,7 @@ class HitTarget {
 	
 	method position()
 	
-	method image() = "guideCell.png"
+//	method image() = "guideCell.png"
 		
 }
 
