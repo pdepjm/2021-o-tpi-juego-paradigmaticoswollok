@@ -8,8 +8,7 @@ program game {
 
 	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
 	var easyEnemy = easyEnemyFactory.createEnemy()
-	
-	
+		
 	game.cellSize(40)
 	
 	game.height(21)
@@ -17,8 +16,8 @@ program game {
 	
 	game.title("Nightmare in Nordelta")
 	
-	background.level(2)
-//	level1.background()
+//	background.level(2)
+	general.background()
 	
 	juego.addEnemy(easyEnemy)
 	general.setupEntity(easyEnemy, game.at(27,4), 40, "DynamicPose", 24)
@@ -26,6 +25,6 @@ program game {
 	general.keyAssigments()
 	general.movement(capybaraPlayer)
 	general.movement(easyEnemy)
-
+	
 	game.start()
 }

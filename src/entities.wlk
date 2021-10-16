@@ -11,7 +11,7 @@ class HitTarget {
 	
 	method position()
 	
-	method text() = position.toString()
+	method image() = "guideCell.png"
 		
 }
 
@@ -33,7 +33,7 @@ class Entity {
 	var damagePoints = 15
 	const mainAttack = self.attack(1)
 	const specialAttack = self.attack(3)
-	var isDead = false
+	var canAttack = true
 	
 	// Graphics
 	var position = null
@@ -43,11 +43,18 @@ class Entity {
 	var movementStyle = "DynamicPose" // Cuando haga una acción, se le cambia esto
 	var cycleRepeat = 0 // Al llegar al último fotograma del movimiento, se suma un ciclo
 	var poseNumber = 0 // Número de fotograma actual
+	var targets = #{}
 	
 	method image()
 	
 	// Graphics methods
 	
+	method targets() = targets
+	
+	method addTargets(targetCollection){
+		targets += targetCollection
+	}
+		
 	method text() = health.toString()
 	
 	method position() = position
@@ -123,6 +130,8 @@ class Entity {
 	
 	// Class methods
 	
+	method canAttack() = canAttack
+	
 	method health() = health
 	
 	method health(hp){
@@ -148,13 +157,22 @@ class Entity {
 	method damagePoints(dmgPoints){
 		damagePoints = dmgPoints
 	}
-	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
-		
+//	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
+	method attack(strength) = new Attack(position = game.at(5,7), damagePoints = damagePoints, strength = strength)
+	
+	method throwAttack(attack){
+		if(canAttack){
+			canAttack = false
+			game.schedule(600, {canAttack = true})
+			attack.position(game.at(5,7))
+			attack.addVisuals()
+			game.onTick(10, "throw", {attack.position(attack.position().right(1)); attack.visual().movement()})
+		}
+	}
+	
 	method takeDamage(damage){
-//		if(self.isDead()) level1.endGame()
-//		if(self.isDead()) self.currentLevel().endGame()
-		if(self.isDead()) juego.endGame()
 		health = (health - damage).max(0)
+		if(self.isDead()) juego.endGame()
 	}
 	
 	method isDead() = health == 0

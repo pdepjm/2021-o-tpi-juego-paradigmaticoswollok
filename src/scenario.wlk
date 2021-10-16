@@ -49,9 +49,9 @@ object juego {
 	
 	method endGame(){
 		if(self.win()) {
-			game.say(capybaraPlayer, "Ya gané")
+			self.currentEnemy().targets().forEach({target => game.removeVisual(target)})
 			game.removeVisual(self.currentEnemy())
-			}
+		}
 		else if(self.lose()) game.say(capybaraPlayer, "Perdí :'(")
 	}
 	
