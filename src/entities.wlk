@@ -11,7 +11,7 @@ class Entity {
 	var damagePoints = 15
 	const mainAttack = self.attack(1)
 	const specialAttack = self.attack(3)
-//	var canAttack = true
+	var canAttack = true
 	
 	// Graphics
 	var position = null
@@ -164,9 +164,13 @@ class Entity {
 	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
 	
 	method throwAttack(attack, dir){
-		self.attackOrigin(attack)
-		game.addVisual(attack)
-		game.onTick(10, "throw", {attack.execute(dir)})
+		if(canAttack){
+			canAttack = false
+			self.attackOrigin(attack)
+			game.addVisual(attack)
+			game.onTick(10, "throw", {attack.execute(dir)})
+			game.schedule(500, {canAttack = true})
+		}
 	}
 	
 	method attackOrigin(attack)
