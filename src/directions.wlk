@@ -1,9 +1,10 @@
 import entities.*
+import wollok.game.*
 
 object left {
 	method nextPosition(actualPosition) = actualPosition.left(1)
 	
-	method canMove(entity) = !(entity.isJumping())
+	method canMove(entity) = !(entity.isJumping()) && entity.position().x() >= 1
 }
 
 object right {

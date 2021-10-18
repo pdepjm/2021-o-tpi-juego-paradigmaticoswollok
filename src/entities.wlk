@@ -104,7 +104,6 @@ class Entity {
 	}
 	
 	method removeUpperTarget(){
-		targets.remove(self.upperTarget())		
 		game.removeVisual(self.upperTarget())
 	}
 	
@@ -167,7 +166,7 @@ class Entity {
 	method throwAttack(attack, dir){
 		self.attackOrigin(attack)
 		game.addVisual(attack)
-		game.onTick(5, "throw", {attack.execute(dir)})
+		game.onTick(10, "throw", {attack.execute(dir)})
 	}
 	
 	method attackOrigin(attack)
@@ -197,7 +196,7 @@ class Enemy inherits Entity {
 	method attackPattern(){
 		self.randomMove()
 		self.throwAttack(self.attack(strengths.anyOne()), left)
-		game.schedule(300, {
+		game.schedule(600, {
 			self.randomMove()
 			self.throwAttack(self.attack(strengths.anyOne()), left)
 		})
@@ -219,8 +218,8 @@ object capybaraPlayer inherits Entity{
 		if(!isJumping){
 //			self.movementSetup(10, "Steps_" + dir.toString() + "_", 9)
 			self.movementSetup(0, 5, "Steps_" + dir.toString() + "_", 9)
-//			self.fluidMovement(dir, 2)
-			self.moveTo(dir)
+			self.fluidMovement(dir, 2)
+//			self.moveTo(dir)
 			self.backToDynamicPose(400)
 		}
 	}

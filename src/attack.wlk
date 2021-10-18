@@ -27,7 +27,7 @@ class Attack {
 	}
 	
 	method outOfBounds(){
-		if(position.x() == 1 || position.x() == 35){
+		if(position.x() == 1 || position.x() == 34){
 			game.removeVisual(self)
 			game.removeTickEvent("throw")
 		}
