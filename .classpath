@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry excluding="Backgrounds/|Capybara/|Capybara/Crouch/ClosedEyes/|Capybara/Crouch/OpenedEyes/|Capybara/DynamicPose/ClosedEyes/|Capybara/DynamicPose/OpenedEyes/|Capybara/Jump/ClosedEyes/|Capybara/Jump/OpenedEyes/|Capybara/Steps/ClosedEyes/Left/|Capybara/Steps/ClosedEyes/Right/|Capybara/Steps/OpenedEyes/|Capybara/Steps/OpenedEyes/Left/|Capybara/Steps/OpenedEyes/Right/|Enemy/DynamicPose/ClosedEyes/|Enemy/DynamicPose/OpenedEyes/|Enemy/DynamicPose/|Enemy/|Attack/|Capybara/Attack/|Enemy/Attack/" kind="src" path="assets"/>
+	<classpathentry excluding="Backgrounds/|Capybara/|Capybara/Crouch/ClosedEyes/|Capybara/Crouch/OpenedEyes/|Capybara/DynamicPose/ClosedEyes/|Capybara/DynamicPose/OpenedEyes/|Capybara/Jump/ClosedEyes/|Capybara/Jump/OpenedEyes/|Capybara/Steps/ClosedEyes/Left/|Capybara/Steps/ClosedEyes/Right/|Capybara/Steps/OpenedEyes/|Capybara/Steps/OpenedEyes/Left/|Capybara/Steps/OpenedEyes/Right/|Enemy/DynamicPose/ClosedEyes/|Enemy/DynamicPose/OpenedEyes/|Enemy/DynamicPose/|Enemy/|Attack/|Capybara/Attack/|Enemy/Attack/|Enemy/Crouch/|Enemy/Jump/|Enemy/Crouch/|Enemy/Jump/|Enemy/Crouch/ClosedEyes/|Enemy/Crouch/OpenedEyes/|Enemy/Crouch/ClosedEyes/|Enemy/Crouch/OpenedEyes/|Enemy/Jump/ClosedEyes/|Enemy/Jump/OpenedEyes/|Enemy/Jump/ClosedEyes/|Enemy/Jump/OpenedEyes/|Capybara/|Enemy/|Capybara/ClosedEyes/Crouch/|Capybara/ClosedEyes/DynamicPose/|Capybara/ClosedEyes/Jump/|Capybara/ClosedEyes/Crouch/|Capybara/ClosedEyes/DynamicPose/|Capybara/ClosedEyes/Jump/|Capybara/ClosedEyes/Steps/Left/|Capybara/ClosedEyes/Steps/Right/|Capybara/ClosedEyes/Steps/Left/|Capybara/ClosedEyes/Steps/Right/|Capybara/OpenedEyes/Crouch/|Capybara/OpenedEyes/DynamicPose/|Capybara/OpenedEyes/Jump/|Capybara/OpenedEyes/Crouch/|Capybara/OpenedEyes/DynamicPose/|Capybara/OpenedEyes/Jump/|Capybara/OpenedEyes/Steps/Left/|Capybara/OpenedEyes/Steps/Right/|Capybara/OpenedEyes/Steps/Left/|Capybara/OpenedEyes/Steps/Right/|Enemy/ClosedEyes/Crouch/|Enemy/ClosedEyes/DynamicPose/|Enemy/ClosedEyes/Jump/|Enemy/ClosedEyes/Crouch/|Enemy/ClosedEyes/DynamicPose/|Enemy/ClosedEyes/Jump/|Enemy/OpenedEyes/Crouch/|Enemy/OpenedEyes/DynamicPose/|Enemy/OpenedEyes/Jump/|Enemy/OpenedEyes/Crouch/|Enemy/OpenedEyes/DynamicPose/|Enemy/OpenedEyes/Jump/" kind="src" path="assets"/>
 	<classpathentry kind="src" path="assets/Backgrounds"/>
-	<classpathentry excluding="Crouch/ClosedEyes/|Crouch/OpenedEyes/|DynamicPose/ClosedEyes/|DynamicPose/OpenedEyes/|Jump/ClosedEyes/|Jump/OpenedEyes/|Steps/ClosedEyes/Left/|Steps/ClosedEyes/Right/|Steps/OpenedEyes/|Steps/OpenedEyes/Left/|Steps/OpenedEyes/Right/|Attack/" kind="src" path="assets/Capybara"/>
-	<classpathentry kind="src" path="assets/Capybara/Crouch/ClosedEyes"/>
-	<classpathentry kind="src" path="assets/Capybara/Crouch/OpenedEyes"/>
-	<classpathentry kind="src" path="assets/Capybara/DynamicPose/ClosedEyes"/>
-	<classpathentry kind="src" path="assets/Capybara/DynamicPose/OpenedEyes"/>
-	<classpathentry kind="src" path="assets/Capybara/Jump/ClosedEyes"/>
-	<classpathentry kind="src" path="assets/Capybara/Jump/OpenedEyes"/>
-	<classpathentry kind="src" path="assets/Capybara/Steps/ClosedEyes/Left"/>
-	<classpathentry kind="src" path="assets/Capybara/Steps/ClosedEyes/Right"/>
-	<classpathentry kind="src" path="assets/Capybara/Steps/OpenedEyes/Left"/>
-	<classpathentry kind="src" path="assets/Capybara/Steps/OpenedEyes/Right"/>
-	<classpathentry kind="src" path="assets/Enemy/DynamicPose/ClosedEyes"/>
-	<classpathentry kind="src" path="assets/Enemy/DynamicPose/OpenedEyes"/>
-	<classpathentry excluding="ClosedEyes/|OpenedEyes/" kind="src" path="assets/Enemy/DynamicPose"/>
-	<classpathentry kind="src" path="assets/Capybara/Attack"/>
-	<classpathentry kind="src" path="assets/Enemy/Attack"/>
+	<classpathentry kind="src" path="assets/Capybara/ClosedEyes/Crouch"/>
+	<classpathentry kind="src" path="assets/Capybara/ClosedEyes/DynamicPose"/>
+	<classpathentry kind="src" path="assets/Capybara/ClosedEyes/Jump"/>
+	<classpathentry kind="src" path="assets/Capybara/ClosedEyes/Steps/Left"/>
+	<classpathentry kind="src" path="assets/Capybara/ClosedEyes/Steps/Right"/>
+	<classpathentry kind="src" path="assets/Capybara/OpenedEyes/Crouch"/>
+	<classpathentry kind="src" path="assets/Capybara/OpenedEyes/DynamicPose"/>
+	<classpathentry kind="src" path="assets/Capybara/OpenedEyes/Jump"/>
+	<classpathentry kind="src" path="assets/Capybara/OpenedEyes/Steps/Left"/>
+	<classpathentry kind="src" path="assets/Capybara/OpenedEyes/Steps/Right"/>
+	<classpathentry kind="src" path="assets/Enemy/ClosedEyes/Crouch"/>
+	<classpathentry kind="src" path="assets/Enemy/ClosedEyes/DynamicPose"/>
+	<classpathentry kind="src" path="assets/Enemy/ClosedEyes/Jump"/>
+	<classpathentry kind="src" path="assets/Enemy/OpenedEyes/Crouch"/>
+	<classpathentry kind="src" path="assets/Enemy/OpenedEyes/DynamicPose"/>
+	<classpathentry kind="src" path="assets/Enemy/OpenedEyes/Jump"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="module" value="true"/>

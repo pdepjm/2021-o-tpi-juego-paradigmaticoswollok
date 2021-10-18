@@ -50,6 +50,7 @@ object juego {
 	method endGame(){
 		if(self.win()) {
 			self.currentEnemy().targets().forEach({target => game.removeVisual(target)})
+//			game.removeTickEvent("enemyAttack")
 			game.removeVisual(self.currentEnemy())
 		}
 		else if(self.lose()) game.say(capybaraPlayer, "Perdí :'(")

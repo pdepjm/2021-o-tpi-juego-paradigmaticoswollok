@@ -13,13 +13,13 @@ object right {
 }
 
 object up {
-	method nextPosition(actualPosition) = actualPosition.up(1)
+	method nextPosition(actualPosition) = actualPosition.up(3)
 	
 	method canMove(entity) = true
 }
 
 object down {
-	method nextPosition(actualPosition) = actualPosition.down(1)
+	method nextPosition(actualPosition) = actualPosition.down(3)
 	
 	method canMove(entity) = true
 }

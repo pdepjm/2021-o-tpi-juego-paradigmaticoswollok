@@ -3,6 +3,7 @@ import config.*
 import entities.*
 import attack.*
 import scenario.*
+import directions.*
 
 program game {
 
@@ -25,6 +26,7 @@ program game {
 	general.keyAssigments()
 	general.movement(capybaraPlayer)
 	general.movement(easyEnemy)
+	game.onTick(3500, "enemyAttack", {easyEnemy.attackPattern()})
 	
 	game.start()
 }

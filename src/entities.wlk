@@ -2,30 +2,8 @@ import wollok.game.*
 import directions.*
 import attack.*
 import scenario.*
-
-class HitTarget {
-	
-	const entity = null
-	
-	var position = self.position()
-	
-	method position()
-	
-//	method image() = "guideCell.png"
-		
-}
-
-class BottomTarget inherits HitTarget {
-	override method position() = entity.position().right(4).up(1)
-}
-
-class MiddleTarget inherits HitTarget {
-	override method position() = entity.position().right(4).up(3)
-}
-
-class UpperTarget inherits HitTarget {
-	override method position() = entity.position().right(4).up(6)
-}
+import movements.*
+import targets.*
 
 class Entity {
 	
@@ -33,7 +11,7 @@ class Entity {
 	var damagePoints = 15
 	const mainAttack = self.attack(1)
 	const specialAttack = self.attack(3)
-	var canAttack = true
+//	var canAttack = true
 	
 	// Graphics
 	var position = null
@@ -44,12 +22,19 @@ class Entity {
 	var cycleRepeat = 0 // Al llegar al último fotograma del movimiento, se suma un ciclo
 	var poseNumber = 0 // Número de fotograma actual
 	var targets = #{}
+	var upperTarget = null
 	
 	method image()
 	
 	// Graphics methods
 	
 	method targets() = targets
+	
+	method upperTarget() = upperTarget
+	
+	method upperTarget(target){
+		upperTarget = target
+	}
 	
 	method addTargets(targetCollection){
 		targets += targetCollection
@@ -58,9 +43,12 @@ class Entity {
 	method text() = health.toString()
 	
 	method position() = position
+	
 	method position(aPosition){
 		position = aPosition
 	}
+	
+	method poseNumber() = poseNumber
 	
 	method movementStyle() = movementStyle
 
@@ -94,11 +82,13 @@ class Entity {
 	
 	method jump(){
 		if(!isJumping){ 
-			self.movementSetup(10, "Jump", 9)
-			self.fluidMovement(up, 3)
+			self.movementSetup(0, 10, "Jump", 9)
+//			self.fluidMovement(up, 3)
+			self.moveTo(up)
 			isJumping = true
 			game.schedule(350, {
-				self.fluidMovement(down, 3)
+//				self.fluidMovement(down, 3)
+				self.moveTo(down)
 				isJumping = false
 			})
 		}
@@ -107,30 +97,45 @@ class Entity {
 	
 	method crouch(){
 		if(!isJumping){
-			self.movementSetup(30, "Crouch", 24)
+			self.movementSetup(0, 30, "Crouch", 24)
+			if(game.hasVisual(self.upperTarget())) self.removeUpperTarget()			
 			self.backToDynamicPose(1150)
 		}
 	}
 	
+	method removeUpperTarget(){
+		targets.remove(self.upperTarget())		
+		game.removeVisual(self.upperTarget())
+	}
+	
+	method addUpperTarget(){
+		game.addVisual(self.upperTarget())
+		targets.add(self.upperTarget())		
+	}
+		
 	method fluidMovement(dir, times){
 		self.moveTo(dir)
 		times.times({i => game.schedule(40, {self.moveTo(dir)})})
 	}
 	
-	method movementSetup(freq, movStyle, fLimit){
-		poseNumber = 0
+	method movementSetup(poseNum, freq, movStyle, fLimit){
+		poseNumber = poseNum
 		frequency = freq
 		movementStyle = movStyle
 		frameLimit = fLimit
 	}
 	
 	method backToDynamicPose(when){
-		game.schedule(when, {movementStyle = "DynamicPose"; frameLimit = 24; frequency = 40})
+		game.schedule(when, {
+			movementStyle = "DynamicPose"
+			frameLimit = 24
+			frequency = 40
+			if(!(game.hasVisual(self.upperTarget()))) game.addVisual(self.upperTarget())
+		})
+		
 	}
 	
 	// Class methods
-	
-	method canAttack() = canAttack
 	
 	method health() = health
 	
@@ -157,18 +162,15 @@ class Entity {
 	method damagePoints(dmgPoints){
 		damagePoints = dmgPoints
 	}
-//	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
-	method attack(strength) = new Attack(position = game.at(5,7), damagePoints = damagePoints, strength = strength)
+	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
 	
-	method throwAttack(attack){
-		if(canAttack){
-			canAttack = false
-			game.schedule(600, {canAttack = true})
-			attack.position(game.at(5,7))
-			attack.addVisuals()
-			game.onTick(10, "throw", {attack.position(attack.position().right(1)); attack.visual().movement()})
-		}
+	method throwAttack(attack, dir){
+		self.attackOrigin(attack)
+		game.addVisual(attack)
+		game.onTick(5, "throw", {attack.execute(dir)})
 	}
+	
+	method attackOrigin(attack)
 	
 	method takeDamage(damage){
 		health = (health - damage).max(0)
@@ -181,26 +183,44 @@ class Entity {
 
 class Enemy inherits Entity {
 	
+	const movements = [jumping, crouching, noMove]
+	const strengths = [1,2]
+//	const attacks = [new Attack(damagePoints = damagePoints, strength = 1), new Attack(damagePoints = damagePoints, strength = 2)]
+	
 	override method image() = "Enemy" + movementStyle + poseNumber.toString() + ".png"
 //	override method image() = "EnemyPose.png"
-	
-	method avoidAttack(attack) {
-		attack.avoid()
+
+	override method attackOrigin(attack){
+		attack.position(self.position().up(3))
 	}
+		
+	method attackPattern(){
+		self.randomMove()
+		self.throwAttack(self.attack(strengths.anyOne()), left)
+		game.schedule(300, {
+			self.randomMove()
+			self.throwAttack(self.attack(strengths.anyOne()), left)
+		})
+	}
+	
+	method randomMove() = movements.anyOne().move(self)
 	
 }
 
 object capybaraPlayer inherits Entity{
 		
-	var direction = right
-		
 	override method image() = "Capybara" + movementStyle + poseNumber.toString() + ".png"
+	
+	override method attackOrigin(attack){
+		attack.position(self.position().right(5).up(3))
+	}
 	
 	method walkTo(dir) {
 		if(!isJumping){
 //			self.movementSetup(10, "Steps_" + dir.toString() + "_", 9)
-			self.movementSetup(5, "Steps_" + dir.toString() + "_", 9)
-			self.fluidMovement(dir, 2)
+			self.movementSetup(0, 5, "Steps_" + dir.toString() + "_", 9)
+//			self.fluidMovement(dir, 2)
+			self.moveTo(dir)
 			self.backToDynamicPose(400)
 		}
 	}
