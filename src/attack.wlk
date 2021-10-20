@@ -33,32 +33,3 @@ class Attack {
 		}
 	}
 }
-//import wollok.game.*
-//
-//class Attack {
-//	var damagePoints = null
-//	var strength = null
-//	var position = game.at(10,10)
-//	var frameNumber = 0
-////	var frameNumber = 0
-//
-//	method giveDamage(anEntity){
-//		anEntity.takeDamage(damagePoints * strength)
-//	}
-//	
-//	method position() = position
-//	
-//	method position(aPosition){
-//		position = aPosition
-//	}
-//	
-//	method image() = "CapybaraFireball" + frameNumber.toString() + ".png"
-//	
-//	method movement() {
-//		frameNumber ++
-//		if(frameNumber == 4){
-//			frameNumber = 0
-//		}
-//	}
-//	
-//}

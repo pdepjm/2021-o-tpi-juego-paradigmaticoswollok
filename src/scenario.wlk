@@ -1,41 +1,43 @@
 import wollok.game.*
 import entities.*
 import attack.*
+import items.*
 
 object juego {
 	
 	const enemies = #{}
 	
-//	var items = #{}
-//	
-//	method addItem(item){
-//		items.add(item)
-//	}
-//	
-//	method appearHeart() {
-//		const x = (0..game.width()-1).anyOne()
-//		const y = (0..game.height()-1).anyOne()
-//		game.addVisual( 
-//			new Heart(
+// ----------------------------------------------------------------------------------------	
+
+	const items = #{}
+	
+	method addItem(item){
+		items.add(item)
+	}
+	
+	method appearHeart() {
+		const x = (10..26).anyOne()
+//		const y = (4..7).anyOne()
+		game.addVisual(new Heart(
 //				healthValue = [25,50,100].anyOne(),
 //				position = game.at(x,y)
-//			)
-//		)
-//	}	
-//	method appearEnergyDrink() {
-//		const x = (0..game.width()-1).anyOne()
-//		const y = (0..game.height()-1).anyOne()
-//		game.addVisual( 
-//			new EnergyDrink(
+				position = game.at(x,6)
+			)
+		)
+	}	
+	method appearMatienzo() {
+		const x = (10..26).anyOne()
+//		const y = (4..7).anyOne()
+		game.addVisual( 
+			new Matienzo(
 //				damageValue = [10,20,30].anyOne(),
 //				position = game.at(x,y)
-//			)
-//		)
-//	}
-//	
-//	method collideWith(){
-//		game.onCollideDo(capybaraPlayer,{item => capybaraPlayer.recollect(item)} )
-//	}
+				position = game.at(x,6)
+			)
+		)
+	}
+		
+// ----------------------------------------------------------------------------------------	
 	
 	method addEnemy(enemy){
 		enemies.add(enemy)
@@ -43,7 +45,6 @@ object juego {
 	
 	method currentEnemy() = enemies.find({enemy => game.hasVisual(enemy)})
 	
-//	method win() = enemies.all({enemy => enemy.isDead()})
 	method win() = self.currentEnemy().isDead()
 	method lose() = capybaraPlayer.isDead()
 	

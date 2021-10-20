@@ -4,6 +4,7 @@ import entities.*
 import attack.*
 import scenario.*
 import directions.*
+import items.*
 
 program game {
 
@@ -24,9 +25,14 @@ program game {
 	general.setupEntity(easyEnemy, game.at(27,4), 40, "DynamicPose", 24)
 	general.setupEntity(capybaraPlayer, game.at(0,4), 40, "DynamicPose", 24)
 	general.keyAssigments()
-	general.movement(capybaraPlayer)
-	general.movement(easyEnemy)
+	general.characterAnimation(capybaraPlayer)
+	general.characterAnimation(easyEnemy)
 	game.onTick(3500, "enemyAttack", {easyEnemy.attackPattern()})
+	game.addVisual(itemTarget)
+	capybaraPlayer.itemRecollection()
+	
+//	juego.appearHeart()
+	juego.appearMatienzo()
 	
 	game.start()
 }

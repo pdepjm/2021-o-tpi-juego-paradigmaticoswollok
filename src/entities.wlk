@@ -4,6 +4,7 @@ import attack.*
 import scenario.*
 import movements.*
 import targets.*
+import items.*
 
 class Entity {
 	
@@ -142,16 +143,6 @@ class Entity {
 		health = hp
 	}
 	
-//	method recollect(item) { 
-//		health += item.healthValue()
-//		damagePoints += item.damageValue()
-//		game.removeVisual(item)
-//	}
-//	
-//	method collide() {
-//		game.onCollideDo(self,{item => self.recollect(item)} )
-//	}
-	
 	method mainAttack() = mainAttack
 	
 	method specialAttack() = specialAttack
@@ -211,11 +202,32 @@ class Enemy inherits Entity {
 }
 
 object capybaraPlayer inherits Entity{
+	
+	const maxHealth = 200
 		
 	override method image() = "Capybara" + movementStyle + poseNumber.toString() + ".png"
 	
 	override method attackOrigin(attack){
 		attack.position(self.position().right(5).up(3))
+	}
+	
+	method recollect(item) { 
+		item.givePoints(self)
+//		health += item.healthPoints()
+//		damagePoints += item.damagePoints()
+		game.removeVisual(item)
+	}
+	
+	method itemRecollection() {
+		game.onCollideDo(itemTarget, {item => self.recollect(item)} )
+	}
+	
+	method giveDamagePoints(n) {
+		damagePoints += n
+	}
+	
+	method giveHealth(n) {
+		health = (health + n).min(maxHealth)
 	}
 	
 	method walkTo(dir) {

@@ -4,6 +4,7 @@ import directions.*
 import scenario.*
 import attack.*
 import targets.*
+import items.*
 
 object general {
 	
@@ -29,7 +30,7 @@ object general {
 		
 		entity.upperTarget(upperTarget)
 		
-		targets.forEach({target => self.hit(target, entity)})	
+		targets.forEach({target => self.hit(target, entity)})
 	}
 	
 	method hit(target, entity){
@@ -46,8 +47,8 @@ object general {
 		keyboard.up().onPressDo({capybaraPlayer.jump()})		
 		keyboard.down().onPressDo({capybaraPlayer.crouch()})
 		
-		keyboard.s().onPressDo({capybaraPlayer.throwAttack(new Attack(damagePoints = 15, strength = 1), right)})
-		keyboard.d().onPressDo({capybaraPlayer.throwAttack(new Attack(damagePoints = 15, strength = 3), right)})
+		keyboard.s().onPressDo({capybaraPlayer.throwAttack(new Attack(damagePoints = capybaraPlayer.damagePoints(), strength = 1), right)})
+		keyboard.d().onPressDo({capybaraPlayer.throwAttack(new Attack(damagePoints = capybaraPlayer.damagePoints(), strength = 3), right)})
 //		keyboard.s().onPressDo({capybaraPlayer.throwAttack(capybaraPlayer.mainAttack())})
 //		keyboard.d().onPressDo({capybaraPlayer.throwAttack(capybaraPlayer.specialAttack())})
 		
@@ -59,7 +60,7 @@ object general {
 //		keyboard.space().onPressDo({capybaraPlayer.giveDamage()})
 	}
 	
-	method movement(entity) {
+	method characterAnimation(entity) {
 		game.onTick(entity.frequency(), "movement",{ entity.movement(entity.movementStyle(), entity.frameLimit()) })
 	}
 	
