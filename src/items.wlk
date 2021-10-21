@@ -13,6 +13,21 @@ class Item {
 		position = aPosition
 	}
 	
+	method hit(entity) {
+		entity.collidedWithItem(self)
+//		entity.giveHealth(self.healthPoints())
+//		game.removeVisual(self)
+	}
+	
+	method realHit(entity) {
+		entity.giveHealth(self.healthPoints())
+		self.remove()
+	}
+	
+	method remove() {
+		game.removeVisual(self)
+	}
+	
 //	method newHealth(quantity){ 
 //		healthPoints += quantity
 //	}
@@ -24,10 +39,6 @@ class Heart inherits Item {
 //	var position = game.center()
 	method image() = "Heart.png"
 	
-	method givePoints(entity) {
-		entity.giveHealth(self.healthPoints())
-	}
-	
 } 
 
 class Matienzo inherits Item {
@@ -37,19 +48,19 @@ class Matienzo inherits Item {
 	
 	method image() = "Matienzo.png"
 	
-	method givePoints(entity) {
-		entity.giveHealth(self.healthPoints())
+	override method realHit(entity) {
 		entity.giveDamagePoints(self.damagePoints())
+		super(entity)
 	}
 	
 } 
 
-object itemTarget {
-	
-	var position = self.position()
-	
-	method position() = capybaraPlayer.position().right(4).up(2)
-	
-//	method image() = "guideCell.png"
-	
-}
+//object itemTarget {
+//	
+//	var position = self.position()
+//	
+//	method position() = capybaraPlayer.position().right(4).up(2)
+//	
+////	method image() = "guideCell.png"
+//	
+//}

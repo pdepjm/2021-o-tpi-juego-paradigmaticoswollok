@@ -34,10 +34,10 @@ object general {
 	}
 	
 	method hit(target, entity){
-		game.onCollideDo(target, {attack => 
-			attack.giveDamage(entity)
-			game.removeTickEvent("throw")
-			game.removeVisual(attack)
+		game.onCollideDo(target, {something => 
+			something.hit(entity)
+//			game.removeTickEvent("throw")
+//			game.removeVisual(attack)
 		})
 	}	
 	

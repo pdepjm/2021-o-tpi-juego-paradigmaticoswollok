@@ -28,8 +28,7 @@ program game {
 	general.characterAnimation(capybaraPlayer)
 	general.characterAnimation(easyEnemy)
 	game.onTick(3500, "enemyAttack", {easyEnemy.attackPattern()})
-	game.addVisual(itemTarget)
-	capybaraPlayer.itemRecollection()
+	capybaraPlayer.setupItemRecollection()
 	
 //	juego.appearHeart()
 	juego.appearMatienzo()

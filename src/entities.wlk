@@ -158,8 +158,9 @@ class Entity {
 		if(canAttack){
 			canAttack = false
 			self.attackOrigin(attack)
-			game.addVisual(attack)
-			game.onTick(10, "throw", {attack.execute(dir)})
+			attack.thr0w(dir)
+//			game.addVisual(attack)
+//			game.onTick(10, "throw", {attack.execute(dir)})
 			game.schedule(500, {canAttack = true})
 		}
 	}
@@ -197,6 +198,10 @@ class Enemy inherits Entity {
 		})
 	}
 	
+	method collidedWithItem(item) {
+		// Un enemigo debe entender el mensaje pero no verse afectado
+	}
+	
 	method randomMove() = movements.anyOne().move(self)
 	
 }
@@ -215,11 +220,14 @@ object capybaraPlayer inherits Entity{
 		item.givePoints(self)
 //		health += item.healthPoints()
 //		damagePoints += item.damagePoints()
-		game.removeVisual(item)
 	}
 	
-	method itemRecollection() {
-		game.onCollideDo(itemTarget, {item => self.recollect(item)} )
+	method collidedWithItem(item) {
+		item.realHit(self)
+	}
+	
+	method setupItemRecollection() {
+//		game.onCollideDo(itemTarget, {item => self.recollect(item)} )
 	}
 	
 	method giveDamagePoints(n) {

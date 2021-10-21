@@ -18,21 +18,23 @@ object juego {
 	method appearHeart() {
 		const x = (10..26).anyOne()
 //		const y = (4..7).anyOne()
+		const y = [5,7,10].anyOne()
 		game.addVisual(new Heart(
 //				healthValue = [25,50,100].anyOne(),
 //				position = game.at(x,y)
-				position = game.at(x,6)
+				position = game.at(x,y)
 			)
 		)
 	}	
 	method appearMatienzo() {
-		const x = (10..26).anyOne()
+		const x = (15..21).anyOne()
 //		const y = (4..7).anyOne()
+		const y = [5,7,10].anyOne()
 		game.addVisual( 
 			new Matienzo(
 //				damageValue = [10,20,30].anyOne(),
 //				position = game.at(x,y)
-				position = game.at(x,6)
+				position = game.at(x,y)
 			)
 		)
 	}
