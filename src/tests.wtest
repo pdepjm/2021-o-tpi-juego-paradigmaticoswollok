@@ -40,28 +40,36 @@
 //
 //
 //
+
 ////describe "Items " {
-////	
+////		
 ////	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
 ////	var easyEnemy = easyEnemyFactory.createEnemy()
-////	var heart =  new Heart(healthValue = 25 )
-////	var energyDrink = new EnergyDrink(damageValue = 20)
+////	var heart =  new Heart(healthPoints = 50 )
+////	var mate = new Matienzo (healthPoints = 100 damagePoints = 50)
 ////	
 ////	method initialize(){
 ////		juego.appearHeart()
-////		juego.appearEnergyDrink()
+////		juego.appearMatienzo()
 ////	}
 ////		
-////	test "capybaraPlayer agarra heart cuando recibe ataques  de enemy " {
-////		easyEnemy.mainAttack().execute(capybaraPlayer)
-////		easyEnemy.specialAttack().execute(capybaraPlayer)
-////		capybaraPlayer.recollect(heart)
-////		assert.equals(195, capybaraPlayer.health())
+////	test "capybaraPlayer agarra heart cuando recibe ataques  de un enemy " {
+////		easyEnemy.mainAttack().hit(capybaraPlayer)
+////		easyEnemy.specialAttack().hit(capybaraPlayer)
+////		capybaraPlayer.collideWithItem(heart)
+////		assert.equals(190, capybaraPlayer.health())
 ////	}
 ////
-////	test "capybaraPlayer agarra energyDrink " {
-////		capybaraPlayer.recollect(energyDrink)
-////		assert.equals(35, capybaraPlayer.damagePoints())
+////	test "capybaraPlayer agarra Matienzo y aumenta su vida cuando recibe atques de un enemy {
+////		easyEnemy.specialAttack().hit(capybaraPlayer)
+////		easyEnemy.specialAttack().hit(capybaraPlayer)
+////		capybaraPlayer.colllideWithItem(mate)
+////		assert.equals(200, capybaraPlayer.health())
 ////	}
-////
+////	test "capybaraPlayer agarra Matienzo y aumenta su danio  {
+////		capybaraPlayer.collideWithItem(mate)
+////		assert.equals(65, capybaraPlayer.damagePoints())
+////		capybaraPlayer.mainAttack().hit(easyEnemy)	
+////		assert.equals(70, easyEnemy.healthpoints())				
+////	}
 ////}
