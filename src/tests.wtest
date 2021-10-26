@@ -49,8 +49,7 @@
 ////	var mate = new Matienzo (healthPoints = 100 damagePoints = 50)
 ////	
 ////	method initialize(){
-////		juego.appearHeart()
-////		juego.appearMatienzo()
+////		juego.appearRandomItem()
 ////	}
 ////		
 ////	test "capybaraPlayer agarra heart cuando recibe ataques  de un enemy " {
