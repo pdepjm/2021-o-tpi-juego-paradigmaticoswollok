@@ -12,6 +12,6 @@ object crouching{
 
 object noMove{
 	
-	method move(entity) = entity.movementSetup(entity.poseNumber(), 40, "DynamicPose", 24)
+	method move(entity) = entity.animationSetup(entity.poseNumber(), 40, "DynamicPose", 24)
 	
 }

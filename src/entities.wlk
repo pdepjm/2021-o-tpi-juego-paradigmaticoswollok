@@ -83,7 +83,7 @@ class Entity {
 	
 	method jump(){
 		if(!isJumping){ 
-			self.movementSetup(0, 10, "Jump", 9)
+			self.animationSetup(0, 10, "Jump", 9)
 //			self.fluidMovement(up, 3)
 			self.moveTo(up)
 			isJumping = true
@@ -98,14 +98,19 @@ class Entity {
 	
 	method crouch(){
 		if(!isJumping){
-			self.movementSetup(0, 30, "Crouch", 24)
-			if(game.hasVisual(self.upperTarget())) self.removeUpperTarget()			
+			self.animationSetup(0, 30, "Crouch", 24)
+			if(game.hasVisual(self.upperTarget())) self.removeUpperTarget()	
 			self.backToDynamicPose(1150)
 		}
 	}
 	
+	method explode() {
+		
+	}
+	
 	method removeUpperTarget(){
 		game.removeVisual(self.upperTarget())
+		targets.remove(upperTarget)
 	}
 	
 	method addUpperTarget(){
@@ -118,7 +123,7 @@ class Entity {
 		times.times({i => game.schedule(40, {self.moveTo(dir)})})
 	}
 	
-	method movementSetup(poseNum, freq, movStyle, fLimit){
+	method animationSetup(poseNum, freq, movStyle, fLimit){
 		poseNumber = poseNum
 		frequency = freq
 		movementStyle = movStyle
@@ -130,7 +135,10 @@ class Entity {
 			movementStyle = "DynamicPose"
 			frameLimit = 24
 			frequency = 40
-			if(!(game.hasVisual(self.upperTarget()))) game.addVisual(self.upperTarget())
+			if(!(game.hasVisual(self.upperTarget()))) {
+				game.addVisual(self.upperTarget())
+				targets.add(upperTarget)
+			}
 		})
 		
 	}
@@ -159,8 +167,6 @@ class Entity {
 			canAttack = false
 			self.attackOrigin(attack)
 			attack.thr0w(dir)
-//			game.addVisual(attack)
-//			game.onTick(10, "throw", {attack.execute(dir)})
 			game.schedule(500, {canAttack = true})
 		}
 	}
@@ -218,17 +224,15 @@ object capybaraPlayer inherits Entity{
 	
 	method recollect(item) { 
 		item.givePoints(self)
-//		health += item.healthPoints()
-//		damagePoints += item.damagePoints()
 	}
 	
 	method collidedWithItem(item) {
 		item.realHit(self)
 	}
 	
-	method setupItemRecollection() {
-//		game.onCollideDo(itemTarget, {item => self.recollect(item)} )
-	}
+//	method setupItemRecollection() {
+////		game.onCollideDo(itemTarget, {item => self.recollect(item)} )
+//	}
 	
 	method giveDamagePoints(n) {
 		damagePoints += n
@@ -240,10 +244,8 @@ object capybaraPlayer inherits Entity{
 	
 	method walkTo(dir) {
 		if(!isJumping){
-//			self.movementSetup(10, "Steps_" + dir.toString() + "_", 9)
-			self.movementSetup(0, 5, "Steps_" + dir.toString() + "_", 9)
+			self.animationSetup(0, 5, "Steps_" + dir.toString() + "_", 9)
 			self.fluidMovement(dir, 2)
-//			self.moveTo(dir)
 			self.backToDynamicPose(400)
 		}
 	}

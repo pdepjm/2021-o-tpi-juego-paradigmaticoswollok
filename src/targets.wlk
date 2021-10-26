@@ -10,6 +10,10 @@ class Target {
 	
 	method position()
 	
+	method explode() {
+		
+	}
+	
 //	method image() = "guideCell.png"
 		
 }

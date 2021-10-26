@@ -9,34 +9,21 @@ object juego {
 	
 // ----------------------------------------------------------------------------------------	
 
-	const items = #{}
+	const x = (10..26).anyOne()
+	const y = [5,7,8,10,13].anyOne()
+
+	const items = [new Heart(position = game.at(x,y)), new Matienzo(position = game.at(x,y))]
 	
-	method addItem(item){
-		items.add(item)
-	}
+//	method addItem(item){
+//		items.add(item)
+//	}
 	
-	method appearHeart() {
-		const x = (10..26).anyOne()
-//		const y = (4..7).anyOne()
-		const y = [5,7,10].anyOne()
-		game.addVisual(new Heart(
-//				healthValue = [25,50,100].anyOne(),
-//				position = game.at(x,y)
-				position = game.at(x,y)
-			)
-		)
-	}	
-	method appearMatienzo() {
-		const x = (15..21).anyOne()
-//		const y = (4..7).anyOne()
-		const y = [5,7,10].anyOne()
-		game.addVisual( 
-			new Matienzo(
-//				damageValue = [10,20,30].anyOne(),
-//				position = game.at(x,y)
-				position = game.at(x,y)
-			)
-		)
+	method appearRandomItem() {
+		const item = items.anyOne()
+		game.addVisual(item)
+		game.schedule(20000, {
+			if(game.hasVisual(item)) game.removeVisual(item)
+		})
 	}
 		
 // ----------------------------------------------------------------------------------------	

@@ -12,6 +12,10 @@ object general {
 		game.boardGround("background.png")
 	}
 	
+	method appearItems() {
+		game.onTick(45000, "Appear random item", {juego.appearRandomItem()})
+	}
+	
 	method setupEntity(entity, position, freq, movStyle, fLimit){
 		entity.position(position)
 		
@@ -20,7 +24,7 @@ object general {
 		const upperTarget = new UpperTarget(entity = entity)
 		const targets = #{bottomTarget, middleTarget, upperTarget}
 		
-		entity.movementSetup(0, freq, movStyle, fLimit)
+		entity.animationSetup(0, freq, movStyle, fLimit)
 		
 		game.addVisual(entity)
 		
@@ -36,8 +40,6 @@ object general {
 	method hit(target, entity){
 		game.onCollideDo(target, {something => 
 			something.hit(entity)
-//			game.removeTickEvent("throw")
-//			game.removeVisual(attack)
 		})
 	}	
 	
@@ -49,8 +51,6 @@ object general {
 		
 		keyboard.s().onPressDo({capybaraPlayer.throwAttack(new Attack(damagePoints = capybaraPlayer.damagePoints(), strength = 1), right)})
 		keyboard.d().onPressDo({capybaraPlayer.throwAttack(new Attack(damagePoints = capybaraPlayer.damagePoints(), strength = 3), right)})
-//		keyboard.s().onPressDo({capybaraPlayer.throwAttack(capybaraPlayer.mainAttack())})
-//		keyboard.d().onPressDo({capybaraPlayer.throwAttack(capybaraPlayer.specialAttack())})
 		
 		keyboard.z().onPressDo({juego.currentEnemy().mainAttack().giveDamage(capybaraPlayer)})
 		keyboard.x().onPressDo({juego.currentEnemy().specialAttack().giveDamage(capybaraPlayer)})

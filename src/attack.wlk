@@ -8,9 +8,10 @@ class Attack {
 	var damagePoints = null
 	var strength = null
 	var eventName = "throw" + 1.randomUpTo(9).toString()
+	var status = "attack"
 	
 //	method image() = "guideCell.png"
-	method image() = "attack.png"
+	method image() = status + ".png"
 	
 	method position() = position
 	
@@ -18,21 +19,31 @@ class Attack {
 		position = aPosition
 	}
 		
-	method hit(anEntity){
+	method hit(anEntity) {
 		anEntity.takeDamage(damagePoints * strength)
+		self.explode()
+	}
+	
+	method clash() {
+		game.onCollideDo(self, {anotherAttack => anotherAttack.explode()})
+	}
+	
+	method explode() {
+		status = "explosion"
 		self.remove()
 	}
 	
 	method thr0w (dir) {
 		game.addVisual(self)
 		game.onTick(10, self.eventName(), {self.execute(dir)})
+		self.clash()
 	}
 	
 	method eventName() = eventName
 	
 	method remove() {
 		game.removeTickEvent(self.eventName())
-		game.removeVisual(self)
+		game.schedule(100, {game.removeVisual(self)})
 	}
 	
 	method execute(dir){
@@ -41,8 +52,9 @@ class Attack {
 	}
 	
 	method outOfBounds(){
-		if(position.x() == 1 || position.x() == game.width()){
+		if(position.x() == game.origin().x() || position.x() == game.width()){
 			self.remove()
 		}
 	}
+	
 }
