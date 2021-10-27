@@ -13,7 +13,8 @@ object general {
 	}
 	
 	method appearItems() {
-		game.onTick(45000, "Appear random item", {juego.appearRandomItem()})
+//		game.onTick(45000, "Appear random item", {juego.appearRandomItem()})
+		game.onTick(21000, "Appear random item", {juego.appearRandomItem()})
 	}
 	
 	method setupEntity(entity, position, freq, movStyle, fLimit){

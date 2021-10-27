@@ -10,7 +10,8 @@ object juego {
 // ----------------------------------------------------------------------------------------	
 
 	const x = (10..26).anyOne()
-	const y = [5,7,8,10,13].anyOne()
+//	const y = [5,7,8,10,13].anyOne()
+	const y = 7
 
 	const items = [new Heart(position = game.at(x,y)), new Matienzo(position = game.at(x,y))]
 	

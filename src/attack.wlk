@@ -25,7 +25,10 @@ class Attack {
 	}
 	
 	method clash() {
-		game.onCollideDo(self, {anotherAttack => anotherAttack.explode()})
+		game.onCollideDo(self, {item => 
+			item.explode()
+//			self.explode()
+		})
 	}
 	
 	method explode() {
@@ -44,6 +47,7 @@ class Attack {
 	method remove() {
 		game.removeTickEvent(self.eventName())
 		game.schedule(100, {game.removeVisual(self)})
+//		game.removeVisual(self)
 	}
 	
 	method execute(dir){

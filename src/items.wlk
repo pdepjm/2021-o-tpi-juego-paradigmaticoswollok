@@ -13,6 +13,10 @@ class Item {
 		position = aPosition
 	}
 	
+	method explode() {
+		game.removeVisual(self)
+	}
+	
 	method hit(entity) {
 		entity.collidedWithItem(self)
 //		entity.giveHealth(self.healthPoints())
