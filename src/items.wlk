@@ -24,6 +24,7 @@ class Item {
 	}
 	
 	method realHit(entity) {
+		game.sound("item.wav").play()
 		entity.giveHealth(self.healthPoints())
 		self.remove()
 	}

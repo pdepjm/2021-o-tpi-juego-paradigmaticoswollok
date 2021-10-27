@@ -56,7 +56,7 @@ object general {
 		keyboard.z().onPressDo({juego.currentEnemy().mainAttack().giveDamage(capybaraPlayer)})
 		keyboard.x().onPressDo({juego.currentEnemy().specialAttack().giveDamage(capybaraPlayer)})
 		
-		keyboard.i().onPressDo({game.say(capybaraPlayer, game.allVisuals().toString())})
+		keyboard.i().onPressDo({juego.appearRandomItem()})
 
 //		keyboard.space().onPressDo({capybaraPlayer.giveDamage()})
 	}

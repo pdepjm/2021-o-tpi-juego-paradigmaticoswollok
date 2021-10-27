@@ -20,12 +20,14 @@ class Attack {
 	}
 		
 	method hit(anEntity) {
+		game.sound("attackHit.wav").play()
+		game.sound("damage.wav").play()
 		anEntity.takeDamage(damagePoints * strength)
 		self.explode()
 	}
 	
 	method clash() {
-		game.onCollideDo(self, {item => 
+		game.onCollideDo(self, {item =>
 			item.explode()
 //			self.explode()
 		})

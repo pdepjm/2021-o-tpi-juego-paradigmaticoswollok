@@ -82,7 +82,8 @@ class Entity {
 	}
 	
 	method jump(){
-		if(!isJumping){ 
+		if(!isJumping){
+			game.sound("jumpStart.wav").play()
 			self.animationSetup(0, 10, "Jump", 9)
 //			self.fluidMovement(up, 3)
 			self.moveTo(up)
@@ -91,6 +92,7 @@ class Entity {
 //				self.fluidMovement(down, 3)
 				self.moveTo(down)
 				isJumping = false
+				game.sound("jumpEnd.wav").play()
 			})
 		}
 		self.backToDynamicPose(430)
@@ -98,6 +100,7 @@ class Entity {
 	
 	method crouch(){
 		if(!isJumping){
+			game.sound("crouch.wav").play()
 			self.animationSetup(0, 30, "Crouch", 24)
 			if(game.hasVisual(self.upperTarget())) self.removeUpperTarget()	
 			self.backToDynamicPose(1150)
@@ -164,6 +167,7 @@ class Entity {
 	
 	method throwAttack(attack, dir){
 		if(canAttack){
+			game.sound("attack.wav").play()
 			canAttack = false
 			self.attackOrigin(attack)
 			attack.thr0w(dir)
@@ -222,7 +226,7 @@ object capybaraPlayer inherits Entity{
 		attack.position(self.position().right(5).up(3))
 	}
 	
-	method recollect(item) { 
+	method recollect(item) {
 		item.givePoints(self)
 	}
 	
@@ -244,6 +248,7 @@ object capybaraPlayer inherits Entity{
 	
 	method walkTo(dir) {
 		if(!isJumping){
+			game.sound("footsteps.wav").play()
 			self.animationSetup(0, 5, "Steps_" + dir.toString() + "_", 9)
 			self.fluidMovement(dir, 2)
 			self.backToDynamicPose(400)
