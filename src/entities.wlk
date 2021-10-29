@@ -5,6 +5,7 @@ import scenario.*
 import movements.*
 import targets.*
 import items.*
+import sounds.*
 
 class Entity {
 	
@@ -23,7 +24,7 @@ class Entity {
 	var cycleRepeat = 0 // Al llegar al último fotograma del movimiento, se suma un ciclo
 	var poseNumber = 0 // Número de fotograma actual
 	var targets = #{}
-	var upperTarget = null
+	var property upperTarget = null
 	
 	method image()
 	
@@ -31,11 +32,11 @@ class Entity {
 	
 	method targets() = targets
 	
-	method upperTarget() = upperTarget
-	
-	method upperTarget(target){
-		upperTarget = target
-	}
+//	method upperTarget() = upperTarget
+//	
+//	method upperTarget(target){
+//		upperTarget = target
+//	}
 	
 	method addTargets(targetCollection){
 		targets += targetCollection
@@ -83,7 +84,7 @@ class Entity {
 	
 	method jump(){
 		if(!isJumping){
-			game.sound("jumpStart.wav").play()
+			soundProducer.sound("jumpStart.wav").play()
 			self.animationSetup(0, 10, "Jump", 9)
 //			self.fluidMovement(up, 3)
 			self.moveTo(up)
@@ -92,7 +93,7 @@ class Entity {
 //				self.fluidMovement(down, 3)
 				self.moveTo(down)
 				isJumping = false
-				game.sound("jumpEnd.wav").play()
+				soundProducer.sound("jumpEnd.wav").play()
 			})
 		}
 		self.backToDynamicPose(430)
@@ -100,7 +101,7 @@ class Entity {
 	
 	method crouch(){
 		if(!isJumping){
-			game.sound("crouch.wav").play()
+			soundProducer.sound("crouch.wav").play()
 			self.animationSetup(0, 30, "Crouch", 24)
 			if(game.hasVisual(self.upperTarget())) self.removeUpperTarget()	
 			self.backToDynamicPose(1150)
@@ -167,21 +168,21 @@ class Entity {
 	
 	method throwAttack(attack, dir){
 		if(canAttack){
-			game.sound("attack.wav").play()
+			soundProducer.sound("attack.wav").play()
 			canAttack = false
 			self.attackOrigin(attack)
 			attack.thr0w(dir)
 			game.schedule(500, {canAttack = true})
 		}
 	}
-	
+
 	method attackOrigin(attack)
-	
+
 	method takeDamage(damage){
 		health = (health - damage).max(0)
 		if(self.isDead()) juego.endGame()
 	}
-	
+
 	method isDead() = health == 0
 	
 }
@@ -226,9 +227,9 @@ object capybaraPlayer inherits Entity{
 		attack.position(self.position().right(5).up(3))
 	}
 	
-	method recollect(item) {
-		item.givePoints(self)
-	}
+//	method recollect(item) {
+//		item.givePoints(self)
+//	}
 	
 	method collidedWithItem(item) {
 		item.realHit(self)
@@ -248,7 +249,7 @@ object capybaraPlayer inherits Entity{
 	
 	method walkTo(dir) {
 		if(!isJumping){
-			game.sound("footsteps.wav").play()
+			soundProducer.sound("footsteps.wav").play()
 			self.animationSetup(0, 5, "Steps_" + dir.toString() + "_", 9)
 			self.fluidMovement(dir, 2)
 			self.backToDynamicPose(400)

@@ -1,10 +1,10 @@
 import wollok.game.*
 import entities.*
 import targets.*
+import sounds.*
 
 class Item { 
 	
-	var property healthPoints = 100
 	var position = game.center()
 	
 	method position() = position
@@ -19,53 +19,42 @@ class Item {
 	
 	method hit(entity) {
 		entity.collidedWithItem(self)
-//		entity.giveHealth(self.healthPoints())
-//		game.removeVisual(self)
 	}
 	
 	method realHit(entity) {
-		game.sound("item.wav").play()
-		entity.giveHealth(self.healthPoints())
+		soundProducer.sound("item.wav").play()
+		self.giveEffect(entity)
 		self.remove()
 	}
+	
+	method giveEffect(entity)
 	
 	method remove() {
 		game.removeVisual(self)
 	}
 	
-//	method newHealth(quantity){ 
-//		healthPoints += quantity
-//	}
-
 } 
 
 class Heart inherits Item {
 	
-//	var position = game.center()
+	var property healthPoints = 100
+	
 	method image() = "Heart.png"
+	
+	override method giveEffect(entity) {
+		entity.giveHealth(self.healthPoints())
+	}
 	
 } 
 
 class Matienzo inherits Item {
 	
-//	var position = game.center()
 	var property damagePoints = 100
 	
 	method image() = "Matienzo.png"
 	
-	override method realHit(entity) {
+	override method giveEffect(entity) {
 		entity.giveDamagePoints(self.damagePoints())
-		super(entity)
 	}
 	
-} 
-
-//object itemTarget {
-//	
-//	var position = self.position()
-//	
-//	method position() = capybaraPlayer.position().right(4).up(2)
-//	
-////	method image() = "guideCell.png"
-//	
-//}
+}

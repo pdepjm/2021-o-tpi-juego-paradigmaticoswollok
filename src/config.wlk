@@ -39,9 +39,7 @@ object general {
 	}
 	
 	method hit(target, entity){
-		game.onCollideDo(target, {something => 
-			something.hit(entity)
-		})
+		game.onCollideDo(target, {something => something.hit(entity)})
 	}	
 	
 	method keyAssigments() {
@@ -53,8 +51,8 @@ object general {
 		keyboard.s().onPressDo({capybaraPlayer.throwAttack(new Attack(damagePoints = capybaraPlayer.damagePoints(), strength = 1), right)})
 		keyboard.d().onPressDo({capybaraPlayer.throwAttack(new Attack(damagePoints = capybaraPlayer.damagePoints(), strength = 3), right)})
 		
-		keyboard.z().onPressDo({juego.currentEnemy().mainAttack().giveDamage(capybaraPlayer)})
-		keyboard.x().onPressDo({juego.currentEnemy().specialAttack().giveDamage(capybaraPlayer)})
+//		keyboard.z().onPressDo({juego.currentEnemy().mainAttack().giveDamage(capybaraPlayer)})
+//		keyboard.x().onPressDo({juego.currentEnemy().specialAttack().giveDamage(capybaraPlayer)})
 		
 		keyboard.i().onPressDo({juego.appearRandomItem()})
 

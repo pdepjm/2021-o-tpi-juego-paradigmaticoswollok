@@ -1,95 +1,111 @@
-//import entities.*
-//import attack.*
-//import scenario.*
-//import directions.*
-//import items.*
-//import config.*
-//import movements.*
-//import positions.*
-//import targets.* 
+import entities.*
+import attack.*
+import scenario.*
+import directions.*
+import items.*
+import config.*
+import movements.*
+import targets.* 
+import sounds.*
+import wollok.game.*
 
-//describe "Ataques y Movimientos de personaje" {
+describe "Ataques y Movimientos de personaje" {
 	
-//	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
-//	var easyEnemy = easyEnemyFactory.createEnemy()
+	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
+	var easyEnemy = easyEnemyFactory.createEnemy()
 	
-//	const enemy = new Enemy(health = 150, mainAttack = new Attack(damagePoints = 25, strength = 1), specialAttack = new Attack(damagePoints = 50, strength = 2))
+	method initialize() {
+		capybaraPlayer.position(game.at(0,4))
+		easyEnemy.position(game.at(27,4))
+		
+		const playerUpperTarget = new UpperTarget(entity = capybaraPlayer)
+		const playerMiddleTarget = new MiddleTarget(entity = capybaraPlayer)
+		
+		const enemyUpperTarget = new UpperTarget(entity = easyEnemy)
+		const enemyMiddleTarget = new MiddleTarget(entity = easyEnemy)
+		
+		const playerTargets = #{playerUpperTarget, playerMiddleTarget}
+		const enemyTargets = #{enemyUpperTarget, enemyMiddleTarget}
+		
+		capybaraPlayer.upperTarget(playerUpperTarget)
+		easyEnemy.upperTarget(enemyUpperTarget)
+		
+		playerTargets.forEach({target =>
+			game.addVisual(target)
+			general.hit(target, capybaraPlayer)
+		})
+		
+		enemyTargets.forEach({target =>
+			game.addVisual(target)
+			general.hit(target, easyEnemy)
+		})
+		
+		soundProducer.provider(soundProviderMock)
+	}
 	
-//	test "Cuando capybaraPlayer ataca con mainAttack a un enemigo, le quita 15 puntos de vida" {
-//		capybaraPlayer.mainAttack().hit(easyEnemy)
-//		capybaraPlayer.mainAttack().execute(easyEnemy)
-//		assert.equals(135, easyEnemy.health())
+	test "Un enemigo recibe un mainAttack del jugador" {
+		capybaraPlayer.mainAttack().giveDamage(easyEnemy)
+		assert.equals(135, easyEnemy.health())
+	}
+
+	test "El jugador recibe un mainAttack de un enemigo" {
+		easyEnemy.mainAttack().giveDamage(capybaraPlayer)
+		assert.equals(190, capybaraPlayer.health())
+	}
+
+	test "Un enemigo recibe un specialAttack del jugador" {
+		capybaraPlayer.specialAttack().giveDamage(easyEnemy)
+		assert.equals(105, easyEnemy.health())
+	}
+	
+	test "El jugador recibe un specialAttack de un enemigo" {
+		easyEnemy.specialAttack().giveDamage(capybaraPlayer)
+		assert.equals(170, capybaraPlayer.health())
+	}
+	
+//	test "El jugador salta y esquiva un ataque" {
+//		easyEnemy.throwAttack(easyEnemy.mainAttack(), left)
+//		capybaraPlayer.jump()
+//		assert.equals(200, capybaraPlayer.health())
 //	}
+	
+	test "El jugador se agacha y esquiva un ataque" {
+		capybaraPlayer.crouch()
+		assert.that(not game.hasVisual(capybaraPlayer.upperTarget()))
+	}
 
-//	test "Cuando un enemigo ataca con mainAttack a capybaraPlayer, le quita 10 puntos de vida" {
-//		easyEnemy.mainAttack().hit(capybaraPlayer)
-//		assert.equals(185, capybaraPlayer.health())
-//	}
+	test "Un enemigo se agacha y esquiva un ataque" {
+		easyEnemy.crouch()
+		assert.that(not game.hasVisual(easyEnemy.upperTarget()))
+	}
 
-//	test "Cuando capybaraPlayer ataca con specialAttack a un enemigo, le quita 45 puntos de vida" {
-//		capybaraPlayer.specialAttack().hit(easyEnemy)
-//		assert.equals(105, easyEnemy.health())
-//	}
-//	
-//	test "Cuando un enemigo ataca con specialAttack a capybaraPlayer, le quita 30 puntos de vida" {
-//		easyEnemy.specialAttack().hit(capybaraPlayer)
-//		assert.equals(170, capybaraPlayer.health())
-//	}
-////test "Cuando capybaraPlayer esquiva un ataque de un enemigo, le quita 0 puntos de health" {
-////	capybaraPlayer.crouch()
-////	assert.equals(150, capybaraPlayer.health())
-////}
+}
 
-////test "Cuando capybaraPlayer esquiva un ataque de un enemigo, le quita 0 puntos de health" {
-//      easyEnemy.throwAttack(mainAttack,left)
-////	capybaraPlayer.crouch()
-////	assert.equals(150, capybaraPlayer.health())
-////}
-
-////	
-////test "Cuando un enemigo esquiva un ataque de capybaraPlayer, le quita 0 puntos de health" {
-////	easyEnemy.crouch()
-////	assert.equals(200,easyEnemy.health())
-////}
-
-////test "Cuando un enemigo esquiva un ataque de capybaraPlayer, le quita 0 puntos de health" {
-////    capybaraPlayer.throwAttack(mainAttack,right)
-////	easyEnemy.crouch()
-////	assert.equals(200,easyEnemy.health())
-////}
-//}
-
-
-
-
-////describe "Items " {
-////		
-////	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
-////	var easyEnemy = easyEnemyFactory.createEnemy()
-////	var heart =  new Heart(healthPoints = 50 )
-////	var mate = new Matienzo (healthPoints = 100 damagePoints = 50)
-////	
-////	method initialize(){
-////		juego.appearRandomItem()
-////	}
-////		
-////	test "capybaraPlayer agarra heart cuando recibe ataques  de un enemy " {
-////		easyEnemy.mainAttack().hit(capybaraPlayer)
-////		easyEnemy.specialAttack().hit(capybaraPlayer)
-////		capybaraPlayer.collideWithItem(heart)
-////		assert.equals(190, capybaraPlayer.health())
-////	}
-////
-////	test "capybaraPlayer agarra Matienzo y aumenta su vida cuando recibe atques de un enemy {
-////		easyEnemy.specialAttack().hit(capybaraPlayer)
-////		easyEnemy.specialAttack().hit(capybaraPlayer)
-////		capybaraPlayer.colllideWithItem(mate)
-////		assert.equals(200, capybaraPlayer.health())
-////	}
-////	test "capybaraPlayer agarra Matienzo y aumenta su danio  {
-////		capybaraPlayer.collideWithItem(mate)
-////		assert.equals(65, capybaraPlayer.damagePoints())
-////		capybaraPlayer.mainAttack().hit(easyEnemy)	
-////		assert.equals(70, easyEnemy.healthpoints())				
-////	}
-////}
+describe "Items " {
+		
+	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
+	var easyEnemy = easyEnemyFactory.createEnemy()
+	var heart =  new Heart(healthPoints = 50 )
+	var matienzo = new Matienzo (damagePoints = 50)
+	
+	method initialize(){
+		soundProducer.provider(soundProviderMock)
+	}
+		
+	test "El jugador dañado recolecta un corazón" {
+		capybaraPlayer.health(150)
+		heart.giveEffect(capybaraPlayer)
+		assert.equals(200, capybaraPlayer.health())
+	}
+	
+	test "El jugador con su salud al máximo recolecta un corazón" {
+		heart.giveEffect(capybaraPlayer)
+		assert.equals(200, capybaraPlayer.health())
+	}
+	
+	test "El jugador recolecta un matienzo" {
+		matienzo.giveEffect(capybaraPlayer)
+		assert.equals(65, capybaraPlayer.damagePoints())
+	}
+	
+}

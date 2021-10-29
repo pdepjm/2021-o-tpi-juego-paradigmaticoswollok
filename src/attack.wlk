@@ -1,6 +1,7 @@
 import wollok.game.*
 import entities.*
 import directions.*
+import sounds.*
 
 class Attack {
 	
@@ -20,10 +21,15 @@ class Attack {
 	}
 		
 	method hit(anEntity) {
-		game.sound("attackHit.wav").play()
-		game.sound("damage.wav").play()
-		anEntity.takeDamage(damagePoints * strength)
+		soundProducer.sound("attackHit.wav").play()
+		soundProducer.sound("damage.wav").play()
+//		anEntity.takeDamage(damagePoints * strength)
+		self.giveDamage(anEntity)
 		self.explode()
+	}
+	
+	method giveDamage(anEntity) {
+		anEntity.takeDamage(damagePoints * strength)
 	}
 	
 	method clash() {
