@@ -81,6 +81,7 @@ describe "Ataques y Movimientos de personaje" {
 
 }
 
+
 describe "Items " {
 		
 	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
