@@ -2,6 +2,7 @@ import wollok.game.*
 import entities.*
 import directions.*
 import sounds.*
+import scenario.*
 
 class Attack {
 	
@@ -46,7 +47,12 @@ class Attack {
 	
 	method thr0w (dir) {
 		game.addVisual(self)
-		game.onTick(10, self.eventName(), {self.execute(dir)})
+		game.onTick(10, self.eventName(), {
+			self.execute(dir)
+			if( self.isClose() ){
+				juego.currentEnemy().randomMove()
+			}
+		})
 		self.clash()
 	}
 	
@@ -69,4 +75,5 @@ class Attack {
 		}
 	}
 	
+	method isClose() = self.position().x() == juego.currentEnemy().position().right(2).x()
 }

@@ -16,7 +16,7 @@ class Entity {
 	var canAttack = true
 	
 	// Graphics
-	var position = null
+	var property position = null
 	var frameLimit = null // Por si alguna animación requiere más fotogramas. La cantidad de fotogramas es frameLimit + 1 (Van del 0 a n)
 	var frequency = null // Frecuencia de actualización en ms para el game.onTick()
 	var isJumping = false // Se usa para evitar que camine en el aire
@@ -44,12 +44,12 @@ class Entity {
 		
 	method text() = health.toString()
 	
-	method position() = position
-	
-	method position(aPosition){
-		position = aPosition
-	}
-	
+//	method position() = position
+//	
+//	method position(aPosition){
+//		position = aPosition
+//	}
+//	
 	method poseNumber() = poseNumber
 	
 	method movementStyle() = movementStyle
@@ -189,7 +189,7 @@ class Entity {
 
 class Enemy inherits Entity {
 	
-	const movements = [jumping, crouching, noMove]
+	const movements = [jumping,crouching, noMove, noMove]
 	const strengths = [1,2]
 //	const attacks = [new Attack(damagePoints = damagePoints, strength = 1), new Attack(damagePoints = damagePoints, strength = 2)]
 	
@@ -208,6 +208,7 @@ class Enemy inherits Entity {
 			self.throwAttack(self.attack(strengths.anyOne()), left)
 		})
 	}
+	
 	
 	method collidedWithItem(item) {
 		// Un enemigo debe entender el mensaje pero no verse afectado
