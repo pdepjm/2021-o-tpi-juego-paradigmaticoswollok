@@ -17,7 +17,27 @@ object general {
 		game.onTick(21000, "Appear random item", {juego.appearRandomItem()})
 	}
 	
+	method initializeGame() {
+		
+		self.setupEntity(capybaraPlayer, game.at(0,4), 40, "DynamicPose", 24)
+		self.characterAnimation(capybaraPlayer)
+		self.keyAssigments()
+		self.appearItems()
+		
+	}
+	
+	method setupEnemy() {
+		self.setupEntity(juego.currentEnemy(), game.at(27,4), 40, "DynamicPose", 24)
+//		self.setupEntity(juego.currentEnemy(), game.at(27,4), 40, "Crouch", 24)
+		game.onTick(3500, "enemyAttack", {juego.currentEnemy().attackPattern()})
+	}
+	
 	method setupEntity(entity, position, freq, movStyle, fLimit){
+		self.setupEntityAnimation(entity, position, freq, movStyle, fLimit)
+		self.characterAnimation(entity)
+	}
+	
+	method setupEntityAnimation(entity, position, freq, movStyle, fLimit){
 		entity.position(position)
 		
 		const bottomTarget = new BottomTarget(entity = entity)
@@ -50,17 +70,10 @@ object general {
 		
 		keyboard.s().onPressDo({capybaraPlayer.throwAttack(new Attack(damagePoints = capybaraPlayer.damagePoints(), strength = 1), right)})
 		keyboard.d().onPressDo({capybaraPlayer.throwAttack(new Attack(damagePoints = capybaraPlayer.damagePoints(), strength = 3), right)})
-		
-//		keyboard.z().onPressDo({juego.currentEnemy().mainAttack().giveDamage(capybaraPlayer)})
-//		keyboard.x().onPressDo({juego.currentEnemy().specialAttack().giveDamage(capybaraPlayer)})
-		
-		keyboard.i().onPressDo({juego.appearRandomItem()})
-
-//		keyboard.space().onPressDo({capybaraPlayer.giveDamage()})
 	}
 	
 	method characterAnimation(entity) {
-		game.onTick(entity.frequency(), "movement",{ entity.movement(entity.movementStyle(), entity.frameLimit()) })
+		game.onTick(entity.frequency(), "movement",{entity.movement(entity.movementStyle(), entity.frameLimit()) })
 	}
 	
 }

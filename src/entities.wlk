@@ -13,7 +13,7 @@ class Entity {
 	var damagePoints = 15
 	const mainAttack = self.attack(1)
 	const specialAttack = self.attack(3)
-	var canAttack = true
+	var pendingCooldown = false
 	
 	// Graphics
 	var property position = null
@@ -32,24 +32,12 @@ class Entity {
 	
 	method targets() = targets
 	
-//	method upperTarget() = upperTarget
-//	
-//	method upperTarget(target){
-//		upperTarget = target
-//	}
-	
 	method addTargets(targetCollection){
 		targets += targetCollection
 	}
 		
 	method text() = health.toString()
 	
-//	method position() = position
-//	
-//	method position(aPosition){
-//		position = aPosition
-//	}
-//	
 	method poseNumber() = poseNumber
 	
 	method movementStyle() = movementStyle
@@ -85,12 +73,11 @@ class Entity {
 	method jump(){
 		if(!isJumping){
 			soundProducer.sound("jumpStart.wav").play()
+			self.resetUpperTarget()
 			self.animationSetup(0, 10, "Jump", 9)
-//			self.fluidMovement(up, 3)
 			self.moveTo(up)
 			isJumping = true
 			game.schedule(350, {
-//				self.fluidMovement(down, 3)
 				self.moveTo(down)
 				isJumping = false
 				soundProducer.sound("jumpEnd.wav").play()
@@ -118,8 +105,14 @@ class Entity {
 	}
 	
 	method addUpperTarget(){
-		game.addVisual(self.upperTarget())
 		targets.add(self.upperTarget())		
+		game.addVisual(self.upperTarget())
+	}
+	
+	method resetUpperTarget() {
+		if(!(game.hasVisual(self.upperTarget())) and self.isAlive()) {
+				self.addUpperTarget()
+			}
 	}
 		
 	method fluidMovement(dir, times){
@@ -139,10 +132,7 @@ class Entity {
 			movementStyle = "DynamicPose"
 			frameLimit = 24
 			frequency = 40
-			if(!(game.hasVisual(self.upperTarget()))) {
-				game.addVisual(self.upperTarget())
-				targets.add(upperTarget)
-			}
+			self.resetUpperTarget()
 		})
 		
 	}
@@ -167,12 +157,12 @@ class Entity {
 	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
 	
 	method throwAttack(attack, dir){
-		if(canAttack){
+		if(!pendingCooldown and juego.currentEnemy().isAlive()){
 			soundProducer.sound("attack.wav").play()
-			canAttack = false
+			pendingCooldown = true
 			self.attackOrigin(attack)
 			attack.thr0w(dir)
-			game.schedule(500, {canAttack = true})
+			game.schedule(900, {pendingCooldown = false})
 		}
 	}
 
@@ -180,10 +170,17 @@ class Entity {
 
 	method takeDamage(damage){
 		health = (health - damage).max(0)
-		if(self.isDead()) juego.endGame()
+		if(self.isDead()) juego.endRound()
 	}
 
 	method isDead() = health == 0
+	
+	method isAlive() = not self.isDead()
+	
+	method die() {
+		self.targets().forEach({target => game.removeVisual(target)})
+		game.removeVisual(self)
+	}
 	
 }
 
@@ -191,24 +188,26 @@ class Enemy inherits Entity {
 	
 	const movements = [jumping,crouching, noMove, noMove]
 	const strengths = [1,2]
-//	const attacks = [new Attack(damagePoints = damagePoints, strength = 1), new Attack(damagePoints = damagePoints, strength = 2)]
 	
 	override method image() = "Enemy" + movementStyle + poseNumber.toString() + ".png"
-//	override method image() = "EnemyPose.png"
 
 	override method attackOrigin(attack){
 		attack.position(self.position().up(3))
 	}
 		
 	method attackPattern(){
-		self.randomMove()
+//		self.randomMove()
 		self.throwAttack(self.attack(strengths.anyOne()), left)
 		game.schedule(600, {
-			self.randomMove()
+//			self.randomMove()
 			self.throwAttack(self.attack(strengths.anyOne()), left)
 		})
 	}
 	
+	override method die() {
+		game.removeTickEvent("enemyAttack")
+		super()
+	}
 	
 	method collidedWithItem(item) {
 		// Un enemigo debe entender el mensaje pero no verse afectado
@@ -228,17 +227,9 @@ object capybaraPlayer inherits Entity{
 		attack.position(self.position().right(5).up(3))
 	}
 	
-//	method recollect(item) {
-//		item.givePoints(self)
-//	}
-	
 	method collidedWithItem(item) {
 		item.realHit(self)
 	}
-	
-//	method setupItemRecollection() {
-////		game.onCollideDo(itemTarget, {item => self.recollect(item)} )
-//	}
 	
 	method giveDamagePoints(n) {
 		damagePoints += n
@@ -251,6 +242,7 @@ object capybaraPlayer inherits Entity{
 	method walkTo(dir) {
 		if(!isJumping){
 			soundProducer.sound("footsteps.wav").play()
+			self.resetUpperTarget()
 			self.animationSetup(0, 5, "Steps_" + dir.toString() + "_", 9)
 			self.fluidMovement(dir, 2)
 			self.backToDynamicPose(400)

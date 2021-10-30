@@ -8,9 +8,6 @@ import items.*
 
 program game {
 
-	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
-	var easyEnemy = easyEnemyFactory.createEnemy()
-		
 	game.cellSize(40)
 	
 	game.height(21)
@@ -18,17 +15,10 @@ program game {
 	
 	game.title("Nightmare in Nordelta")
 	
-//	background.level(2)
 	general.background()
 	
-	juego.addEnemy(easyEnemy)
-	general.setupEntity(easyEnemy, game.at(27,4), 40, "DynamicPose", 24)
-	general.setupEntity(capybaraPlayer, game.at(0,4), 40, "DynamicPose", 24)
-	general.keyAssigments()
-	general.characterAnimation(capybaraPlayer)
-	general.characterAnimation(easyEnemy)
-	game.onTick(3500, "enemyAttack", {juego.currentEnemy().attackPattern()})
-	general.appearItems()
+	juego.enemyGenerator()
+	general.initializeGame()
 	
 	game.start()
 }

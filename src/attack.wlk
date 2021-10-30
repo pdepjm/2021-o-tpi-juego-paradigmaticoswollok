@@ -12,7 +12,6 @@ class Attack {
 	var eventName = "throw" + 1.randomUpTo(9).toString()
 	var status = "attack"
 	
-//	method image() = "guideCell.png"
 	method image() = status + ".png"
 	
 	method position() = position
@@ -24,7 +23,6 @@ class Attack {
 	method hit(anEntity) {
 		soundProducer.sound("attackHit.wav").play()
 		soundProducer.sound("damage.wav").play()
-//		anEntity.takeDamage(damagePoints * strength)
 		self.giveDamage(anEntity)
 		self.explode()
 	}
@@ -34,9 +32,9 @@ class Attack {
 	}
 	
 	method clash() {
-		game.onCollideDo(self, {item =>
-			item.explode()
-//			self.explode()
+		game.onCollideDo(self, {attack =>
+//			soundProducer.sound("attackHit.wav").play()
+			attack.explode()
 		})
 	}
 	
@@ -49,8 +47,8 @@ class Attack {
 		game.addVisual(self)
 		game.onTick(10, self.eventName(), {
 			self.execute(dir)
-			if( self.isClose() ){
-				juego.currentEnemy().randomMove()
+			if(self.isClose() and juego.currentEnemy().isAlive()){
+			juego.currentEnemy().randomMove()
 			}
 		})
 		self.clash()

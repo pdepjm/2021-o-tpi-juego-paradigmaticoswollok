@@ -2,22 +2,21 @@ import wollok.game.*
 import entities.*
 import attack.*
 import items.*
+import config.*
 
 object juego {
 	
-	const enemies = #{}
+	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
+	const strongEnemyFactory = new EnemyFactory(healthPoints = 300, damagePoints = 25)
+	var property currentEnemy = easyEnemyFactory.createEnemy()
+	var enemyNumber = 1
 	
 // ----------------------------------------------------------------------------------------	
 
 	const x = (10..26).anyOne()
-//	const y = [5,7,8,10,13].anyOne()
 	const y = 7
 
 	const items = [new Heart(position = game.at(x,y)), new Matienzo(position = game.at(x,y))]
-	
-//	method addItem(item){
-//		items.add(item)
-//	}
 	
 	method appearRandomItem() {
 		const item = items.anyOne()
@@ -29,22 +28,39 @@ object juego {
 		
 // ----------------------------------------------------------------------------------------	
 	
-	method addEnemy(enemy){
-		enemies.add(enemy)
+	method roundWon() = currentEnemy.isDead()
+	method lose() = capybaraPlayer.isDead()
+	method gameWon() = game.say(capybaraPlayer, "Gané!")
+	
+	method endRound(){
+		if(self.lose()) {
+			capybaraPlayer.die()
+			game.removeTickEvent("enemyAttack")
+			game.say(currentEnemy, "Game Over")
+		}
+		else if(self.roundWon()){
+			currentEnemy.die()
+			game.say(capybaraPlayer, "¡Derroté al enemigo " + (enemyNumber - 1) + "!")
+			game.schedule(4000, {self.enemyGenerator()})
+		}
 	}
 	
-	method currentEnemy() = enemies.find({enemy => game.hasVisual(enemy)})
-	
-	method win() = self.currentEnemy().isDead()
-	method lose() = capybaraPlayer.isDead()
-	
-	method endGame(){
-		if(self.win()) {
-			self.currentEnemy().targets().forEach({target => game.removeVisual(target)})
-			game.removeTickEvent("enemyAttack")
-			game.removeVisual(self.currentEnemy())
+	method enemyGenerator() {
+		
+		if(enemyNumber <= 3) {
+			self.currentEnemy(easyEnemyFactory.createEnemy())
+			general.setupEnemy()
 		}
-		else if(self.lose()) game.say(capybaraPlayer, "Perdí :'(")
+		else if(enemyNumber == 4) {
+			self.currentEnemy(strongEnemyFactory.createEnemy())
+			general.setupEnemy()
+		}
+		else {
+			self.gameWon()
+//			game.stop()
+		}
+		
+		enemyNumber++
 	}
 	
 }

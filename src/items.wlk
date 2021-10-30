@@ -14,7 +14,7 @@ class Item {
 	}
 	
 	method explode() {
-		game.removeVisual(self)
+		
 	}
 	
 	method hit(entity) {
