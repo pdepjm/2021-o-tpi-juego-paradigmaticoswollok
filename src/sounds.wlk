@@ -4,7 +4,7 @@ object soundProducer {
 	
 	var provider = game
 	
-	method provider(_provider){
+	method provider(_provider) {
 		provider = _provider
 	}
 	
@@ -20,23 +20,23 @@ object soundProviderMock {
 
 object soundMock {
 	
-	method pause(){}
+	method pause() {}
 	
 	method paused() = true
 	
-	method play(){}
+	method play() {}
 	
 	method played() = false
 	
-	method resume(){}
+	method resume() {}
 	
-	method shouldLoop(looping){}
+	method shouldLoop(looping) {}
 	
 	method shouldLoop() = false
 	
-	method stop(){}
+	method stop() {}
 	
-	method volume(newVolume){}
+	method volume(newVolume) {}
 	
 	method volume() = 0
 	

@@ -5,16 +5,10 @@ import sounds.*
 
 class Item { 
 	
-	var position = game.center()
-	
-	method position() = position
-	
-	method position(aPosition) {
-		position = aPosition
-	}
+	var property position = null
 	
 	method explode() {
-		
+		// Un item debe entender el mensaje pero no hacer nada
 	}
 	
 	method hit(entity) {

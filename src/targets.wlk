@@ -6,7 +6,7 @@ class Target {
 	
 	const entity = null
 	
-	var position = self.position()
+	const position = self.position()
 	
 	method position()
 	

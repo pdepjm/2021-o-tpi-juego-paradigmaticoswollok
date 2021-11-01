@@ -28,19 +28,19 @@ object juego {
 		
 // ----------------------------------------------------------------------------------------	
 	
-	method roundWon() = currentEnemy.isDead()
-	method lose() = capybaraPlayer.isDead()
-	method gameWon() = game.say(capybaraPlayer, "Gané!")
+	method roundWon() = currentEnemy.isAlive().negate()
+	method lose() = player.isAlive().negate()
+	method gameWon() = game.say(player, "Gané!")
 	
 	method endRound(){
 		if(self.lose()) {
-			capybaraPlayer.die()
+			player.die()
 			game.removeTickEvent("enemyAttack")
 			game.say(currentEnemy, "Game Over")
 		}
 		else if(self.roundWon()){
 			currentEnemy.die()
-			game.say(capybaraPlayer, "¡Derroté al enemigo " + (enemyNumber - 1) + "!")
+			game.say(player, "¡Derroté al enemigo " + (enemyNumber - 1) + "!")
 			game.schedule(4000, {self.enemyGenerator()})
 		}
 	}
@@ -67,9 +67,8 @@ object juego {
 
 class EnemyFactory{
 	
-	var healthPoints = null
-//	var difficultyLevel = null
-	var damagePoints = null
+	const healthPoints = null
+	const damagePoints = null
 		
 	method createEnemy() = new Enemy(
 		health = healthPoints,
