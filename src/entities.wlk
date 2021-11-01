@@ -135,8 +135,19 @@ class Entity {
 	// Class methods
 	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
 	
-	method throwAttack(attack, dir) {
+//	method throwAttack(attack, dir) {
+//		if(!pendingCooldown and juego.currentEnemy().isAlive()) {
+//			soundProducer.sound("attack.wav").play()
+//			pendingCooldown = true
+//			self.attackOrigin(attack)
+//			attack.thr0w(dir)
+//			game.schedule(900, {pendingCooldown = false})
+//		}
+//	}
+	
+		method throwAttack(strength, dir) {
 		if(!pendingCooldown and juego.currentEnemy().isAlive()) {
+			const attack = self.attack(strength)
 			soundProducer.sound("attack.wav").play()
 			pendingCooldown = true
 			self.attackOrigin(attack)
@@ -176,9 +187,9 @@ class Enemy inherits Entity {
 	}
 		
 	method attackPattern() {
-		self.throwAttack(self.attack(strengths.anyOne()), left)
+		self.throwAttack(strengths.anyOne(), left)
 		game.schedule(600, {
-			self.throwAttack(self.attack(strengths.anyOne()), left)
+			self.throwAttack(strengths.anyOne(), left)
 		})
 	}
 	

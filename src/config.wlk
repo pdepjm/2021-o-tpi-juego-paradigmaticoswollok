@@ -64,8 +64,12 @@ object general {
 		keyboard.up().onPressDo({player.jump()})		
 		keyboard.down().onPressDo({player.crouch()})
 		
-		keyboard.s().onPressDo({player.throwAttack(new Attack(damagePoints = player.damagePoints(), strength = 1), right)})
-		keyboard.d().onPressDo({player.throwAttack(new Attack(damagePoints = player.damagePoints(), strength = 3), right)})
+//		keyboard.s().onPressDo({player.throwAttack(new Attack(damagePoints = player.damagePoints(), strength = 1), right)})
+//		keyboard.d().onPressDo({player.throwAttack(new Attack(damagePoints = player.damagePoints(), strength = 3), right)})
+
+		keyboard.s().onPressDo({player.throwAttack(1, right)})
+		keyboard.d().onPressDo({player.throwAttack(3, right)})
+		
 	}
 	
 	method characterAnimation(entity) {

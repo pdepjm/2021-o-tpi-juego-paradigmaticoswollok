@@ -8,7 +8,11 @@ object soundProducer {
 		provider = _provider
 	}
 	
-	method sound(audioFile) = provider.sound(audioFile)
+	method sound(audioFile) {
+		const sound = provider.sound(audioFile)
+		sound.volume(0.2)
+		return sound
+	}
 	
 }
 
