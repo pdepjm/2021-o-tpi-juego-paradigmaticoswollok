@@ -13,6 +13,7 @@ program game {
 	game.height(21)
 	game.width(36)
 	
+	
 	game.title("Nightmare in Nordelta")
 	
 	general.background()
