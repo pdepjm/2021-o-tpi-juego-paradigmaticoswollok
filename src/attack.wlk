@@ -42,8 +42,6 @@ class Attack {
 		self.clash()
 	}
 	
-	method eventName() = eventName
-	
 	method remove() {
 		game.removeTickEvent(eventName)
 		game.schedule(100, {game.removeVisual(self)})
