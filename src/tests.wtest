@@ -1,10 +1,7 @@
 import entities.*
-import attack.*
 import scenario.*
-import directions.*
 import items.*
 import config.*
-import moves.*
 import targets.* 
 import sounds.*
 import wollok.game.*

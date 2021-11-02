@@ -1,6 +1,4 @@
 import wollok.game.*
-import entities.*
-import directions.*
 import sounds.*
 import scenario.*
 
@@ -9,7 +7,7 @@ class Attack {
 	var property position = null
 	const damagePoints = null
 	const strength = null
-	const eventName = "throw" + 1.randomUpTo(9).toString()
+	const eventName = "throw" + 1.randomUpTo(100).toString()
 	var status = "attack"
 	
 	method image() = status + ".png"
@@ -35,8 +33,8 @@ class Attack {
 		game.addVisual(self)
 		game.onTick(10, eventName, {
 			self.execute(dir)
-			if(self.approachingEnemy() and juego.currentEnemy().isAlive()) { // Darle la responsabilidad al enemigo
-				juego.currentEnemy().randomMove()
+			if(self.approachingToEnemy() and juego.currentEnemy().isAlive()) { // Darle la responsabilidad al enemigo
+				juego.currentEnemy().moveRandomly()
 			}
 		})
 		self.clash()
@@ -56,5 +54,5 @@ class Attack {
 		if(position.x() == game.origin().x() || position.x() == game.width()) self.remove()
 	}
 	
-	method approachingEnemy() = position.x() == juego.currentEnemy().position().right(2).x()
+	method approachingToEnemy() = position.x() == juego.currentEnemy().position().right(2).x()
 }

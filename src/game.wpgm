@@ -1,10 +1,6 @@
 import wollok.game.*
 import config.*
-import entities.*
-import attack.*
-import scenario.*
-import directions.*
-import items.*
+import gameOverlay.*
 
 program game {
 
@@ -17,8 +13,8 @@ program game {
 	
 	general.background()
 	
-	juego.enemyGenerator()
-	general.initializeGame()
+	gameOverlay.startscreen()
 	
 	game.start()
+	
 }

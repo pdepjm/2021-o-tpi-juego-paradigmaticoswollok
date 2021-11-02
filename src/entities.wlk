@@ -3,8 +3,6 @@ import directions.*
 import attack.*
 import scenario.*
 import moves.*
-import targets.*
-import items.*
 import sounds.*
 
 class Entity {
@@ -135,16 +133,6 @@ class Entity {
 	// Class methods
 	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
 	
-//	method throwAttack(attack, dir) {
-//		if(!pendingCooldown and juego.currentEnemy().isAlive()) {
-//			soundProducer.sound("attack.wav").play()
-//			pendingCooldown = true
-//			self.attackOrigin(attack)
-//			attack.thr0w(dir)
-//			game.schedule(900, {pendingCooldown = false})
-//		}
-//	}
-	
 		method throwAttack(strength, dir) {
 		if(!pendingCooldown and juego.currentEnemy().isAlive()) {
 			const attack = self.attack(strength)
@@ -177,7 +165,7 @@ class Entity {
 
 class Enemy inherits Entity {
 	
-	const movements = [jumping, crouching, noMove, noMove]
+	const movements = [jumping, jumping, crouching, crouching, noMove]
 	const strengths = [1,2]
 	
 	override method image() = "Enemy" + movementStyle + poseNumber.toString() + ".png"
@@ -187,8 +175,10 @@ class Enemy inherits Entity {
 	}
 		
 	method attackPattern() {
+		self.moveRandomly()
 		self.throwAttack(strengths.anyOne(), left)
-		game.schedule(600, {
+		game.schedule(2.randomUpTo(9), {
+			self.moveRandomly()
 			self.throwAttack(strengths.anyOne(), left)
 		})
 	}
@@ -204,7 +194,7 @@ class Enemy inherits Entity {
 		// Un enemigo debe entender el mensaje pero no verse afectado
 	}
 	
-	method randomMove() = movements.anyOne().move(self)
+	method moveRandomly() = movements.anyOne().move(self)
 	
 }
 

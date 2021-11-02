@@ -2,9 +2,8 @@ import wollok.game.*
 import entities.*
 import directions.*
 import scenario.*
-import attack.*
 import targets.*
-import items.*
+import sounds.*
 
 object general {
 	
@@ -16,11 +15,15 @@ object general {
 		game.onTick(21000, "Appear random item", {juego.appearRandomItem()})
 	}
 	
-	method initializeGame() {
-		self.setupEntity(player, game.at(0,4), 40, "DynamicPose", 24)
+	method initializePlayer() {
+		self.setupEntity(player, game.at(0,4), 80, "DynamicPose", 24)
 		self.characterAnimation(player)
+	}
+	
+	method initializeGame() {
 		self.keyAssigments()
 		self.appearItems()
+		juego.enemyGenerator()
 	}
 	
 	method setupEnemy() {
@@ -63,13 +66,10 @@ object general {
 		keyboard.right().onPressDo({player.walkTo(right)})	
 		keyboard.up().onPressDo({player.jump()})		
 		keyboard.down().onPressDo({player.crouch()})
-		
-//		keyboard.s().onPressDo({player.throwAttack(new Attack(damagePoints = player.damagePoints(), strength = 1), right)})
-//		keyboard.d().onPressDo({player.throwAttack(new Attack(damagePoints = player.damagePoints(), strength = 3), right)})
-
 		keyboard.s().onPressDo({player.throwAttack(1, right)})
 		keyboard.d().onPressDo({player.throwAttack(3, right)})
-		
+		keyboard.num1().onPressDo({soundProducer.volumeDown()})
+		keyboard.num2().onPressDo({soundProducer.volumeUp()})
 	}
 	
 	method characterAnimation(entity) {

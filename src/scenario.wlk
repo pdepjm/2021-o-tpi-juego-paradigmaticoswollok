@@ -1,8 +1,8 @@
 import wollok.game.*
 import entities.*
-import attack.*
 import items.*
 import config.*
+import gameOverlay.*
 
 object juego {
 	
@@ -21,7 +21,7 @@ object juego {
 	method appearRandomItem() {
 		const item = items.anyOne()
 		game.addVisual(item)
-		game.schedule(20000, {
+		game.schedule(5000, {
 			if(game.hasVisual(item)) game.removeVisual(item)
 		})
 	}
@@ -30,17 +30,20 @@ object juego {
 	
 	method roundWon() = currentEnemy.isAlive().negate()
 	method lose() = player.isAlive().negate()
-	method gameWon() = game.say(player, "Gané!")
+	
+	method gameWon() {
+		gameOverlay.gameEnd(won)
+	}
 	
 	method endRound(){
 		if(self.lose()) {
 			player.die()
 			game.removeTickEvent("enemyAttack")
-			game.say(currentEnemy, "Game Over")
+			gameOverlay.gameEnd(lose)
 		}
 		else if(self.roundWon()){
 			currentEnemy.die()
-			game.say(player, "¡Derroté al enemigo " + (enemyNumber - 1) + "!")
+			gameOverlay.enemyDefeated()
 			game.schedule(4000, {self.enemyGenerator()})
 		}
 	}
@@ -57,7 +60,6 @@ object juego {
 		}
 		else {
 			self.gameWon()
-//			game.stop()
 		}
 		
 		enemyNumber++

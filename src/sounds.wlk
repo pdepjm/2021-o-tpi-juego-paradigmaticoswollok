@@ -3,6 +3,7 @@ import wollok.game.*
 object soundProducer {
 	
 	var provider = game
+	var mainVolume = 0.2
 	
 	method provider(_provider) {
 		provider = _provider
@@ -10,8 +11,16 @@ object soundProducer {
 	
 	method sound(audioFile) {
 		const sound = provider.sound(audioFile)
-		sound.volume(0.2)
+		sound.volume(mainVolume)
 		return sound
+	}
+	
+	method volumeUp() {
+		mainVolume = (mainVolume + 0.1).min(1)
+	}
+	
+	method volumeDown() {
+		mainVolume = (mainVolume - 0.1).max(0)
 	}
 	
 }

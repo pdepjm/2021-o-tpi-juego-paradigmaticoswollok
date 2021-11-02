@@ -1,4 +1,3 @@
-import entities.*
 import wollok.game.*
 
 object left {

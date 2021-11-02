@@ -1,5 +1,3 @@
-import entities.*
-import scenario.*
 import wollok.game.*
 
 class Target {

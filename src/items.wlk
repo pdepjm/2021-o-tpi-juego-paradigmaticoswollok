@@ -1,6 +1,4 @@
 import wollok.game.*
-import entities.*
-import targets.*
 import sounds.*
 
 class Item { 
@@ -36,7 +34,8 @@ class Heart inherits Item {
 	method image() = "Heart.png"
 	
 	override method giveEffect(entity) {
-		entity.giveHealth(self.healthPoints())
+		entity.giveHealth(healthPoints)
+		game.schedule(4500, {entity.giveHealth(-healthPoints)})
 	}
 	
 } 
@@ -48,7 +47,8 @@ class Matienzo inherits Item {
 	method image() = "Matienzo.png"
 	
 	override method giveEffect(entity) {
-		entity.giveDamagePoints(self.damagePoints())
+		entity.giveDamagePoints(damagePoints)
+		game.schedule(4500, {entity.giveDamagePoints(-damagePoints)})
 	}
 	
 }
