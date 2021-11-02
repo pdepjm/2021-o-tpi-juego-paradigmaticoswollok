@@ -1,22 +1,20 @@
 import wollok.game.*
-import config.*
+import preferences.*
+import scenario.*
 
 object gameOverlay {
 	
-	const backgroundSound = game.sound("backgroundSound.mp3")
-	var property image = "startscreen1.png"
+	var property image = "startscreen2.png"
 	var stillOnStartscreen = true
 	
 	method position() = game.origin()
 	
 	method startscreen() {
-		backgroundSound.shouldLoop(true)
-		backgroundSound.volume(0.1)
 		general.initializePlayer()
 		game.addVisual(self)
 		keyboard.any().onPressDo({
 			if(stillOnStartscreen) {
-				backgroundSound.play()
+				general.ambientSound()
 				game.removeVisual(self)
 				general.initializeGame()
 				stillOnStartscreen = false
@@ -24,18 +22,24 @@ object gameOverlay {
 		})
 	}
 	
+	method round(number) {
+		const roundName = "round" + number
+		image = roundName + ".png"
+		game.sound(roundName + ".mp3").play()
+		game.addVisual(self)
+		game.schedule(4000, {
+			game.removeVisual(self)
+			ourGame.entitiesCooldown(false)
+		})
+	}
+	
 	method enemyDefeated() {
 		image = "enemyDefeated.png"
 		game.addVisual(self)
+		ourGame.entitiesCooldown(true)
 		game.schedule(4000, {game.removeVisual(self)})
 	}
-	
-	method gameOver() {
-		image = "gameOver.png"
-		game.addVisual(self)
-		game.schedule(10000, {game.stop()})
-	}
-	
+
 	method gameEnd(reason) {
 		game.addVisual(reason)
 		game.schedule(10000, {game.stop()})
@@ -45,7 +49,7 @@ object gameOverlay {
 
 object won {
 	method position() = game.origin()
-	method image() = "youWon.png"
+	method image() = "youWin.png"
 }
 
 object lose {

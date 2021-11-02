@@ -1,5 +1,3 @@
-import wollok.game.*
-
 object left {
 	method nextPosition(actualPosition) = actualPosition.left(1)
 	

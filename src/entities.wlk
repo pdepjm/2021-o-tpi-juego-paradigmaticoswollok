@@ -9,7 +9,7 @@ class Entity {
 	
 	var property health = 200
 	var property damagePoints = 15
-	var pendingCooldown = false
+	var property pendingCooldown = true
 	
 	// Visuals
 	var property position = null
@@ -134,13 +134,13 @@ class Entity {
 	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
 	
 		method throwAttack(strength, dir) {
-		if(!pendingCooldown and juego.currentEnemy().isAlive()) {
+		if(!pendingCooldown and ourGame.currentEnemy().isAlive()) {
 			const attack = self.attack(strength)
 			soundProducer.sound("attack.wav").play()
 			pendingCooldown = true
 			self.attackOrigin(attack)
 			attack.thr0w(dir)
-			game.schedule(900, {pendingCooldown = false})
+			game.schedule(800, {pendingCooldown = false})
 		}
 	}
 
@@ -149,7 +149,7 @@ class Entity {
 	method takeDamage(damage) {
 		soundProducer.sound("sufferingEntity.wav").play()
 		health = (health - damage).max(0)
-		if(self.isAlive().negate()) juego.endRound()
+		if(self.isAlive().negate()) ourGame.endRound()
 	}
 
 	method isAlive() = health != 0
@@ -166,21 +166,22 @@ class Entity {
 class Enemy inherits Entity {
 	
 	const movements = [jumping, jumping, crouching, crouching, noMove]
-	const strengths = [1,2]
+	const strengths = [1, 3]
 	
-	override method image() = "Enemy" + movementStyle + poseNumber.toString() + ".png"
+	override method image() = "Enemy" + movementStyle + poseNumber + ".png"
 
 	override method attackOrigin(attack) {
 		attack.position(self.position().up(3))
 	}
 		
 	method attackPattern() {
+		self.attackRandomly()
+		3.randomUpTo(5).roundUp().times({i => game.schedule(800, {self.attackRandomly()}) })
+	}
+	
+	method attackRandomly() {
 		self.moveRandomly()
 		self.throwAttack(strengths.anyOne(), left)
-		game.schedule(2.randomUpTo(9), {
-			self.moveRandomly()
-			self.throwAttack(strengths.anyOne(), left)
-		})
 	}
 	
 	override method die() {
@@ -202,7 +203,7 @@ object player inherits Entity{
 	
 	const maxHealth = 200
 		
-	override method image() = "Capybara" + movementStyle + poseNumber.toString() + ".png"
+	override method image() = "Capybara" + movementStyle + poseNumber + ".png"
 	
 	override method attackOrigin(attack) {
 		attack.position(self.position().right(5).up(3))

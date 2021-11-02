@@ -1,15 +1,15 @@
 import wollok.game.*
 import entities.*
 import items.*
-import config.*
+import preferences.*
 import gameOverlay.*
 
-object juego {
+object ourGame {
 	
 	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
 	const strongEnemyFactory = new EnemyFactory(healthPoints = 300, damagePoints = 25)
 	var property currentEnemy = easyEnemyFactory.createEnemy()
-	var enemyNumber = 1
+	var property enemyNumber = 1
 	
 // ----------------------------------------------------------------------------------------	
 
@@ -29,14 +29,11 @@ object juego {
 // ----------------------------------------------------------------------------------------	
 	
 	method roundWon() = currentEnemy.isAlive().negate()
-	method lose() = player.isAlive().negate()
-	
-	method gameWon() {
-		gameOverlay.gameEnd(won)
-	}
+	method gameOver() = player.isAlive().negate()
 	
 	method endRound(){
-		if(self.lose()) {
+		if(self.gameOver()) {
+			game.sound("gameOver.mp3").play()
 			player.die()
 			game.removeTickEvent("enemyAttack")
 			gameOverlay.gameEnd(lose)
@@ -44,25 +41,36 @@ object juego {
 		else if(self.roundWon()){
 			currentEnemy.die()
 			gameOverlay.enemyDefeated()
-			game.schedule(4000, {self.enemyGenerator()})
+			game.schedule(4000, {self.enemySpawner()})
 		}
 	}
 	
-	method enemyGenerator() {
+	method enemyGenerator(enemyFactory) {
+		self.currentEnemy(enemyFactory.createEnemy())
+		general.setupEnemy()
+		gameOverlay.round(enemyNumber)
+		enemyNumber++
+	}
+	
+	method enemySpawner() {
 		
-		if(enemyNumber <= 3) {
-			self.currentEnemy(easyEnemyFactory.createEnemy())
-			general.setupEnemy()
+		if(enemyNumber <= 4) {
+			self.enemyGenerator(easyEnemyFactory)
 		}
-		else if(enemyNumber == 4) {
-			self.currentEnemy(strongEnemyFactory.createEnemy())
-			general.setupEnemy()
+		else if(enemyNumber == 5) {
+			self.enemyGenerator(strongEnemyFactory)
 		}
 		else {
-			self.gameWon()
+			gameOverlay.gameEnd(won)
+			game.sound("youWin.mp3").play()
 		}
 		
-		enemyNumber++
+//		game.sound(roundNumberSound).play()
+	}
+	
+	method entitiesCooldown(boolean) {
+		player.pendingCooldown(boolean)
+		currentEnemy.pendingCooldown(boolean)
 	}
 	
 }

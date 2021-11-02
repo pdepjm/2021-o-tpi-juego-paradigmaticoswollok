@@ -5,14 +5,22 @@ import scenario.*
 import targets.*
 import sounds.*
 
+const ambientSound = game.sound("ambientSound.mp3")
+
 object general {
 	
 	method background() {
 		game.boardGround("background.png")
 	}
 	
+	method ambientSound() {
+		ambientSound.shouldLoop(true)
+		ambientSound.volume(0.1)
+		ambientSound.play()
+	}
+	
 	method appearItems() {
-		game.onTick(21000, "Appear random item", {juego.appearRandomItem()})
+		game.onTick(21000, "Appear random item", {ourGame.appearRandomItem()})
 	}
 	
 	method initializePlayer() {
@@ -23,12 +31,13 @@ object general {
 	method initializeGame() {
 		self.keyAssigments()
 		self.appearItems()
-		juego.enemyGenerator()
+		ourGame.enemySpawner()
 	}
 	
 	method setupEnemy() {
-		self.setupEntity(juego.currentEnemy(), game.at(27,4), 40, "DynamicPose", 24)
-		game.onTick(3500, "enemyAttack", {juego.currentEnemy().attackPattern()})
+		self.setupEntity(ourGame.currentEnemy(), game.at(27,4), 40, "DynamicPose", 24)
+		game.schedule(5000, {ourGame.currentEnemy().attackPattern()})
+		game.onTick(10000, "enemyAttack", {ourGame.currentEnemy().attackPattern()})
 	}
 	
 	method setupEntity(entity, position, freq, movStyle, fLimit) {
@@ -55,6 +64,8 @@ object general {
 		entity.upperTarget(upperTarget)
 		
 		targets.forEach({target => self.hit(target, entity)})
+		
+		game.schedule(4000, {entity.pendingCooldown(true)})
 	}
 	
 	method hit(target, entity) {
@@ -70,6 +81,10 @@ object general {
 		keyboard.d().onPressDo({player.throwAttack(3, right)})
 		keyboard.num1().onPressDo({soundProducer.volumeDown()})
 		keyboard.num2().onPressDo({soundProducer.volumeUp()})
+		
+		keyboard.i().onPressDo({game.say(player, ourGame.currentEnemy().pendingCooldown().toString())})
+		keyboard.p().onPressDo({player.takeDamage(player.health())})
+		keyboard.e().onPressDo({ourGame.currentEnemy().takeDamage(ourGame.currentEnemy().health())})
 	}
 	
 	method characterAnimation(entity) {

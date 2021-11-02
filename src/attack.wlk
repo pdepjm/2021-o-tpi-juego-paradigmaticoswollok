@@ -7,10 +7,10 @@ class Attack {
 	var property position = null
 	const damagePoints = null
 	const strength = null
-	const eventName = "throw" + 1.randomUpTo(100).toString()
+	const eventName = "throw" + 1.randomUpTo(100)
 	var status = "attack"
 	
-	method image() = status + ".png"
+	method image() = status + strength + ".png"
 	
 	method hit(anEntity) {
 		soundProducer.sound("attackHit.wav").play()
@@ -33,8 +33,8 @@ class Attack {
 		game.addVisual(self)
 		game.onTick(10, eventName, {
 			self.execute(dir)
-			if(self.approachingToEnemy() and juego.currentEnemy().isAlive()) { // Darle la responsabilidad al enemigo
-				juego.currentEnemy().moveRandomly()
+			if(self.approachingToEnemy() and ourGame.currentEnemy().isAlive()) { // Darle la responsabilidad al enemigo
+				ourGame.currentEnemy().attackRandomly()
 			}
 		})
 		self.clash()
@@ -54,5 +54,5 @@ class Attack {
 		if(position.x() == game.origin().x() || position.x() == game.width()) self.remove()
 	}
 	
-	method approachingToEnemy() = position.x() == juego.currentEnemy().position().right(2).x()
+	method approachingToEnemy() = position.x() == ourGame.currentEnemy().position().right(2).x()
 }

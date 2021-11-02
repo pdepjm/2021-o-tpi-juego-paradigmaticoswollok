@@ -1,5 +1,3 @@
-import wollok.game.*
-
 class Target {
 	
 	const entity = null

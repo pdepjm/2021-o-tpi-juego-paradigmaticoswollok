@@ -29,7 +29,7 @@ class Item {
 
 class Heart inherits Item {
 	
-	var property healthPoints = 100
+	var property healthPoints = 50
 	
 	method image() = "Heart.png"
 	
@@ -42,7 +42,7 @@ class Heart inherits Item {
 
 class Matienzo inherits Item {
 	
-	var property damagePoints = 100
+	var property damagePoints = 5
 	
 	method image() = "Matienzo.png"
 	
