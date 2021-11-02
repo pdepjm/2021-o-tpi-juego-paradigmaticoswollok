@@ -33,7 +33,7 @@ object ourGame {
 	
 	method endRound(){
 		if(self.gameOver()) {
-			game.sound("gameOver.mp3").play()
+			game.sound("gameOver.wav").play()
 			player.die()
 			game.removeTickEvent("enemyAttack")
 			gameOverlay.gameEnd(lose)

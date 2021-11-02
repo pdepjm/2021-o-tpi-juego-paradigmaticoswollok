@@ -25,8 +25,12 @@ object gameOverlay {
 	method round(number) {
 		const roundName = "round" + number
 		image = roundName + ".png"
-		game.sound(roundName + ".mp3").play()
+		game.sound(roundName + ".wav").play()
 		game.addVisual(self)
+		game.schedule(2000, {
+			image = "fight.png"
+			game.sound("fight.wav").play()
+		})
 		game.schedule(4000, {
 			game.removeVisual(self)
 			ourGame.entitiesCooldown(false)
