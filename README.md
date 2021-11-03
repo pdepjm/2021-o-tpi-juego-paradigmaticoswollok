@@ -15,9 +15,7 @@
 
 ## Reglas de Juego / Instrucciones
 
-![upArrow](KeyboardAssigments/upArrowAssigment.png)</br>
-![downArrow](KeyboardAssigments/downArrowAssigment.png)</br>
-![sideArrows](KeyboardAssigments/sideArrowsAssigment.png)</br>
+![keyAssigments](screenshots/KeyAssigments.png)
 
 ## Respuestas teóricas
 
