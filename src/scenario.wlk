@@ -70,8 +70,10 @@ object ourGame {
 	}
 	
 	method entitiesCooldown(boolean) {
-		player.pendingCooldown(boolean)
-		currentEnemy.pendingCooldown(boolean)
+		[player, currentEnemy].forEach({entity =>
+			entity.main().pendingCooldown(boolean)
+			entity.special().pendingCooldown(boolean)
+		})
 	}
 	
 }

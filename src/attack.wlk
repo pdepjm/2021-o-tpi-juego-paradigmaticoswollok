@@ -59,7 +59,7 @@ class AttackType {
 	
 	const cooldownTime = null
 	const strength = null
-	var property pendingCooldown = false
+	var property pendingCooldown = true
 	
 	method cooldownTime() = cooldownTime
 	

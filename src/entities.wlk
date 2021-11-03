@@ -171,6 +171,10 @@ class Entity {
 		game.removeVisual(self)
 	}
 	
+	method main() = main
+	
+	method special() = special
+	
 	method collidedWithItem(item)
 	
 }
