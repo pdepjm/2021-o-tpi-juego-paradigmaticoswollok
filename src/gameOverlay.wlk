@@ -4,8 +4,9 @@ import scenario.*
 
 object gameOverlay {
 	
-	var property image = "startscreen2.png"
+	var property image = "startscreen.png"
 	var stillOnStartscreen = true
+	const easterEggSound = game.sound("easterEgg.mp3")
 	
 	method position() = game.origin()
 	
@@ -19,6 +20,16 @@ object gameOverlay {
 				general.initializeGame()
 				stillOnStartscreen = false
 			}
+		})
+		game.schedule(15000, {
+			if(stillOnStartscreen) self.easterEgg()
+		})
+	}
+	
+	method easterEgg() {
+		easterEggSound.play()
+		keyboard.any().onPressDo({
+			if(easterEggSound.played()) easterEggSound.stop()
 		})
 	}
 	

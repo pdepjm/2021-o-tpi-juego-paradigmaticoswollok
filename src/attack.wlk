@@ -54,3 +54,15 @@ class Attack {
 	
 	method approachingToEnemy() = position.x() == ourGame.currentEnemy().position().right(2).x() and ourGame.currentEnemy().isAlive()
 }
+
+class AttackType {
+	
+	const cooldownTime = null
+	const strength = null
+	var property pendingCooldown = false
+	
+	method cooldownTime() = cooldownTime
+	
+	method strength() = strength
+	
+}

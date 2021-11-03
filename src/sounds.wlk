@@ -23,6 +23,10 @@ object soundProducer {
 		mainVolume = (mainVolume - 0.1).max(0)
 	}
 	
+	method mute() {
+		mainVolume = 0
+	}
+	
 }
 
 object soundProviderMock {

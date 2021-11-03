@@ -11,6 +11,9 @@ class Entity {
 	var property damagePoints = 15
 	var property pendingCooldown = true
 	var property attackApproaching = false
+	const main = new AttackType(cooldownTime = 800, strength = 1)
+	const special = new AttackType(cooldownTime = 21000, strength = 3)
+	const attackTypes = [main, special]
 	
 	// Visuals
 	var property position = null
@@ -133,16 +136,24 @@ class Entity {
 	
 	// Class methods
 	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
-	
-		method throwAttack(strength, dir) {
-		if(!pendingCooldown and ourGame.currentEnemy().isAlive()) {
-			const attack = self.attack(strength)
+
+	method throwAttack(type, dir) {
+		if(!type.pendingCooldown() and ourGame.currentEnemy().isAlive()) {
+			const attack = self.attack(type.strength())
 			soundProducer.sound("attack.wav").play()
-			pendingCooldown = true
+			type.pendingCooldown(true)
 			self.attackOrigin(attack)
 			attack.thr0w(dir)
-			game.schedule(800, {pendingCooldown = false})
+			game.schedule(type.cooldownTime(), {type.pendingCooldown(false)})
 		}
+	}
+	
+	method throwMainAttack(dir) {
+		self.throwAttack(main, dir)
+	}
+	
+	method throwSpecialAttack(dir) {
+		self.throwAttack(special, dir)
 	}
 
 	method attackOrigin(attack)
@@ -167,7 +178,7 @@ class Entity {
 class Enemy inherits Entity {
 	
 	const movements = [jumping, jumping, crouching, crouching, noMove]
-	const strengths = [1, 3]
+//	const strengths = [1, 3]
 	
 	override method image() = "Enemy" + movementStyle + poseNumber + ".png"
 
@@ -176,13 +187,13 @@ class Enemy inherits Entity {
 	}
 		
 	method attackPattern() {
-//		self.attackRandomly()
-//		3.randomUpTo(5).roundUp().times({i => game.schedule(800, {self.attackRandomly()}) })
+		self.attackRandomly()
+		3.randomUpTo(5).roundUp().times({i => game.schedule(800, {self.attackRandomly()}) })
 	}
 	
 	method attackRandomly() {
 		self.moveRandomly()
-		self.throwAttack(strengths.anyOne(), left)
+		self.throwAttack(attackTypes.anyOne(), left)
 	}
 	
 	override method die() {

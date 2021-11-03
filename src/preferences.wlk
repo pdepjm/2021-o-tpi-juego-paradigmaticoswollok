@@ -78,14 +78,11 @@ object general {
 		keyboard.right().onPressDo({player.walkTo(right)})	
 		keyboard.up().onPressDo({player.jump()})		
 		keyboard.down().onPressDo({player.crouch()})
-		keyboard.s().onPressDo({player.throwAttack(1, right)})
-		keyboard.d().onPressDo({player.throwAttack(3, right)})
+		keyboard.s().onPressDo({player.throwMainAttack(right)})
+		keyboard.d().onPressDo({player.throwSpecialAttack(right)})
 		keyboard.num1().onPressDo({soundProducer.volumeDown()})
 		keyboard.num2().onPressDo({soundProducer.volumeUp()})
-		
-		keyboard.i().onPressDo({game.say(player, ourGame.currentEnemy().pendingCooldown().toString())})
-		keyboard.p().onPressDo({player.takeDamage(player.health())})
-		keyboard.e().onPressDo({ourGame.currentEnemy().takeDamage(ourGame.currentEnemy().health())})
+		keyboard.m().onPressDo({soundProducer.mute()})
 	}
 	
 	method characterAnimation(entity) {
