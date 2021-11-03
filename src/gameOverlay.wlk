@@ -1,17 +1,17 @@
 import wollok.game.*
 import preferences.*
 import scenario.*
+import sounds.*
 
 object gameOverlay {
 	
 	var property image = "startscreen.png"
 	var stillOnStartscreen = true
-	const easterEggSound = game.sound("easterEgg.mp3")
+	const easterEggSound = soundProducer.sound("easterEgg.mp3")
 	
 	method position() = game.origin()
 	
 	method startscreen() {
-		general.initializePlayer()
 		game.addVisual(self)
 		keyboard.any().onPressDo({
 			if(stillOnStartscreen) {
@@ -36,11 +36,11 @@ object gameOverlay {
 	method round(number) {
 		const roundName = "round" + number
 		image = roundName + ".png"
-		game.sound(roundName + ".wav").play()
+		soundProducer.sound(roundName + ".wav").play()
 		game.addVisual(self)
 		game.schedule(2000, {
 			image = "fight.png"
-			game.sound("fight.wav").play()
+			soundProducer.sound("fight.wav").play()
 		})
 		game.schedule(4000, {
 			game.removeVisual(self)

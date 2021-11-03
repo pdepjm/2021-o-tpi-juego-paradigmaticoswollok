@@ -3,6 +3,7 @@ import entities.*
 import items.*
 import preferences.*
 import gameOverlay.*
+import sounds.*
 
 object ourGame {
 	
@@ -33,7 +34,7 @@ object ourGame {
 	
 	method endRound(){
 		if(self.gameOver()) {
-			game.sound("gameOver.wav").play()
+			soundProducer.sound("gameOver.wav").play()
 			player.die()
 			game.removeTickEvent("enemyAttack")
 			game.removeTickEvent("attackAwareness")
@@ -54,7 +55,6 @@ object ourGame {
 	}
 	
 	method enemySpawner() {
-		
 		if(enemyNumber <= 4) {
 			self.enemyGenerator(easyEnemyFactory)
 		}
@@ -63,10 +63,8 @@ object ourGame {
 		}
 		else {
 			gameOverlay.gameEnd(won)
-			game.sound("youWin.mp3").play()
+			soundProducer.sound("youWin.mp3").play()
 		}
-		
-//		game.sound(roundNumberSound).play()
 	}
 	
 	method entitiesCooldown(boolean) {

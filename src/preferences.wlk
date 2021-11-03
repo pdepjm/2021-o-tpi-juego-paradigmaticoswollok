@@ -5,8 +5,6 @@ import scenario.*
 import targets.*
 import sounds.*
 
-const ambientSound = game.sound("ambientSound.mp3")
-
 object general {
 	
 	method background() {
@@ -14,21 +12,17 @@ object general {
 	}
 	
 	method ambientSound() {
-		ambientSound.shouldLoop(true)
-		ambientSound.volume(0.1)
-		ambientSound.play()
+		soundProducer.ambientSound().shouldLoop(true)
+		soundProducer.ambientSound().play()
 	}
 	
 	method appearItems() {
 		game.onTick(21000, "Appear random item", {ourGame.appearRandomItem()})
 	}
 	
-	method initializePlayer() {
+	method initializeGame() {
 		self.setupEntity(player, game.at(0,4), 80, "DynamicPose", 24)
 		self.characterAnimation(player)
-	}
-	
-	method initializeGame() {
 		self.keyAssigments()
 		self.appearItems()
 		ourGame.enemySpawner()
@@ -80,9 +74,9 @@ object general {
 		keyboard.down().onPressDo({player.crouch()})
 		keyboard.s().onPressDo({player.throwMainAttack(right)})
 		keyboard.d().onPressDo({player.throwSpecialAttack(right)})
-		keyboard.num1().onPressDo({soundProducer.volumeDown()})
-		keyboard.num2().onPressDo({soundProducer.volumeUp()})
-		keyboard.m().onPressDo({soundProducer.mute()})
+		keyboard.num1().onPressDo({soundProducer.changeVolume(volumeDown)})
+		keyboard.num2().onPressDo({soundProducer.changeVolume(volumeUp)})
+		keyboard.m().onPressDo({soundProducer.changeVolume(mute)})
 	}
 	
 	method characterAnimation(entity) {
