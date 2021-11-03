@@ -49,7 +49,7 @@ object ourGame {
 	
 	method enemyGenerator(enemyFactory) {
 		self.currentEnemy(enemyFactory.createEnemy())
-		general.setupEnemy()
+		general.enemySetup()
 		gameOverlay.round(enemyNumber)
 		enemyNumber++
 	}
@@ -82,7 +82,7 @@ class EnemyFactory{
 	const damagePoints = null
 		
 	method createEnemy() = new Enemy(
-		health = healthPoints,
+		maxHealth = healthPoints,
 		damagePoints = damagePoints
 	)
 	

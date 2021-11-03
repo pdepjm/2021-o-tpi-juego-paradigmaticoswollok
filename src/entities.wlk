@@ -4,10 +4,13 @@ import attack.*
 import scenario.*
 import moves.*
 import sounds.*
+import healthbars.*
 
 class Entity {
 	
-	var property health = 200
+	const maxHealth = 200
+	var property health = maxHealth
+	const healthbar = new Healthbar(entity = self)
 	var property damagePoints = 15
 	var property pendingCooldown = true
 	var property attackApproaching = false
@@ -27,6 +30,8 @@ class Entity {
 	var property upperTarget = null
 	
 	method image()
+	
+	method name()
 	
 	// Graphics methods
 	method targets() = targets
@@ -168,6 +173,7 @@ class Entity {
 	
 	method die() {
 		self.targets().forEach({target => game.removeVisual(target)})
+		game.removeVisual(self.healthbar())
 		game.removeVisual(self)
 	}
 	
@@ -177,6 +183,12 @@ class Entity {
 	
 	method collidedWithItem(item)
 	
+	method maxHealth() = maxHealth
+	
+	method healthLevel() = ((16 / maxHealth) * health).truncate(0)
+	
+	method healthbar() = healthbar
+	
 }
 
 class Enemy inherits Entity {
@@ -185,6 +197,8 @@ class Enemy inherits Entity {
 //	const strengths = [1, 3]
 	
 	override method image() = "Enemy" + movementStyle + poseNumber + ".png"
+
+	override method name() = return "Enemy"
 
 	override method attackOrigin(attack) {
 		attack.position(self.position().up(3))
@@ -225,9 +239,9 @@ class Enemy inherits Entity {
 
 object player inherits Entity{
 	
-	const maxHealth = 200
-		
 	override method image() = "Capybara" + movementStyle + poseNumber + ".png"
+	
+	override method name() = return "Capybara"
 	
 	override method attackOrigin(attack) {
 		attack.position(self.position().right(5).up(3))

@@ -21,26 +21,27 @@ object general {
 	}
 	
 	method initializeGame() {
-		self.setupEntity(player, game.at(0,4), 80, "DynamicPose", 24)
+		self.entitySetup(player, game.at(0,4), 80, "DynamicPose", 24)
 		self.characterAnimation(player)
 		self.keyAssigments()
 		self.appearItems()
 		ourGame.enemySpawner()
 	}
 	
-	method setupEnemy() {
-		self.setupEntity(ourGame.currentEnemy(), game.at(27,4), 40, "DynamicPose", 24)
+	method enemySetup() {
+		self.entitySetup(ourGame.currentEnemy(), game.at(27,4), 40, "DynamicPose", 24)
 		game.schedule(5000, {ourGame.currentEnemy().attackPattern()})
 		game.onTick(10000, "enemyAttack", {ourGame.currentEnemy().attackPattern()})
 		game.onTick(10, "attackAwareness", {ourGame.currentEnemy().avoidAttack()})
 	}
 	
-	method setupEntity(entity, position, freq, movStyle, fLimit) {
-		self.setupEntityAnimation(entity, position, freq, movStyle, fLimit)
+	method entitySetup(entity, position, freq, movStyle, fLimit) {
+		self.entityAnimationSetup(entity, position, freq, movStyle, fLimit)
 		self.characterAnimation(entity)
+		game.addVisual(entity.healthbar())
 	}
 	
-	method setupEntityAnimation(entity, position, freq, movStyle, fLimit) {
+	method entityAnimationSetup(entity, position, freq, movStyle, fLimit) {
 		entity.position(position)
 		
 		const bottomTarget = new BottomTarget(entity = entity)
@@ -77,6 +78,8 @@ object general {
 		keyboard.num1().onPressDo({soundProducer.changeVolume(volumeDown)})
 		keyboard.num2().onPressDo({soundProducer.changeVolume(volumeUp)})
 		keyboard.m().onPressDo({soundProducer.changeVolume(mute)})
+		
+		keyboard.e().onPressDo({ourGame.currentEnemy().takeDamage(ourGame.currentEnemy().health())})
 	}
 	
 	method characterAnimation(entity) {
