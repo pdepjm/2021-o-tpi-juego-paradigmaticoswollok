@@ -38,6 +38,7 @@ object general {
 		self.setupEntity(ourGame.currentEnemy(), game.at(27,4), 40, "DynamicPose", 24)
 		game.schedule(5000, {ourGame.currentEnemy().attackPattern()})
 		game.onTick(10000, "enemyAttack", {ourGame.currentEnemy().attackPattern()})
+		game.onTick(10, "attackAwareness", {ourGame.currentEnemy().avoidAttack()})
 	}
 	
 	method setupEntity(entity, position, freq, movStyle, fLimit) {

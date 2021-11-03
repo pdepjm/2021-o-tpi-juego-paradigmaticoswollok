@@ -36,6 +36,7 @@ object ourGame {
 			game.sound("gameOver.wav").play()
 			player.die()
 			game.removeTickEvent("enemyAttack")
+			game.removeTickEvent("attackAwareness")
 			gameOverlay.gameEnd(lose)
 		}
 		else if(self.roundWon()){

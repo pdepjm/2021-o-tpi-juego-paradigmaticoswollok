@@ -10,6 +10,7 @@ class Entity {
 	var property health = 200
 	var property damagePoints = 15
 	var property pendingCooldown = true
+	var property attackApproaching = false
 	
 	// Visuals
 	var property position = null
@@ -175,8 +176,8 @@ class Enemy inherits Entity {
 	}
 		
 	method attackPattern() {
-		self.attackRandomly()
-		3.randomUpTo(5).roundUp().times({i => game.schedule(800, {self.attackRandomly()}) })
+//		self.attackRandomly()
+//		3.randomUpTo(5).roundUp().times({i => game.schedule(800, {self.attackRandomly()}) })
 	}
 	
 	method attackRandomly() {
@@ -186,6 +187,7 @@ class Enemy inherits Entity {
 	
 	override method die() {
 		game.removeTickEvent("enemyAttack")
+		game.removeTickEvent("attackAwareness")
 		super()
 	}
 	
@@ -196,6 +198,13 @@ class Enemy inherits Entity {
 	}
 	
 	method moveRandomly() = movements.anyOne().move(self)
+	
+	method avoidAttack() {
+		if(attackApproaching) {
+			self.moveRandomly()
+			attackApproaching = false
+		}
+	}
 	
 }
 

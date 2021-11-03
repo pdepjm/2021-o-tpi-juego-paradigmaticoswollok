@@ -33,9 +33,7 @@ class Attack {
 		game.addVisual(self)
 		game.onTick(10, eventName, {
 			self.execute(dir)
-			if(self.approachingToEnemy() and ourGame.currentEnemy().isAlive()) { // Darle la responsabilidad al enemigo
-				ourGame.currentEnemy().attackRandomly()
-			}
+			if(self.approachingToEnemy()) ourGame.currentEnemy().attackApproaching(true)
 		})
 		self.clash()
 	}
@@ -54,5 +52,5 @@ class Attack {
 		if(position.x() == game.origin().x() || position.x() == game.width()) self.remove()
 	}
 	
-	method approachingToEnemy() = position.x() == ourGame.currentEnemy().position().right(2).x()
+	method approachingToEnemy() = position.x() == ourGame.currentEnemy().position().right(2).x() and ourGame.currentEnemy().isAlive()
 }
