@@ -72,9 +72,9 @@ describe "Ataques y Movimientos de personaje" {
 
 }
 
-describe "Items " {
+describe "Items" {
 		
-	const heart =  new Heart(healthPoints = 50 )
+	const heart =  new Heart(healthPoints = 50)
 	const matienzo = new Snack (damagePoints = 50)
 	
 	method initialize() {
