@@ -14,6 +14,8 @@
 
 <!-- ![screenrecording1](screenshots/Screenrecording.gif) -->
 
+![round1](screenshots/Screenshot1.png)
+
 ## Reglas de Juego / Instrucciones
 
 ![keyAssigments](screenshots/KeyAssigments.png)
