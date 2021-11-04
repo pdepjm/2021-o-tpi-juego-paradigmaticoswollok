@@ -24,7 +24,6 @@ class Entity {
 	var frequency = null // Frecuencia de actualización en ms para el game.onTick()
 	var isJumping = false // Se usa para evitar que camine en el aire
 	var movementStyle = "DynamicPose" // Cuando haga una acción, se le cambia esto
-	var cycleRepeat = 0 // Al llegar al último fotograma del movimiento, se suma un ciclo
 	var poseNumber = 0 // Número de fotograma actual
 	var targets = #{}
 	var property upperTarget = null
@@ -57,16 +56,6 @@ class Entity {
 		poseNumber ++
 		if(poseNumber == frames) {
 			poseNumber = 0
-			cycleRepeat ++
-		}
-		self.blink()
-	}
-	
-	method blink() {
-		if(cycleRepeat == 3) {
-			cycleRepeat = 0
-			game.schedule(frequency, {movementStyle += "Blink"})	
-			game.schedule(frequency * 2, {movementStyle = "DynamicPose"})	
 		}
 	}
 	
