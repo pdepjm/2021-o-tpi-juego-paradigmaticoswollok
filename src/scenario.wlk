@@ -7,17 +7,19 @@ import sounds.*
 
 object ourGame {
 	
-	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
-	const strongEnemyFactory = new EnemyFactory(healthPoints = 300, damagePoints = 25)
+	const easyEnemyFactory = new EnemyFactory(possibleHealthPoints = [140, 150, 160], damagePoints = 10)
+	const strongEnemyFactory = new EnemyFactory(possibleHealthPoints = [290, 300, 310], damagePoints = 25)
 	var currentEnemy = easyEnemyFactory.createEnemy()
+	const easterEggSound = soundProducer.sound("easterEgg.mp3")
 	var enemyNumber = 1
+	var property snack = "Matienzo"
 	
 // ----------------------------------------------------------------------------------------	
 
 	const x = (10..26).anyOne()
 	const y = 7
 
-	const items = [new Heart(position = game.at(x,y)), new Matienzo(position = game.at(x,y))]
+	const items = [new Heart(position = game.at(x,y)), new Snack(position = game.at(x,y))]
 	
 	method appearRandomItem() {
 		const item = items.anyOne()
@@ -26,7 +28,7 @@ object ourGame {
 			if(game.hasVisual(item)) game.removeVisual(item)
 		})
 	}
-		
+	
 // ----------------------------------------------------------------------------------------	
 	
 	method roundWon() = currentEnemy.isAlive().negate()
@@ -76,15 +78,23 @@ object ourGame {
 		})
 	}
 	
+	method easterEgg() {
+		easterEggSound.play()
+		snack = "Donut"
+		keyboard.any().onPressDo({
+			if(easterEggSound.played()) easterEggSound.stop()
+		})
+	}
+	
 }
 
 class EnemyFactory{
 	
-	const healthPoints = null
+	const possibleHealthPoints = null
 	const damagePoints = null
 		
 	method createEnemy() = new Enemy(
-		maxHealth = healthPoints,
+		maxHealth = possibleHealthPoints.anyOne(),
 		damagePoints = damagePoints
 	)
 	

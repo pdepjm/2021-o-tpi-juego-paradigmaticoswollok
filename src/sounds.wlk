@@ -33,6 +33,16 @@ object mute {
 	
 }
 
+object volumeUp {
+	
+	const volume = soundProducer.mainVolume() + 0.1
+	
+	method change() {
+		soundProducer.mainVolume(volume)
+	}
+	
+}
+
 object volumeDown {
 	
 	const volume = soundProducer.mainVolume() - 0.1
@@ -43,15 +53,6 @@ object volumeDown {
 	
 }
 
-object volumeUp {
-	
-	const volume = soundProducer.mainVolume() + 0.1
-	
-	method change() {
-		soundProducer.mainVolume(volume)
-	}
-	
-}
 
 object soundProviderMock {
 	

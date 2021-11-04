@@ -8,7 +8,7 @@ import sounds.*
 
 describe "Ataques y Movimientos de personaje" {
 	
-	const enemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
+	const enemyFactory = new EnemyFactory(possibleHealthPoints = [150], damagePoints = 10)
 	const enemy = enemyFactory.createEnemy()
 	
 	method initialize() {
@@ -75,7 +75,7 @@ describe "Ataques y Movimientos de personaje" {
 describe "Items " {
 		
 	const heart =  new Heart(healthPoints = 50 )
-	const matienzo = new Matienzo (damagePoints = 50)
+	const matienzo = new Snack (damagePoints = 50)
 	
 	method initialize() {
 		soundProducer.provider(soundProviderMock)

@@ -1,5 +1,6 @@
 import wollok.game.*
 import sounds.*
+import scenario.*
 
 class Item { 
 	
@@ -40,11 +41,11 @@ class Heart inherits Item {
 	
 } 
 
-class Matienzo inherits Item {
+class Snack inherits Item {
 	
 	const damagePoints = 5
 	
-	method image() = "Matienzo.png"
+	method image() = ourGame.snack() + ".png"
 	
 	override method giveEffect(entity) {
 		entity.giveDamagePoints(damagePoints)

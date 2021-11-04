@@ -143,7 +143,7 @@ class Entity {
 	method attack(strength) = new Attack(damagePoints = damagePoints, strength = strength)
 
 	method throwAttack(type, dir) {
-		if(!type.pendingCooldown() and ourGame.currentEnemy().isAlive()) {
+		if(!type.pendingCooldown()) {
 			const attack = self.attack(type.strength())
 			soundProducer.sound("attack.wav").play()
 			type.pendingCooldown(true)
@@ -185,11 +185,13 @@ class Entity {
 		pendingCooldown = boolean
 	}
 	
-	method collidedWithItem(item)
+	method collidedWithItem(item) {
+		
+	}
 	
 	method maxHealth() = maxHealth
 	
-	method healthLevel() = ((16 / maxHealth) * health).truncate(0)
+	method healthLevel() = ((16 / maxHealth) * health).roundUp(0).min(16)
 	
 	method healthbar() = healthbar
 	
@@ -210,7 +212,9 @@ class Enemy inherits Entity {
 		
 	method attackPattern() {
 		self.attackRandomly()
-		3.randomUpTo(5).roundUp().times({i => game.schedule(800, {self.attackRandomly()}) })
+		3.randomUpTo(5).roundUp().times({i => game.schedule(800, {
+			if(self.isAlive()) self.attackRandomly()
+		}) })
 	}
 	
 	method attackRandomly() {
@@ -225,10 +229,6 @@ class Enemy inherits Entity {
 	}
 	
 	method poseNumber() = poseNumber
-	
-	override method collidedWithItem(item) {
-		// Un enemigo debe entender el mensaje pero no verse afectado
-	}
 	
 	method moveRandomly() = movements.anyOne().move(self)
 	
