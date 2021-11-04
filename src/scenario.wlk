@@ -7,7 +7,7 @@ import sounds.*
 
 object ourGame {
 	
-	const easyEnemyFactory = new EnemyFactory(possibleHealthPoints = [140, 150, 160], damagePoints = 10)
+	const easyEnemyFactory = new EnemyFactory(possibleHealthPoints = [140, 150, 160], damagePoints = 15)
 	const strongEnemyFactory = new EnemyFactory(possibleHealthPoints = [290, 300, 310], damagePoints = 25)
 	var currentEnemy = easyEnemyFactory.createEnemy()
 	const easterEggSound = soundProducer.sound("easterEgg.mp3")

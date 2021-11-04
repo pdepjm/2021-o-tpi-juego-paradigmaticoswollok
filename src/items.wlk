@@ -36,7 +36,6 @@ class Heart inherits Item {
 	
 	override method giveEffect(entity) {
 		entity.giveHealth(healthPoints)
-		game.schedule(4500, {entity.giveHealth(-healthPoints)})
 	}
 	
 } 
@@ -49,7 +48,7 @@ class Snack inherits Item {
 	
 	override method giveEffect(entity) {
 		entity.giveDamagePoints(damagePoints)
-		game.schedule(4500, {entity.giveDamagePoints(-damagePoints)})
+		game.schedule(5000, {entity.giveDamagePoints(-damagePoints)})
 	}
 	
 }

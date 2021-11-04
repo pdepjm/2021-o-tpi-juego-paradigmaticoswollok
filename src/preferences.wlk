@@ -44,10 +44,9 @@ object general {
 	method entityAnimationSetup(entity, position, freq, movStyle, fLimit) {
 		entity.position(position)
 		
-		const bottomTarget = new BottomTarget(entity = entity)
 		const middleTarget = new MiddleTarget(entity = entity)
 		const upperTarget = new UpperTarget(entity = entity)
-		const targets = #{bottomTarget, middleTarget, upperTarget}
+		const targets = #{middleTarget, upperTarget}
 		
 		entity.animationSetup(0, freq, movStyle, fLimit)
 		
@@ -79,8 +78,12 @@ object general {
 		keyboard.num2().onPressDo({soundProducer.changeVolume(volumeUp)})
 		keyboard.m().onPressDo({soundProducer.changeVolume(mute)})
 		
+		
+		// 
 		keyboard.e().onPressDo({ourGame.currentEnemy().takeDamage(ourGame.currentEnemy().health())})
 		keyboard.p().onPressDo({player.takeDamage(player.health())})
+		
+		keyboard.h().onPressDo({game.say(player, player.health().toString())})
 	}
 	
 	method characterAnimation(entity) {

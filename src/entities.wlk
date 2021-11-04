@@ -200,7 +200,6 @@ class Entity {
 class Enemy inherits Entity {
 	
 	const movements = [jumping, jumping, crouching, crouching, noMove]
-//	const strengths = [1, 3]
 	
 	override method image() = "Enemy" + movementStyle + poseNumber + ".png"
 
