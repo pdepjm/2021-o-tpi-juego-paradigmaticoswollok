@@ -1,17 +1,15 @@
+import wollok.game.*
 import entities.*
 import scenario.*
 import items.*
 import preferences.*
 import targets.* 
 import sounds.*
-import wollok.game.*
 
 describe "Ataques y Movimientos de personaje" {
 	
 	const enemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
 	const enemy = enemyFactory.createEnemy()
-	
-	method attack(entity, strength) = entity.attack(strength)
 	
 	method initialize() {
 		player.position(game.at(0,4))
@@ -43,22 +41,22 @@ describe "Ataques y Movimientos de personaje" {
 	}
 	
 	test "Un enemigo recibe un mainAttack del jugador" {
-		self.attack(player, 1).giveDamage(enemy)
+		player.attack(1).giveDamage(enemy)
 		assert.equals(135, enemy.health())
 	}
 
 	test "El jugador recibe un mainAttack de un enemigo" {
-		self.attack(enemy, 1).giveDamage(player)
+		enemy.attack(1).giveDamage(player)
 		assert.equals(190, player.health())
 	}
 
 	test "Un enemigo recibe un specialAttack del jugador" {
-		self.attack(player, 3).giveDamage(enemy)
+		player.attack(3).giveDamage(enemy)
 		assert.equals(105, enemy.health())
 	}
 	
 	test "El jugador recibe un specialAttack de un enemigo" {
-		self.attack(enemy, 3).giveDamage(player)
+		enemy.attack(3).giveDamage(player)
 		assert.equals(170, player.health())
 	}
 	

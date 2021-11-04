@@ -8,30 +8,29 @@ class Attack {
 	const damagePoints = null
 	const strength = null
 	const eventName = "throw" + 1.randomUpTo(100)
-	var status = "attack"
+	var status = normal
 	
-	method image() = status + strength + ".png"
+	method image() = status.toString() + "Attack" + strength + ".png"
 	
 	method hit(anEntity) {
-		soundProducer.sound("attackHit.wav").play()
 		self.giveDamage(anEntity)
 		self.explode()
 	}
 	
-	method giveDamage(anEntity) = anEntity.takeDamage(damagePoints * strength)
+	method giveDamage(anEntity) = status.giveDamage(anEntity, damagePoints * strength)
 	
 	method clash() {
 		game.onCollideDo(self, {attack => attack.explode()})
 	}
 	
 	method explode() {
-		status = "explosion"
+		status = exploded
 		self.remove()
 	}
 	
 	method thr0w (dir) {
 		game.addVisual(self)
-		game.onTick(10, eventName, {
+		game.onTick(40, eventName, {
 			self.execute(dir)
 			if(self.approachingToEnemy()) ourGame.currentEnemy().attackApproaching(true)
 		})
@@ -53,6 +52,23 @@ class Attack {
 	}
 	
 	method approachingToEnemy() = position.x() == ourGame.currentEnemy().position().right(2).x() and ourGame.currentEnemy().isAlive()
+}
+
+object normal {
+	
+	method giveDamage(anEntity, realDamage) {
+		soundProducer.sound("attackHit.wav").play()
+		anEntity.takeDamage(realDamage) 
+	}
+	
+}
+
+object exploded {
+	
+	method giveDamage(anEntity, realDamage) {
+		
+	}
+	
 }
 
 class AttackType {

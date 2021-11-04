@@ -2,16 +2,12 @@ class Target {
 	
 	const entity = null
 	
-	const position = self.position()
-	
 	method position()
 	
 	method explode() {
 		
 	}
 	
-//	method image() = "guideCell.png"
-		
 }
 
 class BottomTarget inherits Target {

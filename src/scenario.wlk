@@ -9,8 +9,8 @@ object ourGame {
 	
 	const easyEnemyFactory = new EnemyFactory(healthPoints = 150, damagePoints = 10)
 	const strongEnemyFactory = new EnemyFactory(healthPoints = 300, damagePoints = 25)
-	var property currentEnemy = easyEnemyFactory.createEnemy()
-	var property enemyNumber = 1
+	var currentEnemy = easyEnemyFactory.createEnemy()
+	var enemyNumber = 1
 	
 // ----------------------------------------------------------------------------------------	
 
@@ -47,8 +47,10 @@ object ourGame {
 		}
 	}
 	
+	method currentEnemy() = currentEnemy
+	
 	method enemyGenerator(enemyFactory) {
-		self.currentEnemy(enemyFactory.createEnemy())
+		currentEnemy = enemyFactory.createEnemy()
 		general.enemySetup()
 		gameOverlay.round(enemyNumber)
 		enemyNumber++

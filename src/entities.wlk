@@ -12,7 +12,7 @@ class Entity {
 	var property health = maxHealth
 	const healthbar = new Healthbar(entity = self)
 	var property damagePoints = 15
-	var property pendingCooldown = true
+	var pendingCooldown = true
 	var property attackApproaching = false
 	const main = new AttackType(cooldownTime = 800, strength = 1)
 	const special = new AttackType(cooldownTime = 21000, strength = 3)
@@ -40,8 +40,6 @@ class Entity {
 		targets += targetCollection
 	}
 		
-	method text() = health.toString()
-	
 	method movementStyle() = movementStyle
 
 	method frameLimit() = frameLimit
@@ -80,9 +78,11 @@ class Entity {
 			self.moveTo(up)
 			isJumping = true
 			game.schedule(350, {
-				self.moveTo(down)
-				isJumping = false
-				soundProducer.sound("jumpEnd.wav").play()
+				if(self.isAlive()) {
+					self.moveTo(down)
+					isJumping = false
+					soundProducer.sound("jumpEnd.wav").play()
+				}
 			})
 		}
 		self.backToDynamicPose(430)
@@ -92,7 +92,7 @@ class Entity {
 		if(!isJumping) {
 			soundProducer.sound("crouch.wav").play()
 			self.animationSetup(0, 30, "Crouch", 24)
-			if(game.hasVisual(self.upperTarget())) self.removeUpperTarget()	
+			if(game.hasVisual(upperTarget)) self.removeUpperTarget()	
 			self.backToDynamicPose(750)
 		}
 	}
@@ -102,17 +102,17 @@ class Entity {
 	}
 	
 	method removeUpperTarget() {
-		game.removeVisual(self.upperTarget())
+		game.removeVisual(upperTarget)
 		targets.remove(upperTarget)
 	}
 	
 	method addUpperTarget() {
-		targets.add(self.upperTarget())		
-		game.addVisual(self.upperTarget())
+		targets.add(upperTarget)		
+		game.addVisual(upperTarget)
 	}
 	
 	method resetUpperTarget() {
-		if(!(game.hasVisual(self.upperTarget())) and self.isAlive()) {
+		if(!(game.hasVisual(upperTarget)) and self.isAlive()) {
 			self.addUpperTarget()
 		}
 	}
@@ -169,17 +169,21 @@ class Entity {
 		if(self.isAlive().negate()) ourGame.endRound()
 	}
 
-	method isAlive() = health != 0
+	method isAlive() = health > 0
 	
 	method die() {
-		self.targets().forEach({target => game.removeVisual(target)})
-		game.removeVisual(self.healthbar())
+		targets.forEach({target => game.removeVisual(target)})
+		game.removeVisual(healthbar)
 		game.removeVisual(self)
 	}
 	
 	method main() = main
 	
 	method special() = special
+	
+	method pendingCooldown(boolean) {
+		pendingCooldown = boolean
+	}
 	
 	method collidedWithItem(item)
 	
@@ -201,7 +205,7 @@ class Enemy inherits Entity {
 	override method name() = return "Enemy"
 
 	override method attackOrigin(attack) {
-		attack.position(self.position().up(3))
+		attack.position(position.up(3))
 	}
 		
 	method attackPattern() {
@@ -244,7 +248,7 @@ object player inherits Entity{
 	override method name() = return "Capybara"
 	
 	override method attackOrigin(attack) {
-		attack.position(self.position().right(5).up(3))
+		attack.position(position.right(5).up(3))
 	}
 	
 	override method collidedWithItem(item) {

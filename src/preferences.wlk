@@ -80,6 +80,7 @@ object general {
 		keyboard.m().onPressDo({soundProducer.changeVolume(mute)})
 		
 		keyboard.e().onPressDo({ourGame.currentEnemy().takeDamage(ourGame.currentEnemy().health())})
+		keyboard.p().onPressDo({player.takeDamage(player.health())})
 	}
 	
 	method characterAnimation(entity) {
