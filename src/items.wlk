@@ -27,7 +27,7 @@ class Item {
 	
 } 
 
-class Heart inherits Item {
+object heart inherits Item {
 	
 	const healthPoints = 50
 	
@@ -39,11 +39,11 @@ class Heart inherits Item {
 	
 } 
 
-class Snack inherits Item {
+object snack inherits Item {
 	
 	const damagePoints = 5
 	
-	method image() = ourGame.snack() + ".png"
+	method image() = ourGame.currentSnack() + ".png"
 	
 	override method giveEffect(entity) {
 		entity.giveDamagePoints(damagePoints)

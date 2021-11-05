@@ -54,9 +54,6 @@ describe "Ataques y Movimientos de personaje" {
 
 describe "Items" {
 		
-	const heart =  new Heart(healthPoints = 50)
-	const matienzo = new Snack (damagePoints = 50)
-	
 	method initialize() {
 		soundProducer.provider(mockSoundProvider)
 	}
@@ -73,8 +70,8 @@ describe "Items" {
 	}
 	
 	test "El jugador recolecta un matienzo" {
-		matienzo.giveEffect(player)
-		assert.equals(65, player.damagePoints())
+		snack.giveEffect(player)
+		assert.equals(20, player.damagePoints())
 	}
 	
 }

@@ -12,17 +12,18 @@ object ourGame {
 	var currentEnemy = easyEnemyFactory.createEnemy()
 	const easterEggSound = soundProducer.sound("easterEgg.mp3")
 	var enemyNumber = 1
-	var property snack = "Matienzo"
+	var property currentSnack = "Matienzo"
 	
 // ----------------------------------------------------------------------------------------	
 
 	const x = (10..19).anyOne()
 	const y = 7
 
-	const items = [new Heart(position = game.at(x,y)), new Snack(position = game.at(x,y))]
+	const items = [heart, snack]
 	
 	method appearRandomItem() {
 		const item = items.anyOne()
+		item.position(game.at(x,y))
 		game.addVisual(item)
 		game.schedule(5000, {
 			if(game.hasVisual(item)) game.removeVisual(item)
@@ -78,7 +79,7 @@ object ourGame {
 	
 	method easterEgg() {
 		easterEggSound.play()
-		snack = "Donut"
+		currentSnack = "Donut"
 		keyboard.any().onPressDo({
 			if(easterEggSound.played()) easterEggSound.stop()
 		})
