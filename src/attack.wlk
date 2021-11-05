@@ -7,26 +7,30 @@ class Attack {
 	var property position = null
 	const damagePoints = null
 	const strength = null
-	const eventName = "throw" + 1.randomUpTo(100)
+	const eventName = "throw" + 1.randomUpTo(9)
 	var status = normal
 	
 	method image() = status.toString() + "Attack" + strength + ".png"
 	
-	method hit(anEntity) {
-		self.giveDamage(anEntity)
+	method status(aStatus) {
+		status = aStatus
+	}
+	
+	method collide(anEntity) {
+		self.hit(anEntity)
 		self.explode()
 	}
 	
-	method giveDamage(anEntity) = status.giveDamage(anEntity, damagePoints * strength)
+	method hit(anEntity) = status.giveDamage(anEntity, damagePoints * strength)
+	
+	method explode() {
+		status.explode(self)
+	}
 	
 	method clash() {
 		game.onCollideDo(self, {attack => attack.explode()})
 	}
 	
-	method explode() {
-		status = exploded
-		self.remove()
-	}
 	
 	method thr0w (dir) {
 		game.addVisual(self)
@@ -48,7 +52,7 @@ class Attack {
 	}
 	
 	method outOfBounds() {
-		if(position.x() == game.origin().x() || position.x() == game.width()) self.remove()
+		if(position.x() == game.origin().x() || position.x() == game.width()) status.explode(self)
 	}
 	
 	method approachingToEnemy() = position.x() == ourGame.currentEnemy().position().right(2).x() and ourGame.currentEnemy().isAlive()
@@ -61,11 +65,20 @@ object normal {
 		anEntity.takeDamage(realDamage) 
 	}
 	
+	method explode(attack) {
+		attack.remove()
+		attack.status(exploded)
+	}
+	
 }
 
 object exploded {
 	
 	method giveDamage(anEntity, realDamage) {
+		
+	}
+	
+	method explode(attack) {
 		
 	}
 	

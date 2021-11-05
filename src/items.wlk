@@ -10,13 +10,12 @@ class Item {
 		// Un item debe entender el mensaje pero no hacer nada
 	}
 	
-	method hit(entity) {
+	method collide(entity) {
 		entity.collidedWithItem(self)
 	}
 	
-	method realHit(entity) {
+	method hit() {
 		soundProducer.sound("item.wav").play()
-		self.giveEffect(entity)
 		self.remove()
 	}
 	

@@ -5,6 +5,7 @@ import scenario.*
 import moves.*
 import sounds.*
 import healthbars.*
+import gameOverlay.*
 
 class Entity {
 	
@@ -138,7 +139,9 @@ class Entity {
 			type.pendingCooldown(true)
 			self.attackOrigin(attack)
 			attack.thr0w(dir)
-			game.schedule(type.cooldownTime(), {type.pendingCooldown(false)})
+			game.schedule(type.cooldownTime(), {
+				if(!game.hasVisual(gameOverlay))type.pendingCooldown(false)
+			})
 		}
 	}
 	
@@ -155,7 +158,7 @@ class Entity {
 	method takeDamage(damage) {
 		soundProducer.sound("sufferingEntity.wav").play()
 		health = (health - damage).max(0)
-		if(self.isAlive().negate()) ourGame.endRound()
+		if(!self.isAlive()) ourGame.endRound()
 	}
 
 	method isAlive() = health > 0
@@ -210,9 +213,13 @@ class Enemy inherits Entity {
 		self.throwAttack(attackTypes.anyOne(), left)
 	}
 	
-	override method die() {
+	method removeTickEvents() {
 		game.removeTickEvent("enemyAttack")
 		game.removeTickEvent("attackAwareness")
+	}
+	
+	override method die() {
+		self.removeTickEvents()
 		super()
 	}
 	
@@ -240,7 +247,8 @@ object player inherits Entity{
 	}
 	
 	override method collidedWithItem(item) {
-		item.realHit(self)
+		item.giveEffect(self)
+		item.hit()
 	}
 	
 	method giveDamagePoints(n) {

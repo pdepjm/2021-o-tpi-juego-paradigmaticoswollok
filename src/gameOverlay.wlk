@@ -44,7 +44,10 @@ object gameOverlay {
 		image = "enemyDefeated.png"
 		game.addVisual(self)
 		ourGame.entitiesCooldown(true)
-		game.schedule(4000, {game.removeVisual(self)})
+		game.schedule(4000, {
+			game.removeVisual(self)
+			ourGame.enemySpawner()
+		})
 	}
 
 	method gameEnd(reason) {

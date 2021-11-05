@@ -15,29 +15,9 @@ describe "Ataques y Movimientos de personaje" {
 		player.position(game.at(0,4))
 		enemy.position(game.at(27,4))
 		
-		const playerUpperTarget = new UpperTarget(entity = player)
-		const playerMiddleTarget = new MiddleTarget(entity = player)
+		[player, enemy].forEach({entity => general.entityTargetsSetup(entity)})
 		
-		const enemyUpperTarget = new UpperTarget(entity = enemy)
-		const enemyMiddleTarget = new MiddleTarget(entity = enemy)
-		
-		const playerTargets = #{playerUpperTarget, playerMiddleTarget}
-		const enemyTargets = #{enemyUpperTarget, enemyMiddleTarget}
-		
-		player.upperTarget(playerUpperTarget)
-		enemy.upperTarget(enemyUpperTarget)
-		
-		playerTargets.forEach({target =>
-			game.addVisual(target)
-			general.hit(target, player)
-		})
-		
-		enemyTargets.forEach({target =>
-			game.addVisual(target)
-			general.hit(target, enemy)
-		})
-		
-		soundProducer.provider(soundProviderMock)
+		soundProducer.provider(mockSoundProvider)
 	}
 	
 	test "Un enemigo recibe un mainAttack del jugador" {
@@ -78,7 +58,7 @@ describe "Items" {
 	const matienzo = new Snack (damagePoints = 50)
 	
 	method initialize() {
-		soundProducer.provider(soundProviderMock)
+		soundProducer.provider(mockSoundProvider)
 	}
 		
 	test "El jugador dañado recolecta un corazón" {

@@ -36,35 +36,32 @@ object general {
 	}
 	
 	method entitySetup(entity, position, freq, movStyle, fLimit) {
-		self.entityAnimationSetup(entity, position, freq, movStyle, fLimit)
+		self.entityVisualSetup(entity, position, freq, movStyle, fLimit)
+		self.entityTargetsSetup(entity)
 		self.characterAnimation(entity)
-		game.addVisual(entity.healthbar())
+		game.schedule(4000, {entity.pendingCooldown(true)})
 	}
 	
-	method entityAnimationSetup(entity, position, freq, movStyle, fLimit) {
-		entity.position(position)
-		
+	method entityTargetsSetup(entity) {
 		const middleTarget = new MiddleTarget(entity = entity)
 		const upperTarget = new UpperTarget(entity = entity)
 		const targets = #{middleTarget, upperTarget}
 		
-		entity.animationSetup(0, freq, movStyle, fLimit)
-		
-		game.addVisual(entity)
-		
 		targets.forEach({target => game.addVisual(target)})
-		
 		entity.addTargets(targets)
-		
 		entity.upperTarget(upperTarget)
-		
-		targets.forEach({target => self.hit(target, entity)})
-		
-		game.schedule(4000, {entity.pendingCooldown(true)})
+		targets.forEach({target => self.collide(target, entity)})
 	}
 	
-	method hit(target, entity) {
-		game.onCollideDo(target, {something => something.hit(entity)})
+	method entityVisualSetup(entity, position, freq, movStyle, fLimit) {
+		entity.position(position)
+		entity.animationSetup(0, freq, movStyle, fLimit)
+		game.addVisual(entity)
+		game.addVisual(entity.healthbar())
+	}
+	
+	method collide(target, entity) {
+		game.onCollideDo(target, {something => something.collide(entity)})
 	}	
 	
 	method keyAssigments() {
@@ -83,7 +80,9 @@ object general {
 		keyboard.e().onPressDo({ourGame.currentEnemy().takeDamage(ourGame.currentEnemy().health())})
 		keyboard.p().onPressDo({player.takeDamage(player.health())})
 		
-		keyboard.h().onPressDo({game.say(player, player.health().toString())})
+		keyboard.v().onPressDo({game.say(player, soundProducer.mainVolume().toString())})
+		
+		keyboard.t().onPressDo({game.say(player, game.allVisuals().toString())})
 	}
 	
 	method characterAnimation(entity) {

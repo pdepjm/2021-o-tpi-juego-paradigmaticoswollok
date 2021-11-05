@@ -3,7 +3,9 @@ import wollok.game.*
 object soundProducer {
 	
 	var provider = game
+	var property status = unmuted
 	var property mainVolume = 0.2
+	var property lastVolume = mainVolume
 	const ambientSound = self.sound("ambientSound.mp3")
 	
 	method provider(_provider) {
@@ -28,33 +30,54 @@ object soundProducer {
 object mute {
 	
 	method change() {
+		soundProducer.status().switch()
+	}
+	
+}
+
+object unmuted {
+	
+	method switch() {
+		soundProducer.lastVolume(soundProducer.mainVolume())
 		soundProducer.mainVolume(0)
+		soundProducer.status(muted)
+	}
+	
+}
+
+object muted {
+	
+	const lastVolume = soundProducer.lastVolume()
+	
+	method switch() {
+		soundProducer.mainVolume(lastVolume)
+		soundProducer.status(unmuted)
 	}
 	
 }
 
 object volumeUp {
 	
-	const volume = soundProducer.mainVolume() + 0.1
+	method wantedVolume() = (soundProducer.mainVolume() + 0.1).min(1)
 	
 	method change() {
-		soundProducer.mainVolume(volume)
+		soundProducer.mainVolume(self.wantedVolume())
 	}
 	
 }
 
 object volumeDown {
 	
-	const volume = soundProducer.mainVolume() - 0.1
+	method wantedVolume() = (soundProducer.mainVolume() - 0.1).max(0)
 	
 	method change() {
-		soundProducer.mainVolume(volume)
+		soundProducer.mainVolume(self.wantedVolume())
 	}
 	
 }
 
 
-object soundProviderMock {
+object mockSoundProvider {
 	
 	method sound(audioFile) = soundMock
 	

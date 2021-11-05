@@ -16,7 +16,7 @@ object ourGame {
 	
 // ----------------------------------------------------------------------------------------	
 
-	const x = (10..26).anyOne()
+	const x = (10..19).anyOne()
 	const y = 7
 
 	const items = [new Heart(position = game.at(x,y)), new Snack(position = game.at(x,y))]
@@ -31,21 +31,19 @@ object ourGame {
 	
 // ----------------------------------------------------------------------------------------	
 	
-	method roundWon() = currentEnemy.isAlive().negate()
-	method gameOver() = player.isAlive().negate()
+	method roundWon() = !currentEnemy.isAlive()
+	method gameOver() = !player.isAlive()
 	
 	method endRound(){
 		if(self.gameOver()) {
 			soundProducer.sound("gameOver.wav").play()
 			player.die()
-			game.removeTickEvent("enemyAttack")
-			game.removeTickEvent("attackAwareness")
+			currentEnemy.removeTickEvents()
 			gameOverlay.gameEnd(lose)
 		}
 		else if(self.roundWon()){
 			currentEnemy.die()
 			gameOverlay.enemyDefeated()
-			game.schedule(4000, {self.enemySpawner()})
 		}
 	}
 	

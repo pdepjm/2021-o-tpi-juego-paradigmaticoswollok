@@ -7,7 +7,7 @@ object left {
 object right {
 	method nextPosition(actualPosition) = actualPosition.right(1) 
 	
-	method canMove(entity) = !(entity.isJumping())
+	method canMove(entity) = !(entity.isJumping()) && entity.position().x() <= 15
 }
 
 object up {
