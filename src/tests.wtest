@@ -21,22 +21,22 @@ describe "Ataques y Movimientos de personaje" {
 	}
 	
 	test "Un enemigo recibe un mainAttack del jugador" {
-		player.attack(1).giveDamage(enemy)
+		player.attack(1).hit(enemy)
 		assert.equals(135, enemy.health())
 	}
 
 	test "El jugador recibe un mainAttack de un enemigo" {
-		enemy.attack(1).giveDamage(player)
+		enemy.attack(1).hit(player)
 		assert.equals(190, player.health())
 	}
 
 	test "Un enemigo recibe un specialAttack del jugador" {
-		player.attack(3).giveDamage(enemy)
+		player.attack(3).hit(enemy)
 		assert.equals(105, enemy.health())
 	}
 	
 	test "El jugador recibe un specialAttack de un enemigo" {
-		enemy.attack(3).giveDamage(player)
+		enemy.attack(3).hit(player)
 		assert.equals(170, player.health())
 	}
 	
