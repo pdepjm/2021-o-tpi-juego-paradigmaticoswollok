@@ -12,8 +12,8 @@ object gameOverlay {
 	
 	method startscreen() {
 		game.addVisual(self)
-		game.schedule(3000, {image = "soundModifierKeys.png"})
-		game.schedule(6000, {
+		game.schedule(5000, {image = "soundModifierKeys.png"})
+		game.schedule(10000, {
 			image = "Startscreen.png"
 			keyboard.any().onPressDo({
 				if(stillOnStartscreen) {
