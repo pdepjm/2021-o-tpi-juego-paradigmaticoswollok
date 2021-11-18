@@ -5,20 +5,24 @@ import sounds.*
 
 object gameOverlay {
 	
-	var property image = "Startscreen.png"
+	var property image = "movementKeys.png"
 	var stillOnStartscreen = true
 	
 	method position() = game.origin()
 	
 	method startscreen() {
 		game.addVisual(self)
-		keyboard.any().onPressDo({
-			if(stillOnStartscreen) {
-				general.ambientSound()
-				game.removeVisual(self)
-				general.initializeGame()
-				stillOnStartscreen = false
-			}
+		game.schedule(3000, {image = "soundModifierKeys.png"})
+		game.schedule(6000, {
+			image = "Startscreen.png"
+			keyboard.any().onPressDo({
+				if(stillOnStartscreen) {
+					general.ambientSound()
+					game.removeVisual(self)
+					general.initializeGame()
+					stillOnStartscreen = false
+				}
+			})
 		})
 		game.schedule(15000, {
 			if(stillOnStartscreen) ourGame.easterEgg()

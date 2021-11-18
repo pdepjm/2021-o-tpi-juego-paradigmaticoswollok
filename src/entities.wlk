@@ -195,7 +195,7 @@ class Enemy inherits Entity {
 	
 	override method image() = "Enemy" + movementStyle + poseNumber + ".png"
 
-	override method name() = return "Enemy"
+	override method name() = "Enemy"
 
 	override method attackOrigin(attack) {
 		attack.position(position.up(3))
@@ -240,7 +240,7 @@ object player inherits Entity{
 	
 	override method image() = "Capybara" + movementStyle + poseNumber + ".png"
 	
-	override method name() = return "Capybara"
+	override method name() = "Capybara"
 	
 	override method attackOrigin(attack) {
 		attack.position(position.right(5).up(3))
