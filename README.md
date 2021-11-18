@@ -15,7 +15,7 @@
 
 ![startscreen](screenshots/Startscreen.png)
 
-![round1](screenshots/Screenshot1.png)
+![fight](screenshots/Screenshot2.png)
 
 ## Reglas de Juego / Instrucciones
 
