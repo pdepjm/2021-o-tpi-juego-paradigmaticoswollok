@@ -56,7 +56,7 @@ object gameOverlay {
 
 	method gameEnd(reason) {
 		game.addVisual(reason)
-		game.schedule(10000, {game.stop()})
+		keyboard.any().onPressDo({game.stop()})
 	}
 	
 }
