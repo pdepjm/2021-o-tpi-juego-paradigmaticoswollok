@@ -7,9 +7,12 @@
 - Espósito, Lucas
 - Hernández Abbaticchio, Thiago Daniel
 - Cicerchia, Francisco
-
+## Trailer
+[![epicVersus](screenshots/versus.png)](https://youtu.be/ImAGnHTGqnY)
 ## Capturas
-![epicVersus](screenshots/versus.png)
+
+<!-- [![Alternate Text]({image-url})]({video-url} "Link Title") -->
+
 ![startscreen](screenshots/Startscreen.png)
 
 ![round1](screenshots/Screenshot1.png)
