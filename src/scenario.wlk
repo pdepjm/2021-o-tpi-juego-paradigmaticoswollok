@@ -58,12 +58,8 @@ object ourGame {
 	}
 	
 	method enemySpawner() {
-		if(enemyNumber <= 4) {
-			self.enemyGenerator(easyEnemyFactory)
-		}
-		else if(enemyNumber == 5) {
-			self.enemyGenerator(strongEnemyFactory)
-		}
+		if(enemyNumber <= 4) self.enemyGenerator(easyEnemyFactory)
+		else if(enemyNumber == 5) self.enemyGenerator(strongEnemyFactory)
 		else {
 			gameOverlay.gameEnd(won)
 			soundProducer.sound("youWin.mp3").play()
@@ -83,6 +79,17 @@ object ourGame {
 		keyboard.any().onPressDo({
 			if(easterEggSound.played()) easterEggSound.stop()
 		})
+	}
+	
+	method restart() {
+		game.clear()
+		enemyNumber = 1
+		gameOverlay.startscreen()
+	}
+	
+	method startscreens() {
+		gameOverlay.instructions()
+		game.schedule(10000, {gameOverlay.startscreen()})
 	}
 	
 }

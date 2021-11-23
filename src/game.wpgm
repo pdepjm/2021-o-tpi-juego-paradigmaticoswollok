@@ -1,6 +1,7 @@
 import wollok.game.*
 import preferences.*
 import gameOverlay.*
+import scenario.*
 
 program game {
 
@@ -13,7 +14,7 @@ program game {
 	
 	general.background()
 	
-	gameOverlay.startscreen()
+	ourGame.startscreens()
 	
 	game.start()
 	
