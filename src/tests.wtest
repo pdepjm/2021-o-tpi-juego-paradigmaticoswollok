@@ -1,6 +1,77 @@
+import wollok.game.*
+import entities.*
+import scenario.*
+import items.*
+import preferences.*
+import targets.* 
+import sounds.*
 
-test "testX" {
+describe "Ataques y Movimientos de personaje" {
+	
+	const enemyFactory = new EnemyFactory(possibleHealthPoints = [150], damagePoints = 10)
+	const enemy = enemyFactory.createEnemy()
+	
+	method initialize() {
+		player.position(game.at(0,4))
+		enemy.position(game.at(27,4))
+		
+		[player, enemy].forEach({entity => general.entityTargetsSetup(entity)})
+		
+		soundProducer.provider(mockSoundProvider)
+	}
+	
+	test "Un enemigo recibe un mainAttack del jugador" {
+		player.attack(1).hit(enemy)
+		assert.equals(135, enemy.health())
+	}
 
-	assert.that(true)
+	test "El jugador recibe un mainAttack de un enemigo" {
+		enemy.attack(1).hit(player)
+		assert.equals(190, player.health())
+	}
 
+	test "Un enemigo recibe un specialAttack del jugador" {
+		player.attack(3).hit(enemy)
+		assert.equals(105, enemy.health())
+	}
+	
+	test "El jugador recibe un specialAttack de un enemigo" {
+		enemy.attack(3).hit(player)
+		assert.equals(170, player.health())
+	}
+	
+	test "El jugador esquiva un ataque" {
+		player.crouch()
+		assert.that(not game.hasVisual(player.upperTarget()))
+	}
+
+	test "Un enemigo esquiva un ataque" {
+		enemy.crouch()
+		assert.that(not game.hasVisual(enemy.upperTarget()))
+	}
+
+}
+
+describe "Items" {
+		
+	method initialize() {
+		soundProducer.provider(mockSoundProvider)
+	}
+		
+	test "El jugador dañado recolecta un corazón" {
+		player.health(150)
+		heart.giveEffect(player)
+		assert.equals(200, player.health())
+	}
+	
+	test "El jugador con su salud al máximo recolecta un corazón" {
+		heart.giveEffect(player)
+		assert.equals(200, player.health())
+	}
+	
+	test "El jugador recolecta un matienzo" {
+		snack.giveEffect(player)
+		assert.equals(20, player.damagePoints())
+	}
+	
 }

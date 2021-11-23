@@ -1,0 +1,21 @@
+import wollok.game.*
+import preferences.*
+import gameOverlay.*
+import scenario.*
+
+program game {
+
+	game.cellSize(40)
+	
+	game.height(21)
+	game.width(36)
+	
+	game.title("Nightmare in Nordelta")
+	
+	general.background()
+	
+	ourGame.startscreens()
+	
+	game.start()
+	
+}
